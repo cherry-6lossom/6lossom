@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useReadData } from '../../firebase/firestore/useReadData';
 import { db } from '@/firebase/app';
-import { doc, getDoc } from 'firebase/firestore';
 
 const MakeTreePage = () => {
   const { readData, data, isLoading, error } = useReadData('authUsers');
