@@ -8,6 +8,8 @@ $content: #663e4f;
 $title: #331f28;
 $naver: #03c75a;
 $kakao: #fee500;
+$facebook: #1877f2;
+$twitter: #1da1f2;
 $cherryblossom100: #ffebf4;
 $cherryblossom200: #ffd7e8;
 $cherryblossom300: #ffc4dd;
@@ -27,6 +29,24 @@ $gray600: #565656;
 $gray700: #404040;
 $gray800: #2b2b2b;
 $gray900: #151515;
+$message-input: #f175a9;
+
+/* Shadow 쉐도우 값 */
+
+// 벚꽃에 사용
+@mixin pink-shadow {
+  box-shadow: 2px 3px 4px rgba(102, 62, 79, 0.35);
+}
+
+// pink button 사용
+@mixin button-shadow {
+  box-shadow: 2px 2px 4px $cherryblossom700;
+}
+
+// modal message에 사용
+@mixin gray-shadow {
+  box-shadow: rem(0px) rem(4px) rem(4px) rgba(0, 0, 0, 0.25);
+}
 
 /* modal background */
 
@@ -39,9 +59,23 @@ $gray900: #151515;
 /* button long/short */
 
 @mixin pink-button {
+  @include button-shadow;
   background-color: $primary;
   color: $white;
-  box-shadow: rem(2px) rem(2px) rem(4px) $cherryblossom700;
+  box-shadow: 2px 2px 4px $cherryblossom700;
 }
 
-/* Notification 원형바 알림창 */
+/* Message 메세지창 */
+
+@mixin message-modal {
+  @include gray-shadow;
+  background-color: $primary;
+  color: $secondary;
+  border-radius: rem(20px);
+}
+
+@mixin message-input {
+  background-color: $white;
+  border-radius: rem(10px);
+  border: 2px solid $message-input;
+}
