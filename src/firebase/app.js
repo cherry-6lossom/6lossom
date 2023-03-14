@@ -5,7 +5,6 @@ import {
   GoogleAuthProvider,
   FacebookAuthProvider,
   TwitterAuthProvider,
-  OAuthProvider,
 } from 'firebase/auth';
 
 const {

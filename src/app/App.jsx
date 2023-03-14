@@ -1,7 +1,5 @@
-import classes from './App.module.scss';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from '@/pages/HomePage/HomePage';
-import MakeTreePage from '@/pages/MakeTreePage/MakeTreePage';
 
 function App() {
   return (

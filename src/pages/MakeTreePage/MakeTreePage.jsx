@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useReadData } from './../../firebase/useReadData';
+import { useReadData } from '../../firebase/firestore/useReadData';
 import { db } from '@/firebase/app';
 import { doc, getDoc } from 'firebase/firestore';
 

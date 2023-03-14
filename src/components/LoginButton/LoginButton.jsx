@@ -1,6 +1,6 @@
-import { useCreateAuthUser } from '@/firebase/useCreateAuthUser';
+import { useCreateAuthUser } from '@/firebase/auth/useCreateAuthUser';
 import { signInWithPopup } from 'firebase/auth';
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { auth } from '@/firebase/app';
 
 const LoginButton = ({ provider, text, setUid }) => {
