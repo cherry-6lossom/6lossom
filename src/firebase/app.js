@@ -1,4 +1,12 @@
 import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import {
+  getAuth,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  TwitterAuthProvider,
+  OAuthProvider,
+} from 'firebase/auth';
 
 const {
   VITE_API_KEY,
@@ -18,5 +26,10 @@ const firebaseConfig = {
   appId: VITE_APP_ID,
 };
 
-export const app = initializeApp(firebaseConfig);
-
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+export const db = getFirestore(app);
+const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
+const twitterProvider = new TwitterAuthProvider();
+export { auth, googleProvider, facebookProvider, twitterProvider };
