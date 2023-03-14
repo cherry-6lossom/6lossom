@@ -2,8 +2,9 @@ import { useCreateAuthUser } from '@/firebase/auth/useCreateAuthUser';
 import { signInWithPopup } from 'firebase/auth';
 import { useEffect } from 'react';
 import { auth } from '@/firebase/app';
+import classNames from 'classnames';
 
-const LoginButton = ({ provider, text, setUid }) => {
+const LoginButton = ({ provider, text, setUid, className, style }) => {
   const { createAuthUser, isLoading, error } = useCreateAuthUser('authUsers');
 
   const handleLoginClick = () => {
@@ -19,7 +20,12 @@ const LoginButton = ({ provider, text, setUid }) => {
   });
   return (
     <>
-      <button onClick={handleLoginClick}>Sigin with {text}</button>
+      <button
+        className={classNames(style.loginButton, className)}
+        onClick={handleLoginClick}
+      >
+        {text}
+      </button>
     </>
   );
 };
