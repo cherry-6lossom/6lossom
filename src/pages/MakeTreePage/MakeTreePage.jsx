@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useReadData } from '@/firebase/firestore/useReadData';
 
 const MakeTreePage = () => {

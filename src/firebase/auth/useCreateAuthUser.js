@@ -1,6 +1,6 @@
 import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { useCallback, useMemo, useState } from 'react';
-import { db } from '../app';
+import { db } from '@/firebase/app';
 
 /**
  * Firestore 인증 사용자 데이터 쓰기 훅
