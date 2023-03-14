@@ -1,9 +1,14 @@
-import classes from './App.module.scss';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomePage from '@/pages/HomePage/HomePage';
 
 function App() {
   return (
     <div className="App">
-      <p className={classes.red}>초기 개발 환경 세팅</p>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
