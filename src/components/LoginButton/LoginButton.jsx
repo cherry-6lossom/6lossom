@@ -5,12 +5,12 @@ import { auth } from '@/firebase/app';
 import classNames from 'classnames';
 
 const LoginButton = ({ provider, text, setUid, className, style }) => {
-  const { createAuthUser, isLoading, error } = useCreateAuthUser('authUsers');
+  const { createAuthUser, isLoading, error } = useCreateAuthUser('users');
 
   const handleLoginClick = () => {
     signInWithPopup(auth, provider).then((data) => {
       setUid(data.user.uid);
-      localStorage.setItem('uid', data.user.uid);
+      localStorage.setItem('uid', JSON.stringify(data.user.uid));
       localStorage.setItem('user', JSON.stringify(data.user.displayName));
       createAuthUser(data.user);
     });

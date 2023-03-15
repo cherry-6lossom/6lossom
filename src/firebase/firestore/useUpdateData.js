@@ -1,6 +1,6 @@
 import { doc, updateDoc } from 'firebase/firestore';
 import { useCallback, useMemo, useState } from 'react';
-import { db } from './index';
+import { db } from '@/firebase/app';
 
 /**
  * Firestore 데이터 업데이트 훅

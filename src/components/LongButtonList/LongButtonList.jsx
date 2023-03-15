@@ -1,9 +1,9 @@
-import { LoginButton } from '@/components/LoginButton/LoginButton';
+import { LongButton } from '@/components/LongButton/LongButton';
 const LongButtonList = () => {
   return (
     <>
-      <LoginButton />
-      <LoginButton />
+      <LongButton />
+      <LongButton />
     </>
   );
 };

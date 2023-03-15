@@ -1,9 +1,11 @@
 import style from '@/components/ShortButton/ShortButton.module.scss';
 
-function ShortButton({ text }) {
+function ShortButton({ onClick, text }) {
   return (
     <>
-      <button className={style.shortButton}>{text}</button>
+      <button onClick={onClick ? onClick : null} className={style.shortButton}>
+        {text}
+      </button>
     </>
   );
 }
