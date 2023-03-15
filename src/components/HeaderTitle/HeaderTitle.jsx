@@ -1,4 +1,4 @@
-import classes from './HeaderTitle.module.scss';
+import style from './HeaderTitle.module.scss';
 
 const HeaderTitle = () => {
   const { displayName, id } = JSON.parse(localStorage.getItem('user'))
@@ -7,13 +7,13 @@ const HeaderTitle = () => {
 
   return (
     <>
-      <div className={classes.headerTitleBorder}>
+      <div className={style.headerTitleBorder}>
         {displayName ? displayName + '님의 벚꽃나무' : ''}
       </div>
-      <h2 className={classes.headerTitle}>
+      <h2 className={style.headerTitle}>
         {displayName ? displayName + '님의 벚꽃나무' : ''}
       </h2>
-      <div className={classes.userName}>{displayName}</div>
+      <div className={style.userName}>{displayName}</div>
     </>
   );
 };

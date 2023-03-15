@@ -1,5 +1,4 @@
-import { useCreateAuthUser } from '@/firebase/auth/useCreateAuthUser';
-import { useReadData } from '@/firebase/firestore/useReadData';
+import { useCreateAuthUser } from '@/firebase/firestore/useCreateAuthUser';
 import { signInWithPopup } from 'firebase/auth';
 import { useEffect } from 'react';
 import { auth } from '@/firebase/app';

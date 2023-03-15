@@ -11,7 +11,7 @@ import { db } from '@/firebase/app';
  *   createAuthUser: (userAuth: import('firebase/auth').UserCredential.user, additionData: {}) => void
  * }}
  */
-export function useCreateAuthUser(collectionKey = 'users') {
+export function useCreateAuthUser(collectionKey = 'authUsers') {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 

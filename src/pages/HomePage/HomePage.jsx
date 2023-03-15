@@ -12,6 +12,8 @@ import blossomTree from '@/assets/main-page/main-tree.png';
 import blossom from '@/assets/custom/cherry-blossom3.png';
 import postBox from '@/assets/main-page/click-me-postbox.png';
 import classNames from 'classnames';
+import { Link } from 'react-router-dom';
+import SignInPage from '../SignIn/SignInPage';
 
 const HomePage = () => {
   const [uid, setUid] = useState('');
@@ -72,6 +74,9 @@ const HomePage = () => {
             <img className={style.postBox} src={postBox} alt="우체통" />
             <span className={style.clickMeText}>click me!</span>
           </div>
+          <Link type="button" to="/signin">
+            <button>로그인</button>
+          </Link>
           <div className={style.loginButtonList}>
             <LoginButton
               style={style}
