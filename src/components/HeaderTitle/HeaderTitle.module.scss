@@ -1,0 +1,9 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.makeTreeMainTitle {
+  margin-top: rem(12px);
+  font-size: rem(24px);
+  color: $primary;
+  text-shadow: -1px 0 #350b0b, 0 1px #350b0b, 1px 0 #350b0b, 0 -1px #350b0b;
+}
