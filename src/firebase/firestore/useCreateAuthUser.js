@@ -11,7 +11,7 @@ import { db } from '@/firebase/app';
  *   createAuthUser: (userAuth: import('firebase/auth').UserCredential.user, additionData: {}) => void
  * }}
  */
-export function useCreateAuthUser(collectionKey = 'authUsers') {
+export function useCreateAuthUser(collectionKey = 'users') {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -24,12 +24,22 @@ export function useCreateAuthUser(collectionKey = 'authUsers') {
       try {
         const userSnapshot = await getDoc(userDocRef);
         if (!userSnapshot.exists()) {
-          const { email, displayName } = userAuth;
           const createAt = serverTimestamp();
+          const { email, displayName, uid } = userAuth;
+          let userNickname = '';
+          let isMade = false;
+          let bgSrc = '';
+          let flowerList = [];
+
           await setDoc(userDocRef, {
-            email,
-            displayName,
             createAt,
+            uid,
+            displayName,
+            email,
+            userNickname,
+            isMade,
+            bgSrc,
+            flowerList,
             ...additionData,
           });
         } else {

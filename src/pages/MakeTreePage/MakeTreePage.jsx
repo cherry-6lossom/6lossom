@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useReadData } from '@/firebase/firestore/useReadData';
 import style from './MakeTreePage.module.scss';
 import HeaderTitle from '@/components/HeaderTitle/HeaderTitle';
 import UsageDescription from '@/components/UsageDescription/UsageDescription';
@@ -16,6 +14,8 @@ const MakeTreePage = () => {
     localStorage.clear();
     navigate('/');
   };
+
+  const displayName = JSON.parse(localStorage.getItem('user'));
 
   return (
     <>
