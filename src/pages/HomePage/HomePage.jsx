@@ -12,16 +12,16 @@ import blossomTree from '@/assets/main-page/main-tree.png';
 import blossom from '@/assets/custom/cherry-blossom3.png';
 import postBox from '@/assets/main-page/click-me-postbox.png';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
-import SignInPage from '../SignIn/SignInPage';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const [uid, setUid] = useState('');
+  const navigate = useNavigate();
 
   return (
     <div className={style.homeContainer}>
       {uid ? (
-        <MakeTreePage />
+        navigate('/make-tree')
       ) : (
         <>
           <div className={style.homeLogo}>
@@ -74,29 +74,13 @@ const HomePage = () => {
             <img className={style.postBox} src={postBox} alt="우체통" />
             <span className={style.clickMeText}>click me!</span>
           </div>
-          <Link type="button" to="/signin">
-            <button>로그인</button>
-          </Link>
+          <button onClick={() => navigate('/signin')}>로그인</button>
           <div className={style.loginButtonList}>
             <LoginButton
               style={style}
               className={style.googleButton}
               provider={googleProvider}
               text={'구글 계정으로 계속하기'}
-              setUid={setUid}
-            />
-            <LoginButton
-              style={style}
-              className={style.facebookButton}
-              provider={facebookProvider}
-              text={'페이스북으로 계속하기'}
-              setUid={setUid}
-            />
-            <LoginButton
-              style={style}
-              className={style.twitterButton}
-              provider={twitterProvider}
-              text={'트위터로 계속하기'}
               setUid={setUid}
             />
           </div>
