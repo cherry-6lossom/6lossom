@@ -82,20 +82,6 @@ const HomePage = () => {
               text={'구글 계정으로 계속하기'}
               setUid={setUid}
             />
-            <LoginButton
-              style={style}
-              className={style.facebookButton}
-              provider={facebookProvider}
-              text={'페이스북으로 계속하기'}
-              setUid={setUid}
-            />
-            <LoginButton
-              style={style}
-              className={style.twitterButton}
-              provider={twitterProvider}
-              text={'트위터로 계속하기'}
-              setUid={setUid}
-            />
           </div>
         </>
       )}
