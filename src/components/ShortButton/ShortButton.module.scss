@@ -1,0 +1,19 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.shortButton {
+  @include pink-button;
+  border: none;
+  border-radius: rem(12px);
+  width: 30%;
+  height: 55%;
+  cursor: pointer;
+}
+
+.shortButton:hover {
+  background-color: $cherryblossom300;
+}
+
+.shortButton:focus {
+  border: 3px solid #ff5ea1;
+}
