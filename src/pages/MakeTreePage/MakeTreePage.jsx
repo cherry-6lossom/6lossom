@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useReadData } from '@/firebase/firestore/useReadData';
+import HeaderTitle from '@/components/HeaderTitle/HeaderTitle';
 
 const MakeTreePage = () => {
   const { readData, data, isLoading, error } = useReadData('authUsers');
@@ -10,10 +11,6 @@ const MakeTreePage = () => {
   }, []);
   sessionStorage.setItem('user', JSON.stringify(data));
 
-  const { displayName, id } = JSON.parse(sessionStorage.getItem('user'))
-    ? JSON.parse(sessionStorage.getItem('user'))
-    : '';
-
   const logout = () => {
     sessionStorage.clear();
     window.location.reload();
@@ -21,9 +18,8 @@ const MakeTreePage = () => {
 
   return (
     <div>
-      <h1>MakeTree Page</h1>
       <button onClick={logout}>Logout</button>
-      <h2>{displayName ? displayName + '님의 벚꽃나무' : ''}</h2>
+      <HeaderTitle />
     </div>
   );
 };
