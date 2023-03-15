@@ -13,6 +13,7 @@ import blossom from '@/assets/custom/cherry-blossom3.png';
 import ModalProjectInfo from '@/components/ModalProjectInfo/ModalProjectInfo';
 import ProjectInfoButton from '@/components/ProjectInfoButton/ProjectInfoButton';
 import classNames from 'classnames';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const [uid, setUid] = useState('');
@@ -21,11 +22,12 @@ const HomePage = () => {
   const handleModal = () => {
     setModal(!modal);
   };
+  const navigate = useNavigate();
 
   return (
     <div className={style.homeContainer}>
       {uid ? (
-        <MakeTreePage />
+        navigate('/make-tree')
       ) : (
         <>
           <div className={style.homeLogo}>
@@ -84,20 +86,6 @@ const HomePage = () => {
               className={style.googleButton}
               provider={googleProvider}
               text={'구글 계정으로 계속하기'}
-              setUid={setUid}
-            />
-            <LoginButton
-              style={style}
-              className={style.facebookButton}
-              provider={facebookProvider}
-              text={'페이스북으로 계속하기'}
-              setUid={setUid}
-            />
-            <LoginButton
-              style={style}
-              className={style.twitterButton}
-              provider={twitterProvider}
-              text={'트위터로 계속하기'}
               setUid={setUid}
             />
           </div>
