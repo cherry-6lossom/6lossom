@@ -29,6 +29,7 @@ export function useSignIn() {
 
       setUser(userCredentials);
     } catch (error) {
+      alert('아이디 또는 비밀번호가 일치하지 않습니다.');
       setError(error);
     } finally {
       setIsLoading(false);
