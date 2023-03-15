@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useReadData } from '@/firebase/firestore/useReadData';
 
 const MakeTreePage = () => {
+  const navigate = useNavigate();
+
   const logout = () => {
     localStorage.clear();
-    window.location.reload();
+    navigate('/');
   };
 
   const displayName = JSON.parse(localStorage.getItem('user'));

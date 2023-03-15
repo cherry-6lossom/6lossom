@@ -12,14 +12,16 @@ import blossomTree from '@/assets/main-page/main-tree.png';
 import blossom from '@/assets/custom/cherry-blossom3.png';
 import postBox from '@/assets/main-page/click-me-postbox.png';
 import classNames from 'classnames';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const [uid, setUid] = useState('');
+  const navigate = useNavigate();
 
   return (
     <div className={style.homeContainer}>
       {uid ? (
-        <MakeTreePage />
+        navigate('/make-tree')
       ) : (
         <>
           <div className={style.homeLogo}>
