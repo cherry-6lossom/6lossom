@@ -2,22 +2,12 @@ import { useEffect } from 'react';
 import { useReadData } from '@/firebase/firestore/useReadData';
 
 const MakeTreePage = () => {
-  const { readData, data, isLoading, error } = useReadData('authUsers');
-  const uid = sessionStorage.getItem('uid');
-
-  useEffect(() => {
-    readData(uid);
-  }, []);
-  sessionStorage.setItem('user', JSON.stringify(data));
-
-  const { displayName, id } = JSON.parse(sessionStorage.getItem('user'))
-    ? JSON.parse(sessionStorage.getItem('user'))
-    : '';
-
   const logout = () => {
-    sessionStorage.clear();
+    localStorage.clear();
     window.location.reload();
   };
+
+  const displayName = JSON.parse(localStorage.getItem('user'));
 
   return (
     <div>

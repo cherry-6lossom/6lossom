@@ -1,4 +1,5 @@
 import { useCreateAuthUser } from '@/firebase/auth/useCreateAuthUser';
+import { useReadData } from '@/firebase/firestore/useReadData';
 import { signInWithPopup } from 'firebase/auth';
 import { useEffect } from 'react';
 import { auth } from '@/firebase/app';
@@ -9,15 +10,17 @@ const LoginButton = ({ provider, text, setUid, className, style }) => {
 
   const handleLoginClick = () => {
     signInWithPopup(auth, provider).then((data) => {
-      setUid(data.user.email);
-      sessionStorage.setItem('uid', data.user.uid);
+      setUid(data.user.uid);
+      localStorage.setItem('uid', data.user.uid);
+      localStorage.setItem('user', JSON.stringify(data.user.displayName));
       createAuthUser(data.user);
     });
   };
 
   useEffect(() => {
-    setUid(sessionStorage.getItem('uid'));
+    setUid(localStorage.getItem('uid'));
   });
+
   return (
     <>
       <button
