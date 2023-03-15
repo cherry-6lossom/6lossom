@@ -1,37 +1,54 @@
 import BackgroundCustomItem from '@/components/BackgroundCustomItem/BackgroundCustomItem';
-import bgPink from '@/assets/custom/select-bg-pink.png';
-import bgNight from '@/assets/custom/select-bg-night.png';
-import bgSky from '@/assets/custom/select-bg-sky.png';
+import selectPink from '@/assets/custom/select-bg-pink.png';
+import selectNight from '@/assets/custom/select-bg-night.png';
+import selectSky from '@/assets/custom/select-bg-sky.png';
+import bgPink from '@/assets/custom/bg-pink.png';
+import bgNight from '@/assets/custom/bg-night.png';
+import bgSky from '@/assets/custom/bg-sky.png';
 import style from '@/pages/MakeTreePage/MakeTreePage.module.scss';
+import { useState } from 'react';
 
 const backgroundImageList = [
   {
     id: 1,
-    src: bgSky,
+    bigSrc: bgSky,
     isSelected: false,
+    smallSrc: selectSky,
   },
   {
     id: 2,
-    src: bgNight,
+    bigSrc: bgNight,
     isSelected: false,
+    smallSrc: selectNight,
   },
   {
     id: 3,
-    src: bgPink,
+    bigSrc: bgPink,
     isSelected: false,
+    smallSrc: selectPink,
   },
 ];
 
 const BackgroundCustomList = () => {
+  const [selectBg, setSelectBg] = useState('');
+
   const handleSelect = (e) => {
-    console.log(e.target.src);
+    const backgoundImage = document.querySelector('.MakeTreePage');
+    const buttonElement = e.target.closest('button');
+
+    backgroundImageList.map((item) => {
+      if (parseInt(buttonElement.id) === item.id) {
+        backgoundImage.style = `background :url(${item.bigSrc}) center no-repeat`;
+        return;
+      }
+    });
   };
 
   return (
     <div className={style.BackgroundCustomList}>
       {backgroundImageList.map((item) => (
         <BackgroundCustomItem
-          src={item.src}
+          smallSrc={item.smallSrc}
           id={item.id}
           handleSelect={handleSelect}
         />
