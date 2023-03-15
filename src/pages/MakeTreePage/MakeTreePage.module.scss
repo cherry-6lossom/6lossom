@@ -1,0 +1,76 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.makeTreeContainer {
+  margin: 0 auto;
+  min-width: rem(350px);
+  max-width: rem(768px);
+  height: 100%;
+
+  background: url('../../assets/custom/bg-pink.png') center no-repeat;
+  object-fit: cover;
+
+  position: relative;
+
+  .makeTreeHeader {
+    position: relative;
+    top: rem(101px);
+    left: 50%;
+    transform: translate(-50%);
+
+    display: inline-block;
+    text-align: center;
+  }
+
+  .blossomTree {
+    position: absolute;
+    top: 18%;
+    left: 0%;
+
+    display: flex;
+    justify-content: center;
+
+    img {
+      width: 50%;
+    }
+  }
+
+  .makeTreeCustom {
+    box-sizing: border-box;
+
+    height: 25%;
+    padding: rem(20px);
+
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    bottom: 0%;
+
+    background-color: $cherryblossom100;
+
+    border-top-left-radius: rem(32px);
+    border-top-right-radius: rem(32px);
+
+    text-align: center;
+    vertical-align: center;
+
+    .makeTreeCustomText {
+      display: inline-block;
+      margin-bottom: rem(24px);
+    }
+  }
+
+  .BackgroundCustomList {
+    display: flex;
+    justify-content: center;
+    gap: rem(20px);
+  }
+
+  .ShortButtonList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: rem(28px);
+    height: rem(90px);
+  }
+}
