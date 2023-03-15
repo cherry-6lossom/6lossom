@@ -1,0 +1,10 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.longButton {
+  @include pink-button;
+  width: rem(310px);
+  height: rem(54px);
+  border: none;
+  border-radius: rem(12px);
+}
