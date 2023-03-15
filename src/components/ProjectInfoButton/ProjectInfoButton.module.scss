@@ -1,0 +1,44 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.clickMe {
+  background-color: none;
+  width: rem(85px);
+  height: rem(70px);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  position: absolute;
+  top: 63%;
+  left: 57%;
+
+  .postBox {
+    position: absolute;
+    width: 55%;
+    right: 33%;
+    cursor: pointer;
+  }
+
+  .clickMeText {
+    position: absolute;
+    bottom: 70%;
+    left: 34.5%;
+    background-color: $white;
+    color: $secondary;
+    padding: 3px 12px;
+    text-align: center;
+    border-radius: 10px;
+    border: 1px solid $secondary;
+    @include gray-shadow;
+  }
+
+  .clickMeText::after {
+    display: block;
+    content: '';
+    border-top: 10px solid $white;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 0px solid transparent;
+    position: absolute;
+  }
+}

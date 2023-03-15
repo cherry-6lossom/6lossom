@@ -53,7 +53,7 @@ $message-input: #f175a9;
 @mixin modal-background {
   background-color: rgba(0, 0, 0, 0.2);
   width: 100vw;
-  height: 100vw;
+  height: 100vh;
 }
 
 /* button long/short */

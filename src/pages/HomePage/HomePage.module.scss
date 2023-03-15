@@ -130,37 +130,6 @@
       top: 43%;
       left: 60%;
     }
-
-    .postBox {
-      width: 8%;
-      position: absolute;
-      bottom: 30%;
-      right: 33%;
-      cursor: pointer;
-    }
-
-    .clickMeText {
-      position: absolute;
-      bottom: 38%;
-      right: 25%;
-      background-color: $white;
-      color: $secondary;
-      padding: 3px 12px;
-      text-align: center;
-      border-radius: 10px;
-      border: 1px solid $secondary;
-      @include gray-shadow;
-    }
-
-    .clickMeText::after {
-      display: block;
-      content: '';
-      border-top: 10px solid $white;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-bottom: 0px solid transparent;
-      position: absolute;
-    }
   }
 
   .loginButtonList {
