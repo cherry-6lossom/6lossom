@@ -2,12 +2,12 @@ import { googleProvider } from '@/firebase/app';
 import LoginButton from '@/components/LoginButton/LoginButton';
 import style from './HomePage.module.scss';
 import moonLogo from '@/assets/main-page/main-logo.png';
-import blossomTree from '@/assets/main-page/main-tree.png';
 import blossom from '@/assets/custom/cherry-blossom3.png';
 import postBox from '@/assets/main-page/click-me-postbox.png';
 import classNames from 'classnames';
 import { useReadData } from '@/firebase/firestore/useReadData';
 import { useEffect } from 'react';
+import OriginTree from './../../components/OriginTree/OriginTree';
 
 const HomePage = () => {
   const { readData, data } = useReadData('users');
@@ -39,7 +39,7 @@ const HomePage = () => {
         </h2>
       </div>
       <div className={style.tree}>
-        <img className={style.blossomTree} src={blossomTree} alt="벚꽃나무" />
+        <OriginTree className={style.blossomTree} />
         <img
           className={classNames(style.flower1, style.bigFlower)}
           src={blossom}
