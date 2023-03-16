@@ -1,4 +1,10 @@
-import { createContext, useState, useEffect, useLayoutEffect } from 'react';
+import {
+  createContext,
+  useState,
+  useParams,
+  useEffect,
+  useLayoutEffect,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import HeaderTitle from '@/components/HeaderTitle/HeaderTitle';
@@ -43,8 +49,8 @@ const backgroundImageList = [
 export const BgContext = createContext();
 
 const MakeTreePage = () => {
+  // const { uid } = useParams();
   const navigate = useNavigate();
-  const displayName = JSON.parse(localStorage.getItem('user'));
 
   const { updateData } = useUpdateData('users');
   const { readData, data, isLoading, error } = useReadData('users');
@@ -52,11 +58,11 @@ const MakeTreePage = () => {
   const [selectBg, setSelectBg] = useState(
     JSON.stringify('/src/assets/custom/bg-pink.png')
   );
-  const [isMade, setIsMade] = useState(false);
 
   let targetUid;
-  const uid = JSON.parse(localStorage.getItem('uid'));
-  const userList = JSON.parse(localStorage.getItem('userList'));
+  const localUserName = JSON.parse(localStorage.getItem('user'));
+  const localUid = JSON.parse(localStorage.getItem('uid'));
+  const localUserList = JSON.parse(localStorage.getItem('userList'));
 
   useEffect(() => {
     localStorage.setItem('bgSrc', selectBg);
@@ -83,9 +89,12 @@ const MakeTreePage = () => {
 
   const handleComplete = async () => {
     const bgSrc = JSON.parse(localStorage.getItem('bgSrc'));
-    const uid = JSON.parse(localStorage.getItem('uid'));
     const user = JSON.parse(localStorage.getItem('user'));
-    updateData(uid, { bgSrc: bgSrc, isMade: true });
+    updateData(localUid, {
+      bgSrc: bgSrc,
+      isMade: true,
+      url: `https://localhost:3000/share-tree/${localUid}`,
+    });
     navigate('/share-tree', { replace: true });
 
     // 뒤로 가기 막기 코드
@@ -98,9 +107,9 @@ const MakeTreePage = () => {
   const value = { backgroundImageList, setSelectBg, handleSelect };
 
   useLayoutEffect(() => {
-    userList.map((user) => {
-      if (user.uid === uid && user.isMade) {
-        navigate('/share-tree');
+    localUserList.map((user) => {
+      if (user.uid === localUid && user.isMade) {
+        navigate(`/share-tree/${localUid}`);
       }
     });
   }, []);
@@ -110,7 +119,7 @@ const MakeTreePage = () => {
       <div className={classNames('MakeTreePage', style.makeTreeContainer)}>
         <header className={style.makeTreeHeader}>
           <UsageDescription subText={'벚꽃나무에 이름을 적어주세요'} />
-          <HeaderTitle userName={`${displayName ? displayName : ''}`} />
+          <HeaderTitle userName={`${localUserName ? localUserName : ''}`} />
         </header>
         <button onClick={logout}>Logout</button>
         <div className={style.blossomTree}>
