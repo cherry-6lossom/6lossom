@@ -1,0 +1,12 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.header {
+  position: relative;
+  top: rem(101px);
+  left: 50%;
+  transform: translate(-50%);
+
+  display: inline-block;
+  text-align: center;
+}

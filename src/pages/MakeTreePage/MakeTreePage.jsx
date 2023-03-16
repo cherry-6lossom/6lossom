@@ -12,10 +12,11 @@ import UsageDescription from '@/components/UsageDescription/UsageDescription';
 import blossomTree from '@/assets/main-page/main-tree.png';
 import BackgroundCustomList from '@/components/BackgroundCustomList/BackgroundCustomList';
 import ShortButtonList from '@/components/ShortButtonList/ShortButtonList';
-import OriginTree from './../../components/OriginTree/OriginTree';
+import OriginTree from '@/components/OriginTree/OriginTree';
 
 import classNames from 'classnames';
 import style from './MakeTreePage.module.scss';
+import headerStyle from '@/components/Header/Header.module.scss';
 import selectPink from '@/assets/custom/select-bg-pink.png';
 import selectNight from '@/assets/custom/select-bg-night.png';
 import selectSky from '@/assets/custom/select-bg-sky.png';
@@ -83,11 +84,6 @@ const MakeTreePage = () => {
     });
   };
 
-  const logout = () => {
-    localStorage.clear();
-    navigate('/', { replace: true });
-  };
-
   const handleComplete = async () => {
     const bgSrc = JSON.parse(localStorage.getItem('bgSrc'));
     const user = JSON.parse(localStorage.getItem('user'));
@@ -117,15 +113,12 @@ const MakeTreePage = () => {
 
   return (
     <BgContext.Provider value={value}>
-      <div className={classNames('MakeTreePage', style.makeTreeContainer)}>
-        <header className={style.makeTreeHeader}>
+      <div className={style.makeTreeContainer}>
+        <header className={headerStyle.header}>
           <UsageDescription subText={'벚꽃나무에 이름을 적어주세요'} />
           <HeaderTitle userName={`${localUserName ? localUserName : ''}`} />
         </header>
-        <button onClick={logout}>Logout</button>
-        <div className={style.blossomTree}>
-          <OriginTree className={style.originTree} />
-        </div>
+        <OriginTree className={style.originTree} />
         <div className={style.makeTreeCustom}>
           <UsageDescription
             className={style.makeTreeCustomText}
@@ -134,7 +127,7 @@ const MakeTreePage = () => {
           <BackgroundCustomList />
           <ShortButtonList
             firstText={'취소'}
-            firstClick={logout}
+            firstClick={() => navigate('/')}
             secondText={'완료'}
             secondClick={handleComplete}
           />

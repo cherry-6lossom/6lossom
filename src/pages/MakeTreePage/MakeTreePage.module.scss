@@ -12,29 +12,6 @@
 
   position: relative;
 
-  .makeTreeHeader {
-    position: relative;
-    top: rem(101px);
-    left: 50%;
-    transform: translate(-50%);
-
-    display: inline-block;
-    text-align: center;
-  }
-
-  .blossomTree {
-    position: absolute;
-    top: 18%;
-    left: 0%;
-
-    display: flex;
-    justify-content: center;
-
-    .originTree {
-      width: 50%;
-    }
-  }
-
   .makeTreeCustom {
     box-sizing: border-box;
 
@@ -54,9 +31,14 @@
     text-align: center;
     vertical-align: center;
 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
     .makeTreeCustomText {
       display: inline-block;
-      margin-bottom: rem(24px);
+      margin-bottom: rem(15px);
     }
   }
 
@@ -71,6 +53,8 @@
     justify-content: center;
     align-items: center;
     gap: rem(28px);
+
+    width: 100%;
     height: rem(90px);
   }
 }
