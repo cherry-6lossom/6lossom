@@ -75,6 +75,12 @@ const HomePage = () => {
             <span className={style.clickMeText}>click me!</span>
           </div>
           <div className={style.loginButtonList}>
+            <button
+              onClick={() => navigate('/signin')}
+              className={classNames(style.loginButton, style.generalButton)}
+            >
+              로그인
+            </button>
             <LoginButton
               style={style}
               className={style.googleButton}

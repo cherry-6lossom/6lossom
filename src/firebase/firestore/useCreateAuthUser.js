@@ -24,12 +24,22 @@ export function useCreateAuthUser(collectionKey = 'users') {
       try {
         const userSnapshot = await getDoc(userDocRef);
         if (!userSnapshot.exists()) {
-          const { email, displayName } = userAuth;
           const createAt = serverTimestamp();
+          const { email, displayName, uid } = userAuth;
+          let userNickname = '';
+          let isMade = false;
+          let bgSrc = '';
+          let flowerList = [];
+
           await setDoc(userDocRef, {
-            email,
-            displayName,
             createAt,
+            uid,
+            displayName,
+            email,
+            userNickname,
+            isMade,
+            bgSrc,
+            flowerList,
             ...additionData,
           });
         } else {

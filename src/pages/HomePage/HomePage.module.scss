@@ -238,5 +238,15 @@
     .twitterButton:hover {
       background-color: #0c8bd9;
     }
+
+    .generalButton {
+      background-color: $secondary;
+      color: white;
+      border-color: transparent;
+    }
+
+    .generalButton:hover {
+      background-color: #fc579c;
+    }
   }
 }

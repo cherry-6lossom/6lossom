@@ -1,14 +1,11 @@
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useReadData } from '@/firebase/firestore/useReadData';
 import style from './MakeTreePage.module.scss';
 import HeaderTitle from '@/components/HeaderTitle/HeaderTitle';
 import UsageDescription from '@/components/UsageDescription/UsageDescription';
 
 import blossomTree from '@/assets/main-page/main-tree.png';
 import BackgroundCustomList from '@/components/BackgroundCustomList/BackgroundCustomList';
-import ShortButton from './../../components/ShortButton/ShortButton';
-import ShortButtonList from './../../components/ShortButtonList/ShortButtonList';
+import ShortButtonList from '@/components/ShortButtonList/ShortButtonList';
 
 const MakeTreePage = () => {
   const navigate = useNavigate();
