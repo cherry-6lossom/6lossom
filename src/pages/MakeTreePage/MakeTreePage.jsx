@@ -12,6 +12,7 @@ import UsageDescription from '@/components/UsageDescription/UsageDescription';
 import blossomTree from '@/assets/main-page/main-tree.png';
 import BackgroundCustomList from '@/components/BackgroundCustomList/BackgroundCustomList';
 import ShortButtonList from '@/components/ShortButtonList/ShortButtonList';
+import OriginTree from './../../components/OriginTree/OriginTree';
 
 import classNames from 'classnames';
 import style from './MakeTreePage.module.scss';
@@ -95,7 +96,7 @@ const MakeTreePage = () => {
       isMade: true,
       url: `https://localhost:3000/share-tree/${localUid}`,
     });
-    navigate('/share-tree', { replace: true });
+    navigate(`/share-tree/${localUid}`, { replace: true });
 
     // 뒤로 가기 막기 코드
     history.pushState(null, null, location.href);
@@ -123,7 +124,7 @@ const MakeTreePage = () => {
         </header>
         <button onClick={logout}>Logout</button>
         <div className={style.blossomTree}>
-          <img src={blossomTree} alt="벚꽃나무" />
+          <OriginTree className={style.originTree} />
         </div>
         <div className={style.makeTreeCustom}>
           <UsageDescription
