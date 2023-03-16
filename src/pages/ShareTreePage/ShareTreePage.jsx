@@ -10,10 +10,11 @@ import HamburgerButton from '@/components/HamburgerButton/HamburgerButton';
 import SideMenu from '@/components/SideMenu/SideMenu';
 
 const ShareTreePage = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { uid } = useParams();
   const userList = JSON.parse(localStorage.getItem('userList'));
+  const localUid = JSON.parse(localStorage.getItem('uid'));
   let userName;
   let bgSrc;
   let flowerList;
@@ -38,14 +39,21 @@ const ShareTreePage = () => {
         subText={`${flowerList.length}송이의 벚꽃이 피었어요 ! `}
       />
       <OriginTree />
-      <LongButtonList
-        firstText={'벚꽃 달아주기'}
-        secondText={'내 벚꽃나무 보러가기'}
-      />
+      {localUid ? (
+        <LongButtonList
+          firstText={'링크 공유하기'}
+          secondText={'전체 메세지 보기'}
+        />
+      ) : (
+        <LongButtonList
+          firstText={'벚꽃 달아주기'}
+          secondText={'내 벚꽃나무 보러가기'}
+        />
+      )}
       <div onClick={handleMenuClick}>
         <HamburgerButton />
       </div>
-      {isMenuOpen && <SideMenu />}
+      {isMenuOpen && <SideMenu loginName={userName} />}
     </div>
   );
 };
