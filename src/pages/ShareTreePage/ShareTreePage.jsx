@@ -16,6 +16,7 @@ const ShareTreePage = () => {
   const userList = JSON.parse(localStorage.getItem('userList'));
   const localUid = JSON.parse(localStorage.getItem('uid'));
   let userName;
+  let localName;
   let bgSrc;
   let flowerList;
 
@@ -24,6 +25,9 @@ const ShareTreePage = () => {
       userName = user.displayName;
       bgSrc = user.bgSrc;
       flowerList = user.flowerList;
+    }
+    if (user.uid === localUid) {
+      localName = user.displayName;
     }
   });
 
@@ -53,7 +57,7 @@ const ShareTreePage = () => {
       <div onClick={handleMenuClick}>
         <HamburgerButton />
       </div>
-      {isMenuOpen && <SideMenu loginName={userName} />}
+      {isMenuOpen && <SideMenu loginName={localName} />}
     </div>
   );
 };
