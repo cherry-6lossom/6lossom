@@ -1,11 +1,13 @@
+import style from './SignInPage.module.scss';
 import { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import style from './SignInPage.module.scss';
-import { FormInput } from '@/components/FormInput/FormInput';
 import { useSignIn } from '@/firebase/auth/useSignIn';
 import { useAuthState } from '@/firebase/auth/useAuthState';
 import { useSignOut } from '@/firebase/auth/useSignOut';
+
+import { FormInput } from '@/components/FormInput/FormInput';
+import Notification from '@/components/Notification/Notification';
 
 const initialFormState = {
   email: '',
@@ -26,6 +28,13 @@ export default function SignInPage() {
 
     const { email, password } = formStateRef.current;
     await signIn(email, password);
+
+    if (!user) {
+      e.target.childNodes[0].classList.add(style.submitWrongData);
+      setTimeout(() => {
+        e.target.childNodes[0].classList.remove(style.submitWrongData);
+      }, 2000);
+    }
   };
 
   const handleSignOut = async () => {
@@ -62,6 +71,10 @@ export default function SignInPage() {
         <h2 className={style.signInPageTitle}>로그인</h2>
 
         <form className={style.form} onSubmit={handleSignIn}>
+          <Notification
+            className={style.submitWrongDataDefault}
+            text={'이메일 또는 비밀번호를 확인해주세요 !'}
+          />
           <FormInput
             name="email"
             type="email"
@@ -72,7 +85,7 @@ export default function SignInPage() {
           <FormInput
             name="password"
             type="password"
-            label="패스워드"
+            label="비밀번호"
             onChange={handleChangeInput}
           />
 

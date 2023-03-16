@@ -1,12 +1,14 @@
-import { useRef } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { FormInput } from '@/components/FormInput/FormInput';
-
 import style from './SignUpPage.module.scss';
+import { useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
 import { useSignUp } from '@/firebase/auth/useSignUp';
 import { useAuthState } from '@/firebase/auth/useAuthState';
-import { useCreateAuthUser } from '@/firebase/firestore/useCreateAuthUser';
 import { useSignOut } from '@/firebase/auth/useSignOut';
+import { useCreateAuthUser } from '@/firebase/firestore/useCreateAuthUser';
+
+import { FormInput } from '@/components/FormInput/FormInput';
+import Notification from '@/components/Notification/Notification';
 
 const initialFormState = {
   name: '',
@@ -32,26 +34,35 @@ export default function SignUpPage() {
 
     // 유효성 검사
     if (!name || name.trim().length < 2 || name.trim().length > 8) {
-      console.error('이름은 2글자 이상 8글자 이하로 입력해야 해요!');
-      alert('이름은 2글자 이상 8글자 이하로 입력해야 해요!');
+      e.target.childNodes[0].classList.add(style.submitWrongData);
+      setTimeout(() => {
+        e.target.childNodes[0].classList.remove(style.submitWrongData);
+      }, 2000);
       return;
     }
 
     if (!password || password.trim().length < 6) {
-      console.error('비밀번호는 6글자 이상 입력해야 해요!');
-      alert('비밀번호는 6글자 이상 입력해야 해요!');
+      e.target.childNodes[1].classList.add(style.submitWrongData);
+      setTimeout(() => {
+        e.target.childNodes[1].classList.remove(style.submitWrongData);
+      }, 2000);
       return;
     }
 
     if (!Object.is(password, passwordConfirm)) {
-      console.error('입력한 패스워드를 다시 확인하세요.');
-      alert('입력한 패스워드를 다시 확인하세요. ');
+      e.target.childNodes[1].classList.add(style.submitWrongData);
+      setTimeout(() => {
+        e.target.childNodes[1].classList.remove(style.submitWrongData);
+      }, 2000);
       return;
     }
 
     const user = await signUp(email, password, name);
     if (!user) {
-      alert('이미 가입한 회원입니다.');
+      e.target.childNodes[2].classList.add(style.submitWrongData);
+      setTimeout(() => {
+        e.target.childNodes[2].classList.remove(style.submitWrongData);
+      }, 2000);
     }
 
     await createAuthUser(user);
@@ -111,6 +122,18 @@ export default function SignUpPage() {
       <div className={style.signUpPageContainer}>
         <h2 className={style.signUpPageTitle}>회원가입</h2>
         <form className={style.form} onSubmit={handleSubmit}>
+          <Notification
+            className={style.submitWrongDataDefault}
+            text={'이름을 확인해주세요 !'}
+          />
+          <Notification
+            className={style.submitWrongDataDefault}
+            text={'비밀번호를 확인해주세요 !'}
+          />
+          <Notification
+            className={style.submitWrongDataDefault}
+            text={'이미 가입된 회원정보입니다 !'}
+          />
           <FormInput name="name" label="이름" onChange={handleChangeInput} />
 
           <FormInput
@@ -123,14 +146,14 @@ export default function SignUpPage() {
           <FormInput
             name="password"
             type="password"
-            label="패스워드"
+            label="비밀번호"
             onChange={handleChangeInput}
           />
 
           <FormInput
             name="passwordConfirm"
             type="password"
-            label="패스워드 확인"
+            label="비밀번호 확인"
             onChange={handleChangeInput}
           />
 
