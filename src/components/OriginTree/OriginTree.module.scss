@@ -1,0 +1,19 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.blossomTree {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  .blossomTreeImage {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%);
+
+    width: 80%;
+  }
+}
