@@ -105,7 +105,7 @@ const MakeTreePage = () => {
         </div>
         <div className={style.makeTreeCustom}>
           <UsageDescription
-            makeTreeCustomText={'makeTreeCustomText'}
+            className={style.makeTreeCustomText}
             subText={'벚꽃나무의 하늘을 선택해주세요.'}
           />
           <BackgroundCustomList />
