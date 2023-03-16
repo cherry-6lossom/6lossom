@@ -13,6 +13,7 @@ import blossom from '@/assets/custom/cherry-blossom3.png';
 import postBox from '@/assets/main-page/click-me-postbox.png';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
+import { useReadData } from '@/firebase/firestore/useReadData';
 
 const HomePage = () => {
   const [uid, setUid] = useState('');

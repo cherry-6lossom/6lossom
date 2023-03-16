@@ -10,7 +10,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/make-tree" element={<MakeTreePage />} />
-          <Route path="/share-tree" element={<ShareTreePage />} />
+          <Route path="/share-tree/:uid" element={<ShareTreePage />} />
         </Routes>
       </BrowserRouter>
     </div>
