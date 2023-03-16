@@ -1,7 +1,9 @@
-const LongButton = () => {
+import style from './LongButton.module.scss';
+
+const LongButton = ({ text }) => {
   return (
     <>
-      <button></button>
+      <button className={style.longButton}>{text}</button>
     </>
   );
 };

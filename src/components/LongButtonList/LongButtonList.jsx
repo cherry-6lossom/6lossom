@@ -1,10 +1,12 @@
-import { LongButton } from '@/components/LongButton/LongButton';
-const LongButtonList = () => {
+import LongButton from '@/components/LongButton/LongButton';
+import style from './LongButtonList.module.scss';
+
+const LongButtonList = ({ firstText, secondText }) => {
   return (
-    <>
-      <LongButton />
-      <LongButton />
-    </>
+    <div className={style.LongButtonContainer}>
+      <LongButton text={firstText} />
+      <LongButton text={secondText} />
+    </div>
   );
 };
 
