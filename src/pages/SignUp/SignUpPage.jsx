@@ -14,7 +14,6 @@ const initialFormState = {
   password: '',
   passwordConfirm: '',
 };
-/* Component ---------------------------------------------------------------- */
 
 export default function SignUpPage() {
   const { isLoading: isLoadingSignUp, signUp } = useSignUp();
@@ -24,15 +23,7 @@ export default function SignUpPage() {
 
   const navigate = useNavigate();
 
-  console.log(user);
-
-  /* -------------------------------------------------------------------------- */
-
   const formStateRef = useRef(initialFormState);
-
-  const handleReset = () => {
-    console.log('reset');
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,21 +47,17 @@ export default function SignUpPage() {
     if (!user) {
       alert('이미 가입한 회원입니다.');
     }
-    console.error('이미 가입한 회원입니다.');
-    await createAuthUser(user);
 
-    console.log('회원가입 및 users 콜렉션에 user 데이터 생성');
+    await createAuthUser(user);
   };
 
   const handleSignOut = async () => {
-    console.log('로그아웃');
     signOut();
   };
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
     formStateRef.current[name] = value;
-    console.log(formStateRef.current);
   };
 
   if (isLoading) {
@@ -96,12 +83,7 @@ export default function SignUpPage() {
     <div className={style.signUpPageWrapper}>
       <div className={style.signUpPageContainer}>
         <h2 className={style.signUpPageTitle}>회원가입</h2>
-
-        <form
-          className={style.form}
-          onSubmit={handleSubmit}
-          onReset={handleReset}
-        >
+        <form className={style.form} onSubmit={handleSubmit}>
           <FormInput name="name" label="이름" onChange={handleChangeInput} />
 
           <FormInput
@@ -153,11 +135,3 @@ export default function SignUpPage() {
     </div>
   );
 }
-
-// ----------------------------------------------------------------------------------
-// ✅ [TODO]
-// ----------------------------------------------------------------------------------
-// - [x] 회원가입 페이지 컴포넌트 하단에 로그인 페이지로 이동하는 링크를 추가합니다.
-// - [x] HTML <a> 요소는 서버에 href 값과 일치하는 경로로 새 페이지 요청합니다.
-//       React Router의 <Link /> 컴포넌트를 사용하면 `to` prop에 매칭되는 경로로 페이지를 전환합니다.
-// ----------------------------------------------------------------------------------

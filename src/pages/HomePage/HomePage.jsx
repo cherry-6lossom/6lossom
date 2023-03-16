@@ -1,18 +1,26 @@
-import { googleProvider } from '@/firebase/app';
 import LoginButton from '@/components/LoginButton/LoginButton';
+import OriginTree from '@/components/OriginTree/OriginTree';
+
 import style from './HomePage.module.scss';
 import moonLogo from '@/assets/main-page/main-logo.png';
 import blossom from '@/assets/custom/cherry-blossom3.png';
 import postBox from '@/assets/main-page/click-me-postbox.png';
 import classNames from 'classnames';
+
+import { googleProvider } from '@/firebase/app';
 import { useReadData } from '@/firebase/firestore/useReadData';
+import { useSignOut } from '@/firebase/auth/useSignOut';
+
 import { useEffect } from 'react';
-import OriginTree from './../../components/OriginTree/OriginTree';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const { readData, data } = useReadData('users');
+  const { signOut } = useSignOut();
+  const navigate = useNavigate();
 
   window.onload = () => {
+    signOut();
     localStorage.clear();
   };
 

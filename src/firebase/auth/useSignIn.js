@@ -2,8 +2,6 @@ import { useState, useCallback, useMemo } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/firebase/app';
 
-/* -------------------------------------------------------------------------- */
-
 /**
  * Firebase 인증: 이메일/패스워드 로그인 유틸리티 훅
  * @returns {{

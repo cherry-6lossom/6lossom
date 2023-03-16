@@ -2,8 +2,6 @@ import { useState, useCallback, useMemo } from 'react';
 import { signOut as firebaseSignOut } from 'firebase/auth';
 import { auth } from '@/firebase/app';
 
-/* -------------------------------------------------------------------------- */
-
 /**
  * Firebase 인증: 로그아웃 유틸리티 훅
  * @returns {{
@@ -12,6 +10,7 @@ import { auth } from '@/firebase/app';
  *  signOut: () => Promise<void>;
  * }}
  */
+
 export function useSignOut() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
