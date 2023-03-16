@@ -4,6 +4,7 @@ import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 import style from './FormInput.module.scss';
 
 export function FormInput({
+  name,
   label,
   type,
   invisibleLabel,
@@ -11,9 +12,7 @@ export function FormInput({
   ...restProps
 }) {
   const id = useId();
-
   const inputRef = useRef(null);
-
   useEffect(() => {
     const input = inputRef.current;
     const component = input.parentElement;
@@ -30,17 +29,22 @@ export function FormInput({
   const combineClassNames = `${style.FormInput} ${
     vertical ? style.FormInputVertical : ''
   }`.trim();
-
   return (
     <div className={combineClassNames}>
       {renderLabel(id, label, invisibleLabel)}
       <input
+        name={name}
         ref={inputRef}
         id={id}
         type={type}
         className={style.input}
         {...restProps}
       />
+      {name === 'name' || name === 'password' || name === 'passwordConfirm' ? (
+        <span className={`${style.validate}`}></span>
+      ) : (
+        ''
+      )}
     </div>
   );
 }

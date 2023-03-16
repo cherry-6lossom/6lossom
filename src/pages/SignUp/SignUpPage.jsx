@@ -64,6 +64,27 @@ export default function SignUpPage() {
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
     formStateRef.current[name] = value;
+
+    if (name === 'name' && value.trim().length > 1 && value.trim().length < 9) {
+      e.target.nextSibling.classList.add(style.validateNamePassed);
+    } else if (
+      name === 'name' &&
+      (!value || value.trim().length < 2 || value.trim().length > 8)
+    ) {
+      e.target.nextSibling.classList.remove(style.validateNamePassed);
+    }
+
+    if (
+      (name === 'password' || name === 'passwordConfirm') &&
+      value.trim().length > 5
+    ) {
+      e.target.nextSibling.classList.add(style.validateNamePassed);
+    } else if (
+      (name === 'password' || name === 'passwordConfirm') &&
+      (!value || value.trim().length < 6)
+    ) {
+      e.target.nextSibling.classList.remove(style.validateNamePassed);
+    }
   };
 
   if (isLoading) {
