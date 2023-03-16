@@ -1,33 +1,90 @@
-.SignUpPage {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-flow: column;
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
 
-  margin-top: 100px;
+.signUpPageWrapper {
+  margin: 0 auto;
+  min-width: rem(350px);
+  max-width: rem(768px);
+  min-height: 100%;
+  background: center / cover no-repeat url('@/assets/custom/bg-pink.png');
+  position: relative;
 
-  h2 {
-    color: #67aed4;
-    font-weight: 300;
-    text-align: center;
+  .toSignInPage {
+    position: absolute;
+    top: rem(60px);
+    left: rem(15px);
+    background-color: transparent;
+    border-color: transparent;
+    font-size: rem(32px);
+    color: $secondary;
+    cursor: pointer;
   }
 
-  main {
+  .signUpPageContainer {
     display: flex;
+    flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
+
+    .signUpPageTitle {
+      margin-top: 20%;
+      @media screen and (max-width: 380px) {
+        margin-top: 10%;
+      }
+      margin-bottom: rem(75px);
+      font-size: rem(24px);
+      color: $secondary;
+      text-align: center;
+    }
+
+    .toSignInPageWithDescription {
+      margin: rem(24px) auto;
+      color: $cherryblossom800;
+    }
+
+    .toSignInPageLink {
+      color: $primary;
+    }
   }
-}
 
-.form {
-  display: flex;
-  gap: 8px;
-  flex-flow: column;
-  align-items: center;
-}
+  .form {
+    display: flex;
+    gap: rem(12px);
+    flex-flow: column;
+    align-items: center;
+    width: 100%;
 
-.group {
-  display: flex;
-  gap: 12px;
-  margin-top: 12px;
+    .signUpButton {
+      margin-top: rem(75px);
+      width: 90%;
+      height: rem(44px);
+      font-size: rem(14px);
+      @include button-shadow;
+      background-color: $secondary;
+      color: white;
+      border-radius: rem(12px);
+      border-color: transparent;
+      cursor: pointer;
+    }
+
+    .signUpButton:hover {
+      background-color: #fc579c;
+    }
+
+    .resetButton {
+      width: 90%;
+      height: rem(44px);
+      font-size: rem(14px);
+      @include button-shadow;
+      background-color: $primary;
+      color: white;
+      border-radius: rem(12px);
+      border-color: transparent;
+      cursor: pointer;
+    }
+
+    .resetButton:hover {
+      background-color: #f798bf;
+    }
+  }
 }

@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { FormInput } from '@/components/FormInput/FormInput';
 
 import style from './SignUpPage.module.scss';
@@ -14,14 +14,15 @@ const initialFormState = {
   password: '',
   passwordConfirm: '',
 };
-
 /* Component ---------------------------------------------------------------- */
 
 export default function SignUpPage() {
-  const { signUp } = useSignUp();
+  const { isLoading: isLoadingSignUp, signUp } = useSignUp();
   const { signOut } = useSignOut();
   const { createAuthUser } = useCreateAuthUser();
   const { isLoading, error, user } = useAuthState();
+
+  const navigate = useNavigate();
 
   console.log(user);
 
@@ -69,6 +70,7 @@ export default function SignUpPage() {
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
     formStateRef.current[name] = value;
+    console.log(formStateRef.current);
   };
 
   if (isLoading) {
@@ -91,45 +93,63 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className={style.SignUpPage}>
-      <h2>회원가입 페이지</h2>
+    <div className={style.signUpPageWrapper}>
+      <div className={style.signUpPageContainer}>
+        <h2 className={style.signUpPageTitle}>회원가입</h2>
 
-      <form
-        className={style.form}
-        onSubmit={handleSubmit}
-        onReset={handleReset}
-      >
-        <FormInput name="name" label="이름" onChange={handleChangeInput} />
+        <form
+          className={style.form}
+          onSubmit={handleSubmit}
+          onReset={handleReset}
+        >
+          <FormInput name="name" label="이름" onChange={handleChangeInput} />
 
-        <FormInput
-          name="email"
-          type="email"
-          label="이메일"
-          onChange={handleChangeInput}
-        />
+          <FormInput
+            name="email"
+            type="email"
+            label="이메일"
+            onChange={handleChangeInput}
+          />
 
-        <FormInput
-          name="password"
-          type="password"
-          label="패스워드"
-          onChange={handleChangeInput}
-        />
+          <FormInput
+            name="password"
+            type="password"
+            label="패스워드"
+            onChange={handleChangeInput}
+          />
 
-        <FormInput
-          name="passwordConfirm"
-          type="password"
-          label="패스워드 확인"
-          onChange={handleChangeInput}
-        />
+          <FormInput
+            name="passwordConfirm"
+            type="password"
+            label="패스워드 확인"
+            onChange={handleChangeInput}
+          />
 
-        <div className={style.group}>
-          <button type="submit">회원가입</button>
-          <button type="reset">초기화</button>
-        </div>
-      </form>
-      <p>
-        이미 가입한 사용자라면 <Link to="/signin">로그인</Link>하세요.
-      </p>
+          <button
+            type="submit"
+            disabled={isLoadingSignUp}
+            className={style.signUpButton}
+          >
+            {!isLoadingSignUp ? '회원가입' : '회원가입 중...'}
+          </button>
+          <button type="reset" className={style.resetButton}>
+            초기화
+          </button>
+        </form>
+        <p className={style.toSignInPageWithDescription}>
+          이미 가입한 사용자라면{' '}
+          <Link to="/signin" className={style.toSignInPageLink}>
+            로그인
+          </Link>
+          을 해주세요 !
+        </p>
+        <button
+          onClick={() => navigate('/signin')}
+          className={style.toSignInPage}
+        >
+          {`<`}
+        </button>
+      </div>
     </div>
   );
 }

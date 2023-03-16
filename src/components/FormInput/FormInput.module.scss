@@ -1,13 +1,12 @@
-$label-color: #4795a5;
-$input-color: #5c6465;
-$border-color: #90d8e7;
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
 
 .FormInput {
   position: relative;
   display: flex;
-  gap: 4px;
+  gap: rem(4px);
   flex-flow: row nowrap;
-  margin-bottom: 4px;
+  margin-bottom: rem(4px);
 
   &Inline {
     display: inline-flex;
@@ -28,24 +27,34 @@ $border-color: #90d8e7;
 
 .label {
   position: absolute;
-  left: 20px;
+  left: rem(20px);
   top: 50%;
   translate: 0 -40%;
   transition: all 0.2s ease-out;
-  color: $label-color;
-  font-size: 14px;
+  color: $secondary;
+  font-size: rem(14px);
 }
 
 .input {
-  border: 1px solid $border-color;
+  border-color: transparent;
   padding: 1.6em 1em 1em;
-  width: clamp(320px, 20vw, 500px);
+  width: clamp(rem(320px), 20vw, rem(500px));
   transition: all 0.2s ease-out;
-  border-radius: 4px;
-  font-size: 14px;
-  color: $input-color;
+  border-radius: rem(26px);
+  font-size: rem(14px);
+  color: $cherryblossom800;
 
   &:focus {
-    outline: 4px solid rgba($border-color, 0.4);
+    outline: rem(2px) solid#f03f40;
   }
+}
+
+.isNotTyped {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  right: 5%;
+  width: rem(20px);
+  height: rem(20px);
+  background: center / contain no-repeat url('@/assets/login/check-default.png');
 }

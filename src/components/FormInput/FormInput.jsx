@@ -3,8 +3,6 @@ import { bool, string } from 'prop-types';
 import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 import style from './FormInput.module.scss';
 
-/* Component ---------------------------------------------------------------- */
-
 export function FormInput({
   label,
   type,
@@ -17,11 +15,9 @@ export function FormInput({
   const inputRef = useRef(null);
 
   useEffect(() => {
-    // 이벤트 연결 대상 참조
     const input = inputRef.current;
     const component = input.parentElement;
 
-    // 이벤트 연결
     input.addEventListener('blur', (e) => {
       if (e.target.value.length > 0) {
         component.classList.add(style.inputed);
@@ -49,8 +45,6 @@ export function FormInput({
   );
 }
 
-/* Props -------------------------------------------------------------------- */
-
 FormInput.defualtProps = {
   type: 'text',
   invisibleLabel: false,
@@ -65,8 +59,6 @@ FormInput.propTypes = {
   vertical: bool,
   inputed: bool,
 };
-
-/* Render Function ---------------------------------------------------------- */
 
 function renderLabel(id, label, invisibleLabel) {
   return invisibleLabel ? (

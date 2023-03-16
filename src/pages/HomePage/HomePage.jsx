@@ -74,8 +74,13 @@ const HomePage = () => {
             <img className={style.postBox} src={postBox} alt="우체통" />
             <span className={style.clickMeText}>click me!</span>
           </div>
-          <button onClick={() => navigate('/signin')}>로그인</button>
           <div className={style.loginButtonList}>
+            <button
+              onClick={() => navigate('/signin')}
+              className={classNames(style.loginButton, style.generalButton)}
+            >
+              로그인
+            </button>
             <LoginButton
               style={style}
               className={style.googleButton}
