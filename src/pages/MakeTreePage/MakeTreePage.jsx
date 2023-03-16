@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import HeaderTitle from '@/components/HeaderTitle/HeaderTitle';
@@ -43,9 +43,20 @@ const backgroundImageList = [
 export const BgContext = createContext();
 
 const MakeTreePage = () => {
+  const navigate = useNavigate();
+  const displayName = JSON.parse(localStorage.getItem('user'));
+
+  const { updateData } = useUpdateData('users');
+  const { readData, data, isLoading, error } = useReadData('users');
+
   const [selectBg, setSelectBg] = useState(
     JSON.stringify('/src/assets/custom/bg-pink.png')
   );
+  const [isMade, setIsMade] = useState(false);
+
+  let targetUid;
+  const uid = JSON.parse(localStorage.getItem('uid'));
+  const userList = JSON.parse(localStorage.getItem('userList'));
 
   useEffect(() => {
     localStorage.setItem('bgSrc', selectBg);
@@ -65,18 +76,10 @@ const MakeTreePage = () => {
     });
   };
 
-  const navigate = useNavigate();
-
   const logout = () => {
     localStorage.clear();
     navigate('/', { replace: true });
   };
-  const value = { backgroundImageList, setSelectBg, handleSelect };
-
-  const displayName = JSON.parse(localStorage.getItem('user'));
-
-  const { updateData } = useUpdateData('users');
-  const { readData, data, isLoading, error } = useReadData('users');
 
   const handleComplete = async () => {
     const bgSrc = JSON.parse(localStorage.getItem('bgSrc'));
@@ -91,6 +94,16 @@ const MakeTreePage = () => {
       history.go(1);
     };
   };
+
+  const value = { backgroundImageList, setSelectBg, handleSelect };
+
+  useLayoutEffect(() => {
+    userList.map((user) => {
+      if (user.uid === uid && user.isMade) {
+        navigate('/share-tree');
+      }
+    });
+  }, []);
 
   return (
     <BgContext.Provider value={value}>
