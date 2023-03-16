@@ -44,6 +44,28 @@ export default function SignInPage() {
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
     formStateRef.current[name] = value;
+
+    if (
+      name === 'email' &&
+      value.includes('@') &&
+      value.substring(0, value.lastIndexOf('@')) !== '' &&
+      value.substr(value.lastIndexOf('@') + 1) !== ''
+    ) {
+      e.target.nextSibling.classList.add(style.validatePassed);
+    } else if (
+      name === 'email' &&
+      (!value.includes('@') ||
+        value.substring(0, value.lastIndexOf('@')) === '' ||
+        value.substr(value.lastIndexOf('@') + 1) === '')
+    ) {
+      e.target.nextSibling.classList.remove(style.validatePassed);
+    }
+
+    if (name === 'password' && value.trim().length > 5) {
+      e.target.nextSibling.classList.add(style.validatePassed);
+    } else if (name === 'password' && (!value || value.trim().length < 6)) {
+      e.target.nextSibling.classList.remove(style.validatePassed);
+    }
   };
 
   if (isLoading) {

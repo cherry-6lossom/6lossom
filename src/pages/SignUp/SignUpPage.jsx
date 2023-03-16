@@ -32,7 +32,6 @@ export default function SignUpPage() {
 
     const { name, email, password, passwordConfirm } = formStateRef.current;
 
-    // 유효성 검사
     if (!name || name.trim().length < 2 || name.trim().length > 8) {
       e.target.childNodes[0].classList.add(style.submitWrongData);
       setTimeout(() => {
@@ -77,24 +76,40 @@ export default function SignUpPage() {
     formStateRef.current[name] = value;
 
     if (name === 'name' && value.trim().length > 1 && value.trim().length < 9) {
-      e.target.nextSibling.classList.add(style.validateNamePassed);
+      e.target.nextSibling.classList.add(style.validatePassed);
     } else if (
       name === 'name' &&
       (!value || value.trim().length < 2 || value.trim().length > 8)
     ) {
-      e.target.nextSibling.classList.remove(style.validateNamePassed);
+      e.target.nextSibling.classList.remove(style.validatePassed);
+    }
+
+    if (
+      name === 'email' &&
+      value.includes('@') &&
+      value.substring(0, value.lastIndexOf('@')) !== '' &&
+      value.substr(value.lastIndexOf('@') + 1) !== ''
+    ) {
+      e.target.nextSibling.classList.add(style.validatePassed);
+    } else if (
+      name === 'email' &&
+      (!value.includes('@') ||
+        value.substring(0, value.lastIndexOf('@')) === '' ||
+        value.substr(value.lastIndexOf('@') + 1) === '')
+    ) {
+      e.target.nextSibling.classList.remove(style.validatePassed);
     }
 
     if (
       (name === 'password' || name === 'passwordConfirm') &&
       value.trim().length > 5
     ) {
-      e.target.nextSibling.classList.add(style.validateNamePassed);
+      e.target.nextSibling.classList.add(style.validatePassed);
     } else if (
       (name === 'password' || name === 'passwordConfirm') &&
       (!value || value.trim().length < 6)
     ) {
-      e.target.nextSibling.classList.remove(style.validateNamePassed);
+      e.target.nextSibling.classList.remove(style.validatePassed);
     }
   };
 

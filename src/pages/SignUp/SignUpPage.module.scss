@@ -90,8 +90,8 @@
   }
 }
 
-.validateNamePassed {
-  background: center / contain no-repeat url('@/assets/login/check-pink.png');
+.validatePassed {
+  background: center / contain no-repeat url('@/assets/login/check-pink.png') !important;
 }
 
 .submitWrongDataDefault {

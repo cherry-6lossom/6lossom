@@ -88,6 +88,10 @@
   }
 }
 
+.validatePassed {
+  background: center / contain no-repeat url('@/assets/login/check-pink.png');
+}
+
 .submitWrongDataDefault {
   position: absolute;
   opacity: 0;

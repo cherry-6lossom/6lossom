@@ -1,7 +1,7 @@
+import style from './FormInput.module.scss';
 import { useId, useRef, useEffect } from 'react';
 import { bool, string } from 'prop-types';
 import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
-import style from './FormInput.module.scss';
 
 export function FormInput({
   name,
@@ -40,7 +40,10 @@ export function FormInput({
         className={style.input}
         {...restProps}
       />
-      {name === 'name' || name === 'password' || name === 'passwordConfirm' ? (
+      {name === 'name' ||
+      name === 'email' ||
+      name === 'password' ||
+      name === 'passwordConfirm' ? (
         <span className={`${style.validate}`}></span>
       ) : (
         ''
