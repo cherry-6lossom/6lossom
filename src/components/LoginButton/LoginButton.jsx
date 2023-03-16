@@ -1,24 +1,27 @@
 import { useCreateAuthUser } from '@/firebase/firestore/useCreateAuthUser';
 import { signInWithPopup } from 'firebase/auth';
-import { useEffect } from 'react';
 import { auth } from '@/firebase/app';
 import classNames from 'classnames';
+import { useReadData } from '@/firebase/firestore/useReadData';
+import { useNavigate } from 'react-router-dom';
 
-const LoginButton = ({ provider, text, setUid, className, style }) => {
-  const { createAuthUser, isLoading, error } = useCreateAuthUser('authUsers');
+const LoginButton = ({ provider, text, className, style }) => {
+  const { createAuthUser, isLoading, error } = useCreateAuthUser('users');
+  const { readData, data } = useReadData('users');
+  const navigate = useNavigate();
 
-  const handleLoginClick = () => {
-    signInWithPopup(auth, provider).then((data) => {
-      setUid(data.user.uid);
-      localStorage.setItem('uid', data.user.uid);
-      localStorage.setItem('user', JSON.stringify(data.user.displayName));
-      createAuthUser(data.user);
-    });
+  const handleLoginClick = async () => {
+    const { user } = await signInWithPopup(auth, provider);
+    const { uid, displayName } = user;
+
+    localStorage.setItem('uid', JSON.stringify(uid));
+    localStorage.setItem('user', JSON.stringify(displayName));
+
+    await createAuthUser(user);
+    await readData(uid);
+
+    navigate('/make-tree');
   };
-
-  useEffect(() => {
-    setUid(localStorage.getItem('uid'));
-  });
 
   return (
     <>

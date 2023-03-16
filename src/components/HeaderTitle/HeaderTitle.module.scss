@@ -4,6 +4,9 @@
 .makeTreeMainTitle {
   margin-top: rem(12px);
   font-size: rem(24px);
-  color: $primary;
+  color: $secondary;
   text-shadow: -1px 0 #350b0b, 0 1px #350b0b, 1px 0 #350b0b, 0 -1px #350b0b;
+  span {
+    color: $primary;
+  }
 }

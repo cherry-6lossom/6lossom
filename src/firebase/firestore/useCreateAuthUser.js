@@ -27,6 +27,7 @@ export function useCreateAuthUser(collectionKey = 'users') {
           const createAt = serverTimestamp();
           const { email, displayName, uid } = userAuth;
           let userNickname = '';
+          let url = '';
           let isMade = false;
           let bgSrc = '';
           let flowerList = [];
@@ -37,6 +38,7 @@ export function useCreateAuthUser(collectionKey = 'users') {
             displayName,
             email,
             userNickname,
+            url,
             isMade,
             bgSrc,
             flowerList,

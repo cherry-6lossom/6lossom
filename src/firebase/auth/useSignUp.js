@@ -6,8 +6,6 @@ import {
 } from 'firebase/auth';
 import { auth } from '@/firebase/app';
 
-/* -------------------------------------------------------------------------- */
-
 /**
  * Firebase 인증: 이메일/패스워드 회원가입 유틸리티 훅
  * @param {boolean} sendEmailVerification 이메일 확인 메일 보내기 (기본 값: false)

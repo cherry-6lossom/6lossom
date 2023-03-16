@@ -2,8 +2,6 @@ import { useState, useEffect, useMemo } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/firebase/app';
 
-/* -------------------------------------------------------------------------- */
-
 /**
  * Firebase 인증: 인증 상태 감지 훅
  * @returns {{

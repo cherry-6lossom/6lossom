@@ -7,8 +7,6 @@ import { useSignIn } from '@/firebase/auth/useSignIn';
 import { useAuthState } from '@/firebase/auth/useAuthState';
 import { useSignOut } from '@/firebase/auth/useSignOut';
 
-/* Component ---------------------------------------------------------------- */
-
 const initialFormState = {
   email: '',
   password: '',
@@ -27,13 +25,10 @@ export default function SignInPage() {
     e.preventDefault();
 
     const { email, password } = formStateRef.current;
-    console.log({ email, password });
-
     await signIn(email, password);
   };
 
   const handleSignOut = async () => {
-    console.log('로그아웃');
     signOut();
   };
 
