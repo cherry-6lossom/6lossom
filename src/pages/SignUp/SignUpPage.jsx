@@ -32,8 +32,14 @@ export default function SignUpPage() {
 
     // 유효성 검사
     if (!name || name.trim().length < 2 || name.trim().length > 8) {
-      console.error('이름은 2글자 이상 8글자 이하로 입력해야 해요');
+      console.error('이름은 2글자 이상 8글자 이하로 입력해야 해요!');
       alert('이름은 2글자 이상 8글자 이하로 입력해야 해요!');
+      return;
+    }
+
+    if (!password || password.trim().length < 6) {
+      console.error('비밀번호는 6글자 이상 입력해야 해요!');
+      alert('비밀번호는 6글자 이상 입력해야 해요!');
       return;
     }
 
