@@ -1,11 +1,12 @@
+import style from './SignInPage.module.scss';
 import { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import style from './SignInPage.module.scss';
-import { FormInput } from '@/components/FormInput/FormInput';
 import { useSignIn } from '@/firebase/auth/useSignIn';
 import { useAuthState } from '@/firebase/auth/useAuthState';
-import { useSignOut } from '@/firebase/auth/useSignOut';
+
+import { FormInput } from '@/components/FormInput/FormInput';
+import Notification from '@/components/Notification/Notification';
 
 const initialFormState = {
   email: '',
@@ -16,7 +17,6 @@ export default function SignInPage() {
   const formStateRef = useRef(initialFormState);
 
   const { isLoading: isLoadingSignIn, signIn } = useSignIn();
-  const { signOut } = useSignOut();
   const { isLoading, error, user } = useAuthState();
 
   const navigate = useNavigate();
@@ -26,15 +26,40 @@ export default function SignInPage() {
 
     const { email, password } = formStateRef.current;
     await signIn(email, password);
-  };
 
-  const handleSignOut = async () => {
-    signOut();
+    if (!user) {
+      e.target.childNodes[0].classList.add(style.submitWrongData);
+      setTimeout(() => {
+        e.target.childNodes[0].classList.remove(style.submitWrongData);
+      }, 2000);
+    }
   };
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
     formStateRef.current[name] = value;
+
+    if (
+      name === 'email' &&
+      value.includes('@') &&
+      value.substring(0, value.lastIndexOf('@')) !== '' &&
+      value.substr(value.lastIndexOf('@') + 1) !== ''
+    ) {
+      e.target.nextSibling.classList.add(style.validatePassed);
+    } else if (
+      name === 'email' &&
+      (!value.includes('@') ||
+        value.substring(0, value.lastIndexOf('@')) === '' ||
+        value.substr(value.lastIndexOf('@') + 1) === '')
+    ) {
+      e.target.nextSibling.classList.remove(style.validatePassed);
+    }
+
+    if (name === 'password' && value.trim().length > 5) {
+      e.target.nextSibling.classList.add(style.validatePassed);
+    } else if (name === 'password' && (!value || value.trim().length < 6)) {
+      e.target.nextSibling.classList.remove(style.validatePassed);
+    }
   };
 
   if (isLoading) {
@@ -46,14 +71,10 @@ export default function SignInPage() {
   }
 
   if (user) {
-    return (
-      <div className={style.SignInPage}>
-        <h2>인증 사용자 페이지</h2>
-        <li>{user.displayName}</li>
-        <li>{user.email}</li>
-        <button onClick={handleSignOut}>로그아웃</button>
-      </div>
-    );
+    localStorage.setItem('uid', JSON.stringify(user.uid));
+    localStorage.setItem('user', JSON.stringify(user.displayName));
+
+    navigate('/make-tree');
   }
 
   return (
@@ -62,6 +83,10 @@ export default function SignInPage() {
         <h2 className={style.signInPageTitle}>로그인</h2>
 
         <form className={style.form} onSubmit={handleSignIn}>
+          <Notification
+            className={style.submitWrongDataDefault}
+            text={'이메일 또는 비밀번호를 확인해주세요 !'}
+          />
           <FormInput
             name="email"
             type="email"
@@ -72,7 +97,7 @@ export default function SignInPage() {
           <FormInput
             name="password"
             type="password"
-            label="패스워드"
+            label="비밀번호"
             onChange={handleChangeInput}
           />
 

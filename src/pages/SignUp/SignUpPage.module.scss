@@ -48,6 +48,7 @@
   }
 
   .form {
+    position: relative;
     display: flex;
     gap: rem(12px);
     flex-flow: column;
@@ -86,5 +87,41 @@
     .resetButton:hover {
       background-color: #f798bf;
     }
+  }
+}
+
+.validatePassed {
+  background: center / contain no-repeat url('@/assets/login/check-pink.png') !important;
+}
+
+.submitWrongDataDefault {
+  position: absolute;
+  opacity: 0;
+}
+
+.submitWrongData {
+  bottom: rem(132px);
+  background-color: $secondary;
+  border-radius: rem(14px);
+  color: $white;
+  padding: rem(5px) rem(16px);
+  animation: fadeInAndOut 2s ease;
+}
+
+@keyframes fadeInAndOut {
+  0% {
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
   }
 }
