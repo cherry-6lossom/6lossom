@@ -77,14 +77,18 @@
   }
 
   .tree {
-    position: absolute;
-    top: 25%;
-    left: 0%;
+    position: relative;
+    top: 10%;
+
     display: flex;
     justify-content: center;
+    align-items: center;
+
+    width: inherit;
 
     .blossomTree {
       width: 80%;
+      position: relative;
     }
 
     .bigFlower,
@@ -102,8 +106,8 @@
     }
 
     .flower1 {
-      top: 30%;
-      left: 40%;
+      top: 33%;
+      left: 42%;
     }
 
     .flower2 {
