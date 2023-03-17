@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { useSignUp } from '@/firebase/auth/useSignUp';
 import { useAuthState } from '@/firebase/auth/useAuthState';
-import { useSignOut } from '@/firebase/auth/useSignOut';
 import { useCreateAuthUser } from '@/firebase/firestore/useCreateAuthUser';
 
 import { FormInput } from '@/components/FormInput/FormInput';
@@ -19,7 +18,6 @@ const initialFormState = {
 
 export default function SignUpPage() {
   const { isLoading: isLoadingSignUp, signUp } = useSignUp();
-  const { signOut } = useSignOut();
   const { createAuthUser } = useCreateAuthUser();
   const { isLoading, error, user } = useAuthState();
 
@@ -27,7 +25,7 @@ export default function SignUpPage() {
 
   const formStateRef = useRef(initialFormState);
 
-  const handleSubmit = async (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
     const { name, email, password, passwordConfirm } = formStateRef.current;
@@ -57,6 +55,7 @@ export default function SignUpPage() {
     }
 
     const user = await signUp(email, password, name);
+
     if (!user) {
       e.target.childNodes[2].classList.add(style.submitWrongData);
       setTimeout(() => {
@@ -65,10 +64,9 @@ export default function SignUpPage() {
     }
 
     await createAuthUser(user);
-  };
 
-  const handleSignOut = async () => {
-    signOut();
+    localStorage.setItem('uid', JSON.stringify(user.uid));
+    localStorage.setItem('user', JSON.stringify(user.displayName));
   };
 
   const handleChangeInput = (e) => {
@@ -122,21 +120,14 @@ export default function SignUpPage() {
   }
 
   if (user) {
-    return (
-      <div className={style.SignUpPage}>
-        <h2>인증 사용자 페이지</h2>
-        <li>{user.displayName}</li>
-        <li>{user.email}</li>
-        <button onClick={handleSignOut}>로그아웃</button>
-      </div>
-    );
+    navigate('/make-tree');
   }
 
   return (
     <div className={style.signUpPageWrapper}>
       <div className={style.signUpPageContainer}>
         <h2 className={style.signUpPageTitle}>회원가입</h2>
-        <form className={style.form} onSubmit={handleSubmit}>
+        <form className={style.form} onSubmit={handleSignUp}>
           <Notification
             className={style.submitWrongDataDefault}
             text={'이름을 확인해주세요 !'}

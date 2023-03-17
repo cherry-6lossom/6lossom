@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { useSignIn } from '@/firebase/auth/useSignIn';
 import { useAuthState } from '@/firebase/auth/useAuthState';
-import { useSignOut } from '@/firebase/auth/useSignOut';
 
 import { FormInput } from '@/components/FormInput/FormInput';
 import Notification from '@/components/Notification/Notification';
@@ -18,7 +17,6 @@ export default function SignInPage() {
   const formStateRef = useRef(initialFormState);
 
   const { isLoading: isLoadingSignIn, signIn } = useSignIn();
-  const { signOut } = useSignOut();
   const { isLoading, error, user } = useAuthState();
 
   const navigate = useNavigate();
@@ -35,10 +33,6 @@ export default function SignInPage() {
         e.target.childNodes[0].classList.remove(style.submitWrongData);
       }, 2000);
     }
-  };
-
-  const handleSignOut = async () => {
-    signOut();
   };
 
   const handleChangeInput = (e) => {
@@ -77,14 +71,10 @@ export default function SignInPage() {
   }
 
   if (user) {
-    return (
-      <div className={style.SignInPage}>
-        <h2>인증 사용자 페이지</h2>
-        <li>{user.displayName}</li>
-        <li>{user.email}</li>
-        <button onClick={handleSignOut}>로그아웃</button>
-      </div>
-    );
+    localStorage.setItem('uid', JSON.stringify(user.uid));
+    localStorage.setItem('user', JSON.stringify(user.displayName));
+
+    navigate('/make-tree');
   }
 
   return (
