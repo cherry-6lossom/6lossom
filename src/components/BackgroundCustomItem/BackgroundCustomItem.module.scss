@@ -25,5 +25,6 @@
   z-index: 1;
 
   color: $white;
-  text-shadow: -1px 0 #350b0b, 0 1px #350b0b, 1px 0 #350b0b, 0 -1px #350b0b;
+  text-shadow: rem(-1px) 0 #350b0b, 0 rem(1px) #350b0b, rem(1px) 0 #350b0b,
+    0 rem(-1px) #350b0b;
 }

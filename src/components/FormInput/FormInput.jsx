@@ -101,6 +101,14 @@ export function FormInput({
       ) : (
         ''
       )}
+      <input
+        ref={inputRef}
+        id={id}
+        type={type}
+        className={style.input}
+        required
+        {...restProps}
+      />
     </div>
   );
 }

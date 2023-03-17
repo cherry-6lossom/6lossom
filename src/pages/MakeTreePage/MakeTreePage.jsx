@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useState,
-  useParams,
-  useEffect,
-  useLayoutEffect,
-} from 'react';
+import { createContext, useState, useEffect, useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import HeaderTitle from '@/components/HeaderTitle/HeaderTitle';
@@ -12,10 +6,12 @@ import UsageDescription from '@/components/UsageDescription/UsageDescription';
 import blossomTree from '@/assets/main-page/main-tree.png';
 import BackgroundCustomList from '@/components/BackgroundCustomList/BackgroundCustomList';
 import ShortButtonList from '@/components/ShortButtonList/ShortButtonList';
-import OriginTree from './../../components/OriginTree/OriginTree';
+import OriginTree from '@/components/OriginTree/OriginTree';
+import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
 import classNames from 'classnames';
 import style from './MakeTreePage.module.scss';
+import headerStyle from '@/components/Header/Header.module.scss';
 import selectPink from '@/assets/custom/select-bg-pink.png';
 import selectNight from '@/assets/custom/select-bg-night.png';
 import selectSky from '@/assets/custom/select-bg-sky.png';
@@ -25,6 +21,7 @@ import bgSky from '@/assets/custom/bg-sky.png';
 
 import { useUpdateData } from '@/firebase/firestore/useUpdateData';
 import { useReadData } from '@/firebase/firestore/useReadData';
+import { FormInput } from '@/components/FormInput/FormInput';
 
 const backgroundImageList = [
   {
@@ -50,12 +47,12 @@ const backgroundImageList = [
 export const BgContext = createContext();
 
 const MakeTreePage = () => {
-  // const { uid } = useParams();
   const navigate = useNavigate();
 
   const { updateData } = useUpdateData('users');
   const { readData, data, isLoading, error } = useReadData('users');
 
+  const [nickname, setNickname] = useState('');
   const [selectBg, setSelectBg] = useState(
     JSON.stringify('/src/assets/custom/bg-pink.png')
   );
@@ -83,11 +80,6 @@ const MakeTreePage = () => {
     });
   };
 
-  const logout = () => {
-    localStorage.clear();
-    navigate('/', { replace: true });
-  };
-
   const handleComplete = async () => {
     const bgSrc = JSON.parse(localStorage.getItem('bgSrc'));
     const user = JSON.parse(localStorage.getItem('user'));
@@ -95,7 +87,9 @@ const MakeTreePage = () => {
       bgSrc: bgSrc,
       isMade: true,
       url: `https://localhost:3000/share-tree/${localUid}`,
+      userNickname: nickname,
     });
+
     navigate(`/share-tree/${localUid}`, { replace: true });
 
     // 뒤로 가기 막기 코드
@@ -110,22 +104,36 @@ const MakeTreePage = () => {
   useLayoutEffect(() => {
     localUserList.map((user) => {
       if (user.uid === localUid && user.isMade) {
+        localStorage.setItem('nickname', JSON.stringify(user.userNickname));
         navigate(`/share-tree/${localUid}`);
       }
     });
   }, []);
 
+  const handleChange = (e) => {
+    setNickname(e.target.value);
+    localStorage.setItem('nickname', JSON.stringify(nickname));
+  };
+
   return (
     <BgContext.Provider value={value}>
       <div className={classNames('MakeTreePage', style.makeTreeContainer)}>
-        <header className={style.makeTreeHeader}>
+        <header className={headerStyle.header}>
           <UsageDescription subText={'벚꽃나무에 이름을 적어주세요'} />
-          <HeaderTitle userName={`${localUserName ? localUserName : ''}`} />
+          <div className={style.headerTitle}>
+            <input
+              type="text"
+              name="userNickname"
+              value={nickname}
+              maxLength={10}
+              placeholder="닉네임을 입력해주세요"
+              onChange={handleChange}
+              className={style.userNickname}
+            />
+            <span>님의 벚꽃나무</span>
+          </div>
         </header>
-        <button onClick={logout}>Logout</button>
-        <div className={style.blossomTree}>
-          <OriginTree className={style.originTree} />
-        </div>
+        <OriginTree className={style.originTree} />
         <div className={style.makeTreeCustom}>
           <UsageDescription
             className={style.makeTreeCustomText}
@@ -134,7 +142,7 @@ const MakeTreePage = () => {
           <BackgroundCustomList />
           <ShortButtonList
             firstText={'취소'}
-            firstClick={logout}
+            firstClick={() => navigate('/')}
             secondText={'완료'}
             secondClick={handleComplete}
           />

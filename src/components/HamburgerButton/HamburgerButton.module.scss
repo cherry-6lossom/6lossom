@@ -1,0 +1,31 @@
+@import '@/styles/utils/function';
+.hamburgerButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 15px;
+
+  z-index: 100;
+
+  background: transparent;
+  border: none;
+
+  cursor: pointer;
+
+  .hamburger {
+    width: rem(18px);
+    height: rem(18px);
+    display: flex;
+    justify-content: space-between;
+    flex-flow: column nowrap;
+    z-index: 10;
+
+    .burger1,
+    .burger2,
+    .burger3 {
+      width: rem(20px);
+      height: rem(3px);
+      background-color: #ff5ea1;
+    }
+  }
+}
