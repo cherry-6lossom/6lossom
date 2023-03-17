@@ -10,6 +10,11 @@
   position: relative;
   object-fit: cover;
 
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  gap: 8%;
+
   .homeLogo {
     width: rem(222px);
     height: rem(36px);
@@ -106,46 +111,46 @@
     }
 
     .flower1 {
-      top: 33%;
+      top: 26%;
       left: 42%;
     }
 
     .flower2 {
-      top: 20%;
-      left: 20%;
+      top: 16%;
+      left: 24%;
     }
 
     .flower3 {
-      top: 34%;
+      top: 29%;
       left: 70%;
     }
 
     .flower4 {
-      top: 20%;
+      top: 12%;
       left: 63%;
     }
 
     .flower5 {
-      top: 40%;
+      top: 37%;
       left: 20%;
     }
 
     .flower6 {
-      top: 43%;
+      top: 42%;
       left: 60%;
     }
 
     .postBox {
       width: 8%;
       position: absolute;
-      bottom: 30%;
+      bottom: 26%;
       right: 33%;
       cursor: pointer;
     }
 
     .clickMeText {
       position: absolute;
-      bottom: 38%;
+      bottom: 35%;
       right: 25%;
       background-color: $white;
       color: $secondary;
