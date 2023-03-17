@@ -38,7 +38,16 @@ export default function SignUpPage() {
       return;
     }
 
-    if (!password || password.trim().length < 6) {
+    if (
+      !email ||
+      !email.includes('@') ||
+      email.substring(0, email.indexOf('@')) === '' ||
+      email.substring(email.indexOf('@') + 1) === '' ||
+      !email.substring(email.indexOf('@') + 1).includes('.') ||
+      email.substring(0, email.indexOf('.')) === '' ||
+      email.substring(email.indexOf('.') + 1) === '' ||
+      email.substring(email.indexOf('.') - 1, email.indexOf('.')) === '@'
+    ) {
       e.target.childNodes[1].classList.add(style.submitWrongData);
       setTimeout(() => {
         e.target.childNodes[1].classList.remove(style.submitWrongData);
@@ -46,10 +55,18 @@ export default function SignUpPage() {
       return;
     }
 
-    if (!Object.is(password, passwordConfirm)) {
-      e.target.childNodes[1].classList.add(style.submitWrongData);
+    if (!password || password.trim().length < 6) {
+      e.target.childNodes[2].classList.add(style.submitWrongData);
       setTimeout(() => {
-        e.target.childNodes[1].classList.remove(style.submitWrongData);
+        e.target.childNodes[2].classList.remove(style.submitWrongData);
+      }, 2000);
+      return;
+    }
+
+    if (!Object.is(password, passwordConfirm)) {
+      e.target.childNodes[2].classList.add(style.submitWrongData);
+      setTimeout(() => {
+        e.target.childNodes[2].classList.remove(style.submitWrongData);
       }, 2000);
       return;
     }
@@ -57,9 +74,9 @@ export default function SignUpPage() {
     const user = await signUp(email, password, name);
 
     if (!user) {
-      e.target.childNodes[2].classList.add(style.submitWrongData);
+      e.target.childNodes[3].classList.add(style.submitWrongData);
       setTimeout(() => {
-        e.target.childNodes[2].classList.remove(style.submitWrongData);
+        e.target.childNodes[3].classList.remove(style.submitWrongData);
       }, 2000);
     }
 
@@ -85,15 +102,23 @@ export default function SignUpPage() {
     if (
       name === 'email' &&
       value.includes('@') &&
-      value.substring(0, value.lastIndexOf('@')) !== '' &&
-      value.substr(value.lastIndexOf('@') + 1) !== ''
+      value.substring(0, value.indexOf('@')) !== '' &&
+      value.substring(value.indexOf('@') + 1) !== '' &&
+      value.substring(value.indexOf('@') + 1).includes('.') &&
+      value.substring(0, value.indexOf('.')) !== '' &&
+      value.substring(value.indexOf('.') + 1) !== '' &&
+      value.substring(value.indexOf('.') - 1, value.indexOf('.')) !== '@'
     ) {
       e.target.nextSibling.classList.add(style.validatePassed);
     } else if (
       name === 'email' &&
       (!value.includes('@') ||
-        value.substring(0, value.lastIndexOf('@')) === '' ||
-        value.substr(value.lastIndexOf('@') + 1) === '')
+        value.substring(0, value.indexOf('@')) === '' ||
+        value.substring(value.indexOf('@') + 1) === '' ||
+        !value.substring(value.indexOf('@') + 1).includes('.') ||
+        value.substring(0, value.indexOf('.')) === '' ||
+        value.substring(value.indexOf('.') + 1) === '' ||
+        value.substring(value.indexOf('.') - 1, value.indexOf('.')) === '@')
     ) {
       e.target.nextSibling.classList.remove(style.validatePassed);
     }
@@ -131,6 +156,10 @@ export default function SignUpPage() {
           <Notification
             className={style.submitWrongDataDefault}
             text={'이름을 확인해주세요 !'}
+          />
+          <Notification
+            className={style.submitWrongDataDefault}
+            text={'이메일 확인해주세요 !'}
           />
           <Notification
             className={style.submitWrongDataDefault}
