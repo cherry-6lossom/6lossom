@@ -1,9 +1,11 @@
 import style from './LongButton.module.scss';
 
-const LongButton = ({ text }) => {
+const LongButton = ({ text, onClick }) => {
   return (
     <>
-      <button className={style.longButton}>{text}</button>
+      <button onClick={onClick} className={style.longButton}>
+        {text}
+      </button>
     </>
   );
 };

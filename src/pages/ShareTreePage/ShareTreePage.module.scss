@@ -11,4 +11,10 @@
   object-fit: cover;
 
   position: relative;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: space-between;
+  gap: 8%;
 }
