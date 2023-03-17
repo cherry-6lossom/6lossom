@@ -1,5 +1,5 @@
 import style from './FormInput.module.scss';
-import { useId, useRef, useEffect } from 'react';
+import { useId, useRef, useEffect, useState } from 'react';
 import { bool, string } from 'prop-types';
 import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
@@ -13,6 +13,19 @@ export function FormInput({
 }) {
   const id = useId();
   const inputRef = useRef(null);
+
+  const [visible, setVisible] = useState(false);
+  const [passwordType, setPasswordType] = useState(type);
+
+  const handlePasswordVisibility = () => {
+    if (passwordType === 'text') {
+      setPasswordType('password');
+    } else if (passwordType === 'password') {
+      setPasswordType('text');
+    }
+    setVisible((visible) => !visible);
+  };
+
   useEffect(() => {
     const input = inputRef.current;
     const component = input.parentElement;
@@ -32,19 +45,59 @@ export function FormInput({
   return (
     <div className={combineClassNames}>
       {renderLabel(id, label, invisibleLabel)}
-      <input
-        name={name}
-        ref={inputRef}
-        id={id}
-        type={type}
-        className={style.input}
-        {...restProps}
-      />
+
+      {((name === 'password' || name === 'passwordConfirm') && visible) ||
+      ((name === 'password' || name === 'passwordConfirm') && !visible) ? (
+        <input
+          name={name}
+          ref={inputRef}
+          id={id}
+          type={passwordType}
+          className={style.input}
+          {...restProps}
+        />
+      ) : (
+        ''
+      )}
+      {!(name === 'password' || name === 'passwordConfirm') ? (
+        <input
+          name={name}
+          ref={inputRef}
+          id={id}
+          type={type}
+          className={style.input}
+          {...restProps}
+        />
+      ) : (
+        ''
+      )}
+
       {name === 'name' ||
       name === 'email' ||
       name === 'password' ||
       name === 'passwordConfirm' ? (
-        <span className={`${style.validate}`}></span>
+        <span className={style.validate}></span>
+      ) : (
+        ''
+      )}
+
+      {(name === 'password' && visible) ||
+      (name === 'passwordConfirm' && visible) ? (
+        <button
+          type="button"
+          className={style.passwordVisible}
+          onClick={handlePasswordVisibility}
+        ></button>
+      ) : (
+        ''
+      )}
+      {(name === 'password' && !visible) ||
+      (name === 'passwordConfirm' && !visible) ? (
+        <button
+          type="button"
+          className={style.passwordInvisible}
+          onClick={handlePasswordVisibility}
+        ></button>
       ) : (
         ''
       )}
