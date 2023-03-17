@@ -11,6 +11,42 @@
   object-fit: cover;
 
   position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: space-between;
+  gap: 8%;
+
+  .headerTitle {
+    font-size: rem(24px);
+    text-shadow: rem(-1px) 0 #350b0b, 0 rem(1px) #350b0b, rem(1px) 0 #350b0b,
+      0 rem(-1px) #350b0b;
+
+    .userNickname {
+      text-align: center;
+
+      margin-top: rem(10px);
+
+      color: $secondary;
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid $secondary;
+      outline: none;
+
+      height: 100%;
+      padding: 5px;
+      padding-bottom: 0;
+      z-index: 5;
+    }
+
+    .userNickname::placeholder {
+      color: $gray300;
+    }
+
+    span {
+      color: $primary;
+    }
+  }
 
   .makeTreeCustom {
     box-sizing: border-box;

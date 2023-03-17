@@ -5,6 +5,7 @@ import style from './HomePage.module.scss';
 import moonLogo from '@/assets/main-page/main-logo.png';
 import blossom from '@/assets/custom/cherry-blossom3.png';
 import postBox from '@/assets/main-page/click-me-postbox.png';
+import blossomTree from '@/assets/main-page/main-tree.png';
 import classNames from 'classnames';
 
 import { googleProvider } from '@/firebase/app';
@@ -47,7 +48,11 @@ const HomePage = () => {
         </h2>
       </div>
       <div className={style.tree}>
-        <OriginTree className={style.blossomTree} />
+        <img
+          className={classNames(style.blossomTree)}
+          src={blossomTree}
+          alt="벚꽃나무"
+        />
         <img
           className={classNames(style.flower1, style.bigFlower)}
           src={blossom}
