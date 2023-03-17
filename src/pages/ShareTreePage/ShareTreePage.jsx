@@ -1,5 +1,5 @@
-import { useLocation, useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useLayoutEffect, useState } from 'react';
 
 import style from './ShareTreePage.module.scss';
 
@@ -8,50 +8,74 @@ import OriginTree from '@/components/OriginTree/OriginTree';
 import LongButtonList from '@/components/LongButtonList/LongButtonList';
 import HamburgerButton from '@/components/HamburgerButton/HamburgerButton';
 import SideMenu from '@/components/SideMenu/SideMenu';
+import { db, useCallCollection } from '@/firebase/app';
+import { doc, onSnapshot } from 'firebase/firestore';
+import classNames from 'classnames';
 
 const ShareTreePage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const { uid } = useParams();
-  const userList = JSON.parse(localStorage.getItem('userList'));
-  let flowerList;
-  let userNickname;
+  const navigate = useNavigate();
+  const location = useLocation();
 
+  // 공유 트리 페이지의 주인
+  const [userNickname, setUserNickname] = useState('');
+  const [bgSrc, setBgSrc] = useState('');
+  const [flowerList, setFlowerList] = useState([]);
+
+  // 로그인 한 사용자
   const localUid = JSON.parse(localStorage.getItem('uid'));
-  let localNickname;
+  const [localNickname, setLocalNickname] = useState('');
 
   const handleMenuClick = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  userList.map((user) => {
-    // 공유 페이지의 user
-    if (user.uid === uid) {
-      userNickname = user.userNickname;
-      flowerList = user.flowerList;
-    }
-    // 현재 로그인한 user
-    if (user.uid === localUid) {
-      localNickname = JSON.parse(localStorage.getItem('nickname'));
-    }
-  });
-
-  const location = useLocation();
-
-  const handleMakeMessage = () => {
+  const handleCopyLink = () => {
     let url = `https://localhost:3000${location.pathname}`;
 
     navigator.clipboard.writeText(url);
+
+    alert('링크가 복사되었습니다.');
   };
 
   const handleTotalMessage = () => {
     alert('아직 개화시기가 되지 않았습니다.');
   };
 
+  const handleWatchTree = () => {
+    if (localUid) {
+      navigate(`/share-tree/${localUid}`);
+    } else {
+      alert('로그인이 필요합니다.');
+      navigate('/');
+      localStorage.clear();
+    }
+  };
+
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, 'users', uid), (doc) => {
+      setUserNickname(doc.data().userNickname);
+      setBgSrc(doc.data().bgSrc);
+      setFlowerList(doc.data().flowerList);
+    });
+
+    useCallCollection().then((userList) => {
+      userList.map((user) => {
+        if (user.uid === localUid) {
+          setLocalNickname(user.userNickname);
+        }
+      });
+    });
+  }, [userNickname, bgSrc, flowerList, localNickname]);
+
   return (
-    <div className={style.shareTreeContainer}>
+    <div
+      style={{ background: `url(${bgSrc}) center no-repeat` }}
+      className={style.shareTreeContainer}
+    >
       <Header
-        userName={userNickname ? userNickname : localNickname}
+        userName={userNickname}
         className={style.shareTreeSubTitle}
         subText={`${flowerList.length}송이의 벚꽃이 피었어요 ! `}
       />
@@ -59,7 +83,7 @@ const ShareTreePage = () => {
       {uid === localUid ? (
         <LongButtonList
           firstText={'링크 공유하기'}
-          firstClick={handleMakeMessage}
+          firstClick={handleCopyLink}
           secondText={'전체 메세지 보기'}
           secondClick={handleTotalMessage}
         />
@@ -67,6 +91,7 @@ const ShareTreePage = () => {
         <LongButtonList
           firstText={'벚꽃 달아주기'}
           secondText={'내 벚꽃나무 보러가기'}
+          secondClick={handleWatchTree}
         />
       )}
       <div onClick={handleMenuClick}>
