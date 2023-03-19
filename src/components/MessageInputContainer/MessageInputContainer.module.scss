@@ -6,6 +6,7 @@
   padding-top: rem(75px);
   background-color: $cherryblossom100;
   height: 100vh;
+  text-align: center;
 }
 
 .nickname {
@@ -18,9 +19,11 @@
   border: 1px;
   border: 2px solid #f175a9;
   border-radius: 12px;
+  padding: 0 16px 0 16px;
 }
 
 .message {
+  padding: 16px;
   margin-top: rem(16px);
 
   width: 344px;
