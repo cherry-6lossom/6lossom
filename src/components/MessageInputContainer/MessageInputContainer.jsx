@@ -1,9 +1,11 @@
 import classes from '@/components/MessageInputContainer/MessageInputContainer.module.scss';
-import LongButton from '../LongButton/LongButton';
+// import LongButton from '@/LongButton/LongButton';
+import { useState, useRef } from 'react';
 import UsageDescription from '../UsageDescription/UsageDescription';
 import HeaderTitle from '../HeaderTitle/HeaderTitle';
-import { useState } from 'react';
 const MessageInputContainer = () => {
+  const authorInput = useRef();
+  const contentInput = useRef();
   const [state, setState] = useState({
     author: '',
     content: '',
@@ -17,8 +19,16 @@ const MessageInputContainer = () => {
   };
 
   const handleSubmit = () => {
+    if (state.author.length < 1) {
+      authorInput.current.focus();
+      return;
+    }
+    if (state.content.length < 5) {
+      contentInput.current.focus();
+      return;
+    }
     console.log(state);
-    alert('한번남긴 편지는 삭제할 수 없어요');
+    alert('저장성공');
   };
 
   return (
@@ -38,6 +48,7 @@ const MessageInputContainer = () => {
             type="text"
             value={state.author}
             onChange={handleChangeState}
+            ref={authorInput}
           />
         </div>
         <div className={classes.contentContainer}>
@@ -48,6 +59,7 @@ const MessageInputContainer = () => {
             type="text"
             value={state.content}
             onChange={handleChangeState}
+            ref={contentInput}
           />
         </div>
         <button onClick={handleSubmit}>완료</button>
