@@ -1,8 +1,6 @@
 import classes from '@/components/MessageInputContainer/MessageInputContainer.module.scss';
-// import LongButton from '@/LongButton/LongButton';
 import { useState, useRef } from 'react';
-import UsageDescription from '../UsageDescription/UsageDescription';
-import HeaderTitle from '../HeaderTitle/HeaderTitle';
+
 const MessageInputContainer = () => {
   const authorInput = useRef();
   const contentInput = useRef();
@@ -18,28 +16,9 @@ const MessageInputContainer = () => {
     });
   };
 
-  const handleSubmit = () => {
-    if (state.author.length < 1) {
-      authorInput.current.focus();
-      return;
-    }
-    if (state.content.length < 5) {
-      contentInput.current.focus();
-      return;
-    }
-    console.log(state);
-    alert('저장성공');
-  };
-
   return (
     <>
       <div className={classes.messageWrap}>
-        <HeaderTitle mainText={'육캔두잇님의 벚꽃나무'} />
-        <HeaderTitle />
-        <UsageDescription
-          makeTreeCustomText={'makeTreeCustomText'}
-          subText={'메세지를 남겨주세요'}
-        />
         <div className={classes.authorContainer}>
           <input
             className={classes.nickname}
@@ -62,7 +41,6 @@ const MessageInputContainer = () => {
             ref={contentInput}
           />
         </div>
-        <button onClick={handleSubmit}>완료</button>
       </div>
     </>
   );
