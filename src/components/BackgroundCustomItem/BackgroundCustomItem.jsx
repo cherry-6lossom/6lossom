@@ -1,6 +1,6 @@
 import style from './BackgroundCustomItem.module.scss';
 
-const BackgroundCustomItem = ({ src, id, handleSelect }) => {
+const BackgroundCustomItem = ({ smallSrc, id, handleSelect }) => {
   return (
     <div className={style.backgroundCustomItem}>
       <button
@@ -8,9 +8,9 @@ const BackgroundCustomItem = ({ src, id, handleSelect }) => {
         className={style.backgroundCustomButton}
         id={id}
       >
-        <img src={src} alt={`배경${id}`} />
+        <img src={smallSrc} alt={`배경${id}`} />
+        <span className={style.backgroundCustomSelectText}>SELECT</span>
       </button>
-      <span className={style.backgroundCustomSelectText}>SELECT</span>
     </div>
   );
 };

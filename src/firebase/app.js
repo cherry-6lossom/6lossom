@@ -1,11 +1,10 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
 import {
-  getAuth,
-  GoogleAuthProvider,
-  FacebookAuthProvider,
-  TwitterAuthProvider,
-} from 'firebase/auth';
+  getFirestore,
+  collection,
+  getDocs,
+} from 'firebase/firestore';
+import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
 const {
   VITE_API_KEY,
@@ -29,6 +28,16 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 export const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
-const facebookProvider = new FacebookAuthProvider();
-const twitterProvider = new TwitterAuthProvider();
-export { auth, googleProvider, facebookProvider, twitterProvider };
+export { auth, googleProvider };
+
+// collection의 모든 문서 가져오기
+export const useCallCollection = async () => {
+  let userList = [];
+  const querySnapshot = await getDocs(collection(db, 'users'));
+  querySnapshot.forEach((doc) => {
+    userList.push(doc.data());
+  });
+
+  return userList;
+};
+

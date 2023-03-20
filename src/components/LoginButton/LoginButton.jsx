@@ -1,25 +1,36 @@
-import { useCreateAuthUser } from '@/firebase/auth/useCreateAuthUser';
-import { useReadData } from '@/firebase/firestore/useReadData';
+import { useCreateAuthUser } from '@/firebase/firestore/useCreateAuthUser';
 import { signInWithPopup } from 'firebase/auth';
-import { useEffect } from 'react';
-import { auth } from '@/firebase/app';
+import { auth, useCallCollection } from '@/firebase/app';
 import classNames from 'classnames';
+import { useReadData } from '@/firebase/firestore/useReadData';
+import { useNavigate } from 'react-router-dom';
 
-const LoginButton = ({ provider, text, setUid, className, style }) => {
-  const { createAuthUser, isLoading, error } = useCreateAuthUser('authUsers');
+const LoginButton = ({ provider, text, className, style }) => {
+  const { createAuthUser, isLoading, error } = useCreateAuthUser('users');
+  const { readData, data } = useReadData('users');
+  const navigate = useNavigate();
 
-  const handleLoginClick = () => {
-    signInWithPopup(auth, provider).then((data) => {
-      setUid(data.user.uid);
-      localStorage.setItem('uid', data.user.uid);
-      localStorage.setItem('user', JSON.stringify(data.user.displayName));
-      createAuthUser(data.user);
+  const handleLoginClick = async () => {
+    const { user } = await signInWithPopup(auth, provider);
+    const { uid } = user;
+    useCallCollection().then((userList) => {
+      userList.map((user) => {
+        if (user.uid === uid) {
+          localStorage.setItem(
+            'userNickname',
+            JSON.stringify(user.userNickname)
+          );
+      }
+      });
     });
-  };
 
-  useEffect(() => {
-    setUid(localStorage.getItem('uid'));
-  });
+    localStorage.setItem('uid', JSON.stringify(uid));
+
+    await createAuthUser(user);
+    await readData(uid);
+
+    navigate('/make-tree');
+  };
 
   return (
     <>

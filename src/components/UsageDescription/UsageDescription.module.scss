@@ -1,10 +1,22 @@
 @import '@/styles/utils/function';
 @import '@/styles/theme/theme';
 
-.makeTreeSubTitle {
+.subTitle {
   background-color: $cherryblossom500;
   border-radius: rem(14px);
   color: $white;
+
   padding: rem(5px) rem(16px);
-  margin-top: rem(12px);
+  margin: rem(10px) 0;
+  width: fit-content;
+
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+  gap: rem(10px);
+
+  img {
+    width: rem(20px);
+  }
 }

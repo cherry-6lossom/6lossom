@@ -1,3 +1,5 @@
+@import '@/styles/utils/function';
+
 /* COLOR */
 
 $black: #000000;
@@ -35,12 +37,12 @@ $message-input: #f175a9;
 
 // 벚꽃에 사용
 @mixin pink-shadow {
-  box-shadow: 2px 3px 4px rgba(102, 62, 79, 0.35);
+  box-shadow: rem(2px) rem(3px) rem(4px) rgba(102, 62, 79, 0.35);
 }
 
 // pink button 사용
 @mixin button-shadow {
-  box-shadow: 2px 2px 4px $cherryblossom700;
+  box-shadow: rem(2px) rem(2px) rem(4px) $cherryblossom700;
 }
 
 // modal message에 사용
@@ -62,20 +64,20 @@ $message-input: #f175a9;
   @include button-shadow;
   background-color: $primary;
   color: $white;
-  box-shadow: 2px 2px 4px $cherryblossom700;
+  box-shadow: rem(2px) rem(2px) rem(4px) $cherryblossom700;
 }
 
 /* Message 메세지창 */
 
 @mixin message-modal {
   @include gray-shadow;
-  background-color: $primary;
+  background-color: $cherryblossom100;
   color: $secondary;
   border-radius: rem(20px);
-}
+} 
 
 @mixin message-input {
   background-color: $white;
   border-radius: rem(10px);
-  border: 2px solid $message-input;
+  border: rem(2px) solid $message-input;
 }
