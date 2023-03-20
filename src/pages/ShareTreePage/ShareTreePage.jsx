@@ -8,10 +8,10 @@ import OriginTree from '@/components/OriginTree/OriginTree';
 import LongButtonList from '@/components/LongButtonList/LongButtonList';
 import HamburgerButton from '@/components/HamburgerButton/HamburgerButton';
 import SideMenu from '@/components/SideMenu/SideMenu';
+import MessageList from '@/components/MessageList/MessageList';
+import MessageDetail from '@/components/MessageDetail/MessageDetail';
 import { db, useCallCollection } from '@/firebase/app';
 import { doc, onSnapshot } from 'firebase/firestore';
-
-
 
 const ShareTreePage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -99,6 +99,8 @@ const ShareTreePage = () => {
         <HamburgerButton />
       </div>
       {isMenuOpen && <SideMenu loginName={localNickname} />}
+      <MessageList />
+      <MessageDetail />
     </div>
   );
 };
