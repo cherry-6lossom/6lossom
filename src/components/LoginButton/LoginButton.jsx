@@ -20,10 +20,7 @@ const LoginButton = ({ provider, text, className, style }) => {
             'userNickname',
             JSON.stringify(user.userNickname)
           );
-          localStorage.setItem('bgSrc', JSON.stringify(user.bgSrc));
-          localStorage.setItem('flowerList', JSON.stringify(user.flowerList));
-          localStorage.setItem('userList', JSON.stringify(userList));
-        }
+      }
       });
     });
 
