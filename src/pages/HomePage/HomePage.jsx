@@ -9,14 +9,11 @@ import blossomTree from '@/assets/main-page/main-tree.png';
 import classNames from 'classnames';
 
 import { googleProvider } from '@/firebase/app';
-import { useReadData } from '@/firebase/firestore/useReadData';
 import { useSignOut } from '@/firebase/auth/useSignOut';
 
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
-  const { readData, data } = useReadData('users');
   const { signOut } = useSignOut();
   const navigate = useNavigate();
 
@@ -24,15 +21,6 @@ const HomePage = () => {
     signOut();
     localStorage.clear();
   };
-
-  useEffect(() => {
-    (async () => {
-      if (!data) {
-        await readData();
-      }
-    })();
-    localStorage.setItem('userList', JSON.stringify(data));
-  }, [data]);
 
   return (
     <div className={style.homeContainer}>
