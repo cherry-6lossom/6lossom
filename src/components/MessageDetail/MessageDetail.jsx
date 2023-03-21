@@ -36,7 +36,6 @@ const messageDetail = () => {
 
   return (
     <div
-      id="messageBackground"
       onClick={(e) =>
         handleCloseMessageDetailWithBackground(e, messageVisibility)
       }
