@@ -1,20 +1,20 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from '@/pages/HomePage/HomePage';
-import ModalEnroll from '@/components/ModalEnroll/ModalEnroll';
 import MessageInputContainer from '@/components/MessageInputContainer/MessageInputContainer';
 import MakeTreePage from '@/pages/MakeTreePage/MakeTreePage';
+import WriteMessagePage from '@/pages/WriteMessagePage/WriteMessagePage';
+import LongButton from '@/components/LongButton/LongButton';
 
 function App() {
   return (
     <div className="App">
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/make-tree" element={<MakeTreePage />} />
+          <Route path="/write-message-page" element={<WriteMessagePage />} />
         </Routes>
-      </BrowserRouter> */}
-      <MessageInputContainer />
-      {/* <ModalEnroll /> */}
+      </BrowserRouter>
     </div>
   );
 }
