@@ -61,13 +61,18 @@ const ShareTreePage = () => {
   const handleOpenMessageList = (e, messageVisibility) => {
     const { messageListVisible, setMessageListVisible } = messageVisibility;
     const backgroundElement = e.target.parentElement.parentElement.nextSibling;
+    const messageListElement = backgroundElement.children[0];
 
     if (!messageListVisible) {
+      messageListElement.classList.add(style.moveIn);
       backgroundElement.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
       backgroundElement.style.zIndex = 101;
       backgroundElement.style.display = 'block';
 
       setMessageListVisible(!messageListVisible);
+      setTimeout(() => {
+        messageListElement.classList.remove(style.moveIn);
+      }, 900);
     }
   };
 

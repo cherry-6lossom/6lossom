@@ -8,15 +8,19 @@ const MessageList = () => {
 
   const handleCloseMessageListWithButton = (e, messageVisibility) => {
     const { messageListVisible, setMessageListVisible } = messageVisibility;
-    const backgroundElement =
-      e.target.parentElement.parentElement.parentElement;
+    const messageListElement = e.target.parentElement.parentElement;
+    const backgroundElement = messageListElement.parentElement;
 
     if (messageListVisible) {
-      backgroundElement.style.backgroundColor = '';
-      backgroundElement.style.zIndex = '';
-      backgroundElement.style.display = '';
+      messageListElement.classList.add(style.moveOut);
+      setTimeout(() => {
+        backgroundElement.style.backgroundColor = '';
+        backgroundElement.style.zIndex = '';
+        backgroundElement.style.display = '';
 
-      setMessageListVisible(!messageListVisible);
+        setMessageListVisible(!messageListVisible);
+        messageListElement.classList.remove(style.moveOut);
+      }, 400);
     }
   };
 
@@ -24,13 +28,18 @@ const MessageList = () => {
     const { messageListVisible, setMessageListVisible } = messageVisibility;
     const clickedTarget = e.target;
     const backgroundElement = e.currentTarget;
+    const messageListElement = backgroundElement.children[0];
 
     if (backgroundElement === clickedTarget && messageListVisible) {
-      backgroundElement.style.backgroundColor = '';
-      backgroundElement.style.zIndex = '';
-      backgroundElement.style.display = '';
+      messageListElement.classList.add(style.moveOut);
+      setTimeout(() => {
+        backgroundElement.style.backgroundColor = '';
+        backgroundElement.style.zIndex = '';
+        backgroundElement.style.display = '';
 
-      setMessageListVisible(!messageListVisible);
+        setMessageListVisible(!messageListVisible);
+        messageListElement.classList.remove(style.moveOut);
+      }, 400);
     }
   };
 
