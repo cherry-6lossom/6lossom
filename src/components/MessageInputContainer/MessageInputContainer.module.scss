@@ -2,35 +2,63 @@
 @import '@/styles/theme/theme';
 
 .messageWrap {
-  width: 350px;
-  padding-top: rem(75px);
-  // background-color: $cherryblossom100;
-  height: 100vh;
-  text-align: center;
+  margin: 0 auto;
+  min-width: rem(350px);
+  max-width: rem(768px);
+  height: 100%;
+  position: relative;
+  background-color: $cherryblossom100;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 
-  .nickname {
-    margin-top: rem(16px);
+  .authorContainer {
+    justify-content: center;
     display: block;
-    width: 344px;
-    height: 29px;
-    left: 25px;
-    top: 240px;
-    border: 1px;
-    border: 2px solid #f175a9;
-    border-radius: 12px;
-    padding: 0 16px 0 16px;
+    position: relative;
+    text-align: center;
+    display: flex;
+
+    .author {
+      display: block;
+      margin-top: rem(16px);
+      width: 90%;
+      height: rem(29px);
+      border: 1px;
+      border: 2px solid $secondary;
+      border-radius: 12px;
+      padding: 0 16px 0 16px;
+      color: $secondary;
+
+      &:focus {
+        @include pink-shadow;
+        outline: none;
+      }
+    }
   }
-
-  .message {
-    margin-top: rem(16px);
+  .contentContainer {
+    justify-content: center;
     display: block;
-    padding: 0 16px 0 16px;
-    width: 344px;
-    height: 340px;
-    left: 25px;
-    top: 285px;
-    background: #ffffff;
-    border: 2px solid #f175a9;
-    border-radius: 12px;
+    position: relative;
+    text-align: center;
+    display: flex;
+
+    .content {
+      margin-top: rem(16px);
+      display: block;
+      padding: rem(16px);
+      width: 90%;
+      height: rem(340px);
+      background: $white;
+      border: 2px solid $secondary;
+      border-radius: 12px;
+      resize: none;
+      color: $secondary;
+
+      &:focus {
+        @include pink-shadow;
+        outline: none;
+      }
+    }
   }
 }

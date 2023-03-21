@@ -17,11 +17,11 @@ const MessageInputContainer = () => {
   };
 
   return (
-    <>
+    <div className={classes.messageInputContainer}>
       <div className={classes.messageWrap}>
         <div className={classes.authorContainer}>
           <input
-            className={classes.nickname}
+            className={classes.author}
             name="author"
             placeholder="작성자이름을 적어주세요"
             type="text"
@@ -32,7 +32,7 @@ const MessageInputContainer = () => {
         </div>
         <div className={classes.contentContainer}>
           <textarea
-            className={classes.message}
+            className={classes.content}
             name="content"
             placeholder="메세지를 작성해주세요"
             type="text"
@@ -42,7 +42,7 @@ const MessageInputContainer = () => {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
