@@ -1,17 +1,28 @@
 @import '@/styles/utils/function';
 @import '@/styles/theme/theme';
 
-.messageDetailWrapper {
+.messageDetailBackground {
   display: none;
   position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 102;
+}
+
+.messageDetailWrapper {
+  position: absolute;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  min-width: rem(350px);
+  max-width: rem(728px);
   width: 90%;
   height: rem(350px);
   border-radius: rem(20px);
   background-color: $cherryblossom100;
   box-shadow: rem(2px) rem(2px) rem(4px) $cherryblossom700;
-  display: block;
 }
 
 .messageDetailContainer {
