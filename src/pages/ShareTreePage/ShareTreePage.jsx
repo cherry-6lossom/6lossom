@@ -11,8 +11,6 @@ import SideMenu from '@/components/SideMenu/SideMenu';
 import { db, useCallCollection } from '@/firebase/app';
 import { doc, onSnapshot } from 'firebase/firestore';
 
-
-
 const ShareTreePage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { uid } = useParams();
@@ -46,7 +44,7 @@ const ShareTreePage = () => {
 
   const handleWatchTree = () => {
     if (localUid) {
-      navigate(`/share-tree/${localUid}`);
+      window.location.replace(`/share-tree/${localUid}`);
     } else {
       alert('로그인이 필요합니다.');
       navigate('/');
@@ -68,7 +66,7 @@ const ShareTreePage = () => {
         }
       });
     });
-  }, [userNickname, bgSrc, flowerList, localNickname]);
+  }, []);
 
   return (
     <div
