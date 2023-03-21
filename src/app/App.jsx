@@ -4,17 +4,19 @@ import MessageInputContainer from '@/components/MessageInputContainer/MessageInp
 import MakeTreePage from '@/pages/MakeTreePage/MakeTreePage';
 import WriteMessagePage from '@/pages/WriteMessagePage/WriteMessagePage';
 import LongButton from '@/components/LongButton/LongButton';
+import ModalEnroll from './../components/ModalEnroll/ModalEnroll';
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      {/* <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/make-tree" element={<MakeTreePage />} />
           <Route path="/write-message-page" element={<WriteMessagePage />} />
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
+      <ModalEnroll />
     </div>
   );
 }
