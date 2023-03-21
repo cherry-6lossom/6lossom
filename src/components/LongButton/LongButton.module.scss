@@ -3,8 +3,14 @@
 
 .longButton {
   @include pink-button;
-  width: rem(310px);
+  width: 90%;
   height: rem(54px);
   border: none;
   border-radius: rem(12px);
+  position: relative;
+  @include button-shadow;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
