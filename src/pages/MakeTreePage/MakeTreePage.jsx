@@ -98,9 +98,7 @@ const MakeTreePage = () => {
   const { updateData } = useUpdateData('users');
 
   const [nickname, setNickname] = useState('');
-  const [selectBg, setSelectBg] = useState(
-    JSON.stringify('/src/assets/custom/bg-pink.png')
-  );
+  const [selectBg, setSelectBg] = useState('/src/assets/custom/bg-pink.png');
 
   const localUid = JSON.parse(localStorage.getItem('uid'));
 
@@ -158,7 +156,10 @@ const MakeTreePage = () => {
 
   return (
     <BgContext.Provider value={value}>
-      <div className={classNames('MakeTreePage', style.makeTreeContainer)}>
+      <form
+        onSubmit={handleComplete}
+        className={classNames('MakeTreePage', style.makeTreeContainer)}
+      >
         <header className={headerStyle.header}>
           <UsageDescription subText={'벚꽃나무에 이름을 적어주세요'} />
           <div className={style.headerTitle}>
@@ -170,6 +171,7 @@ const MakeTreePage = () => {
               placeholder="닉네임을 입력해주세요"
               onChange={handleChange}
               className={style.userNickname}
+              required
             />
             <span>님의 벚꽃나무</span>
           </div>
@@ -185,10 +187,10 @@ const MakeTreePage = () => {
             firstText={'취소'}
             firstClick={() => navigate('/')}
             secondText={'완료'}
-            secondClick={handleComplete}
+            type={'submit'}
           />
         </div>
-      </div>
+      </form>
     </BgContext.Provider>
   );
 };
