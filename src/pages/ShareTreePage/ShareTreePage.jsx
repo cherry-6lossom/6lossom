@@ -1,11 +1,20 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import style from './ShareTreePage.module.scss';
 import rightButton from '@/assets/swiper-button/right.png';
 import leftButton from '@/assets/swiper-button/left.png';
 
 import messageContext from '@/contexts/messageContext';
+import flowerContext from '@/contexts/flowerContext';
+
 import Header from '@/components/Header/Header';
 import OriginTree from '@/components/OriginTree/OriginTree';
 import LongButtonList from '@/components/LongButtonList/LongButtonList';
@@ -17,21 +26,28 @@ import { db, useCallCollection } from '@/firebase/app';
 import {
   collection,
   doc,
+  endBefore,
   getCountFromServer,
   getDocs,
   limit,
+  limitToLast,
   onSnapshot,
   orderBy,
   query,
   startAfter,
 } from 'firebase/firestore';
 import classNames from 'classnames';
+import Flower from '@/components/Flower/Flower';
 
 const ShareTreePage = () => {
   const [messageListVisible, setMessageListVisible] = useState(false);
   const [messageDetailVisible, setMessageDetailVisible] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [flowerInfo, setFlowerInfo] = useState({});
   const { uid } = useParams();
+  const listBackgroundRef = useRef();
+  const messageListRef = useRef();
+  const messageDetailRef = useRef();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -56,31 +72,32 @@ const ShareTreePage = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [flowerList, setFlowerList] = useState([]);
+  const [firstVisible, setFirstVisible] = useState(null);
   const [lastVisible, setLastVisible] = useState(null);
   const [pageTotalCount, setPageTotalCount] = useState(0);
   const [hasPrevPage, setHasPrevPage] = useState(false);
   const [hasNextPage, setHasNextPage] = useState(true);
-
-  // 렌더링할 때 6개만 보일 리스트
   const [renderList, setRenderList] = useState([]);
-  // 이전 페이지로 돌아가기 위해 생성해 둔 리스트
-  const [pageList, setPageList] = useState([]);
 
   useLayoutEffect(() => {
     getPageTotalCount();
-    queryPage(6);
+    queryPage(6, 'next');
   }, []);
 
   useLayoutEffect(() => {
-    if (flowerList.length === pageTotalCount) {
-      setHasNextPage(false);
-      setHasPrevPage(true);
-    } else if (flowerList.length === 6) {
-      setHasNextPage(true);
-      setHasPrevPage(false);
-    } else {
-      setHasNextPage(true);
-      setHasPrevPage(true);
+    switch (flowerList.length) {
+      case pageTotalCount:
+        setHasNextPage(false);
+        setHasPrevPage(true);
+        break;
+      case 6:
+        setHasNextPage(true);
+        setHasPrevPage(false);
+        break;
+      default:
+        setHasNextPage(true);
+        setHasPrevPage(true);
+        break;
     }
   }, [flowerList.length, pageTotalCount]);
 
@@ -94,18 +111,40 @@ const ShareTreePage = () => {
     setPageTotalCount(res.data().count);
   };
 
-  const queryPage = async (limitCount = 10) => {
+  const queryPage = async (limitCount = 10, text) => {
     let q;
-    if (!lastVisible) {
-      q = query(flowerListRef, orderBy('createdAt'), limit(limitCount));
-    } else {
-      q = query(
-        flowerListRef,
-        orderBy('createdAt'),
-        startAfter(lastVisible),
-        limit(limitCount)
-      );
+
+    switch (text) {
+      case 'prev':
+        if (!firstVisible) {
+          q = query(
+            flowerListRef,
+            orderBy('createdAt', 'asc'),
+            limit(limitCount)
+          );
+        } else {
+          q = query(
+            flowerListRef,
+            orderBy('createdAt', 'asc'),
+            endBefore(firstVisible),
+            limitToLast(limitCount)
+          );
+        }
+        break;
+      case 'next':
+        if (!lastVisible) {
+          q = query(flowerListRef, orderBy('createdAt'), limit(limitCount));
+        } else {
+          q = query(
+            flowerListRef,
+            orderBy('createdAt'),
+            startAfter(lastVisible),
+            limit(limitCount)
+          );
+        }
+        break;
     }
+
     const docSnapshot = await getDocs(q);
 
     if (isLoading) {
@@ -113,19 +152,36 @@ const ShareTreePage = () => {
     }
 
     const docs = docSnapshot.docs;
-    queryData(docs);
+    queryData(docs, text);
   };
 
-  const queryData = (docs) => {
+  const queryData = (docs, text) => {
     const listItem = [];
 
     docs.forEach((doc) => {
       listItem.push({ id: doc.id, ...doc.data() });
     });
 
-    setFlowerList([...flowerList, ...listItem]);
+    switch (text) {
+      case 'prev':
+        setFlowerList(
+          flowerList.slice(
+            undefined,
+            Number(lastVisible.id) % 6 === 0
+              ? Number(lastVisible.id) - 5
+              : Number(lastVisible.id) - (Number(lastVisible.id) % 6)
+          )
+        );
+        break;
+      case 'next':
+        setFlowerList([...flowerList, ...listItem]);
+        break;
+    }
+
     setRenderList(listItem);
-    setPageList([...pageList, ...[listItem]]);
+
+    let prevDoc = docs[0];
+    if (prevDoc) setFirstVisible(prevDoc);
 
     let nextDoc = docs[docs.length - 1];
     if (nextDoc) setLastVisible(nextDoc);
@@ -147,10 +203,24 @@ const ShareTreePage = () => {
     alert('링크가 복사되었습니다.');
   };
 
+  const handleOpenMessageDetail = (messageVisibility, message) => {
+    const { messageDetailVisible, setMessageDetailVisible } = messageVisibility;
+    const backgroundElement = messageDetailRef.current;
+    setFlowerInfo(message);
+
+    if (!messageDetailVisible) {
+      backgroundElement.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
+      backgroundElement.style.zIndex = 102;
+      backgroundElement.style.display = 'block';
+
+      setMessageDetailVisible(!messageDetailVisible);
+    }
+  };
+
   const handleOpenMessageList = (e, messageVisibility) => {
     const { messageListVisible, setMessageListVisible } = messageVisibility;
-    const backgroundElement = e.target.parentElement.parentElement.nextSibling;
-    const messageListElement = backgroundElement.children[0];
+    const backgroundElement = listBackgroundRef.current;
+    const messageListElement = messageListRef.current;
 
     if (!messageListVisible) {
       messageListElement.classList.add(style.moveIn);
@@ -181,7 +251,7 @@ const ShareTreePage = () => {
       setBgSrc(doc.data().bgSrc);
     });
 
-    useCallCollection().then((userList) => {
+    useCallCollection('users').then((userList) => {
       userList.map((user) => {
         if (user.uid === localUid) {
           setLocalNickname(user.userNickname);
@@ -191,91 +261,87 @@ const ShareTreePage = () => {
   }, []);
 
   return (
-    <div
-      style={{ background: `url(${bgSrc}) center no-repeat` }}
-      className={style.shareTreeContainer}
-    >
-      <Header
-        userName={userNickname}
-        className={style.shareTreeSubTitle}
-        subText={`${pageTotalCount}송이의 벚꽃이 피었어요 ! `}
-      />
-      <div className={style.blossomTreeContainer}>
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : (
-          <div className={style.flowerList}>
-            <OriginTree />
-            <span className={style.pagination}>
-              {flowerList.length}/{pageTotalCount}
-            </span>
-            <button
-              className={classNames(style.arrowButton, style.leftButton)}
-              disabled={!hasPrevPage}
-              onClick={() => queryPage(6)}
-            >
-              <img src={leftButton} alt="이전 페이지 보기" />
-            </button>
-            <button
-              className={classNames(style.arrowButton, style.rightButton)}
-              disabled={!hasNextPage}
-              onClick={() => queryPage(6)}
-            >
-              <img src={rightButton} alt="다음 페이지 보기" />
-            </button>
-            <ul>
-              {renderList.map((item) => (
-                <li
-                  className={classNames(
-                    style.flower,
-                    item.id % 6 === 0
-                      ? style.flower0
-                      : item.id % 6 === 1
-                      ? style.flower1
-                      : item.id % 6 === 2
-                      ? style.flower2
-                      : item.id % 6 === 3
-                      ? style.flower3
-                      : item.id % 6 === 4
-                      ? style.flower4
-                      : style.flower5
-                  )}
-                  key={item.id}
-                >
-                  <button>
-                    <img src={item.flowerSrc} alt="벚꽃 메세지" />
-                    {item.nickname}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-
-      {uid === localUid ? (
-        <LongButtonList
-          firstText={'링크 공유하기'}
-          firstClick={handleCopyLink}
-          secondText={'전체 메세지 보기'}
-          secondClick={(e) => handleOpenMessageList(e, messageVisibility)}
-        />
-      ) : (
-        <LongButtonList
-          firstText={'벚꽃 달아주기'}
-          secondText={'내 벚꽃나무 보러가기'}
-          secondClick={handleWatchTree}
-        />
-      )}
-      <div onClick={handleMenuClick}>
-        <HamburgerButton />
-      </div>
-      {isMenuOpen && <SideMenu loginName={localNickname} />}
+    <>
       <messageContext.Provider value={messageVisibility}>
-        <MessageList />
-        <MessageDetail />
+        <flowerContext.Provider value={{ flowerInfo, setFlowerInfo }}>
+          <div
+            style={{ background: `url(${bgSrc}) center no-repeat` }}
+            className={style.shareTreeContainer}
+          >
+            <Header
+              userName={userNickname}
+              className={style.shareTreeSubTitle}
+              subText={`${pageTotalCount}송이의 벚꽃이 피었어요 ! `}
+            />
+            <div className={style.blossomTreeContainer}>
+              {isLoading ? (
+                <div>Loading...</div>
+              ) : (
+                <div className={style.flowerList}>
+                  <OriginTree />
+                  <span className={style.pagination}>
+                    {flowerList.length}/{pageTotalCount}
+                  </span>
+                  <button
+                    className={classNames(style.arrowButton, style.leftButton)}
+                    disabled={!hasPrevPage}
+                    onClick={() => queryPage(6, 'prev')}
+                  >
+                    <img src={leftButton} alt="이전 페이지 보기" />
+                  </button>
+                  <button
+                    className={classNames(style.arrowButton, style.rightButton)}
+                    disabled={!hasNextPage}
+                    onClick={() => queryPage(6, 'next')}
+                  >
+                    <img src={rightButton} alt="다음 페이지 보기" />
+                  </button>
+                  <ul>
+                    {renderList.map((item) => (
+                      <Flower
+                        item={item}
+                        handleOpenMessageDetail={handleOpenMessageDetail}
+                        messageDetailRef={messageDetailRef}
+                      />
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            {uid === localUid ? (
+              <LongButtonList
+                firstText={'링크 공유하기'}
+                firstClick={handleCopyLink}
+                secondText={'전체 메세지 보기'}
+                secondClick={(e) => handleOpenMessageList(e, messageVisibility)}
+              />
+            ) : (
+              <LongButtonList
+                firstText={'벚꽃 달아주기'}
+                secondText={'내 벚꽃나무 보러가기'}
+                secondClick={handleWatchTree}
+              />
+            )}
+            <div onClick={handleMenuClick}>
+              <HamburgerButton />
+            </div>
+            {isMenuOpen && <SideMenu loginName={localNickname} />}
+          </div>
+
+          <MessageList
+            flowerList={flowerList}
+            listBackgroundRef={listBackgroundRef}
+            messageListRef={messageListRef}
+            handleOpenMessageDetail={handleOpenMessageDetail}
+          />
+          <MessageDetail
+            flowerInfo={flowerInfo}
+            messageDetailRef={messageDetailRef}
+          />
+        </flowerContext.Provider>
       </messageContext.Provider>
-    </div>
+    </>
   );
 };
 
