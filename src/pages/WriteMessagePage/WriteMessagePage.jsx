@@ -5,7 +5,7 @@ import HeaderTitle from '@/components/HeaderTitle/HeaderTitle';
 import LongButton from '@/components/LongButton/LongButton';
 import MessageInputContainer from '@/components/MessageInputContainer/MessageInputContainer';
 import UsageDescription from '@/components/UsageDescription/UsageDescription';
-import LongButtonList from './../../components/LongButtonList/LongButtonList';
+// import LongButtonList from './../../components/LongButtonList/LongButtonList';
 
 const WriteMessagePage = () => {
   const handlePrev = () => {};
@@ -22,12 +22,6 @@ const WriteMessagePage = () => {
           />
         </header>
         <MessageInputContainer />
-        <LongButtonList
-          firstText={'이전'}
-          firstClick={handlePrev}
-          secondText={'완료'}
-          secondClick={handleMakeMsg}
-        />
       </div>
     </>
   );

@@ -2,6 +2,8 @@
 @import '@/styles/theme/theme';
 
 .enrollWrap {
+  margin: 0 auto;
+  justify-content: center;
   @include message-modal;
   width: rem(350px);
   height: rem(200px);

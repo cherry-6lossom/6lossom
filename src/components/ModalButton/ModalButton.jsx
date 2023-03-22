@@ -1,7 +1,11 @@
-const ModalButton = ({ text }) => {
+import styles from '@/components/ModalButton/ModalButton.module.scss';
+
+const ModalButton = ({ text, onClick }) => {
   return (
     <>
-      <button className={classes.modalButton}>{text}</button>;
+      <button className={styles.modalButton} onClick={onClick}>
+        {text}
+      </button>
     </>
   );
 };

@@ -5,6 +5,8 @@ import MakeTreePage from '@/pages/MakeTreePage/MakeTreePage';
 import WriteMessagePage from '@/pages/WriteMessagePage/WriteMessagePage';
 import LongButton from '@/components/LongButton/LongButton';
 import ModalEnroll from './../components/ModalEnroll/ModalEnroll';
+import ModalButton from '@/components/ModalButton/ModalButton';
+import ModalButtonList from '@/components/ModalButtonList/ModalButtonList';
 
 function App() {
   return (
@@ -16,7 +18,9 @@ function App() {
           <Route path="/write-message-page" element={<WriteMessagePage />} />
         </Routes>
       </BrowserRouter> */}
-      <ModalEnroll />
+      {/* <ModalEnroll /> */}
+      {/* <ModalButtonList /> */}
+      <ModalButton />
     </div>
   );
 }

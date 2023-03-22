@@ -15,4 +15,10 @@
     display: flex;
     flex-direction: column;
   }
+
+  .modalButtonContainer {
+    display: flex;
+    flex-direction: row;
+    background-color: aqua;
+  }
 }
