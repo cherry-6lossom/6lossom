@@ -61,7 +61,10 @@ const ShareTreePage = () => {
   const [hasPrevPage, setHasPrevPage] = useState(false);
   const [hasNextPage, setHasNextPage] = useState(true);
 
+  // 렌더링할 때 6개만 보일 리스트
   const [renderList, setRenderList] = useState([]);
+  // 이전 페이지로 돌아가기 위해 생성해 둔 리스트
+  const [pageList, setPageList] = useState([]);
 
   useLayoutEffect(() => {
     getPageTotalCount();
@@ -122,6 +125,7 @@ const ShareTreePage = () => {
 
     setFlowerList([...flowerList, ...listItem]);
     setRenderList(listItem);
+    setPageList([...pageList, ...[listItem]]);
 
     let nextDoc = docs[docs.length - 1];
     if (nextDoc) setLastVisible(nextDoc);
