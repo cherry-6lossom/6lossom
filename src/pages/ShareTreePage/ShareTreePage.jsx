@@ -1,15 +1,18 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 
 import style from './ShareTreePage.module.scss';
 import rightButton from '@/assets/swiper-button/right.png';
 import leftButton from '@/assets/swiper-button/left.png';
 
+import messageContext from '@/contexts/messageContext';
 import Header from '@/components/Header/Header';
 import OriginTree from '@/components/OriginTree/OriginTree';
 import LongButtonList from '@/components/LongButtonList/LongButtonList';
 import HamburgerButton from '@/components/HamburgerButton/HamburgerButton';
 import SideMenu from '@/components/SideMenu/SideMenu';
+import MessageList from '@/components/MessageList/MessageList';
+import MessageDetail from '@/components/MessageDetail/MessageDetail';
 import { db, useCallCollection } from '@/firebase/app';
 import {
   collection,
@@ -25,10 +28,27 @@ import {
 import classNames from 'classnames';
 
 const ShareTreePage = () => {
+  const [messageListVisible, setMessageListVisible] = useState(false);
+  const [messageDetailVisible, setMessageDetailVisible] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { uid } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const messageVisibility = useMemo(
+    () => ({
+      messageListVisible,
+      setMessageListVisible,
+      messageDetailVisible,
+      setMessageDetailVisible,
+    }),
+    [
+      messageListVisible,
+      setMessageListVisible,
+      messageDetailVisible,
+      setMessageDetailVisible,
+    ]
+  );
 
   // 공유 트리 페이지의 주인
   const [userNickname, setUserNickname] = useState('');
@@ -123,8 +143,22 @@ const ShareTreePage = () => {
     alert('링크가 복사되었습니다.');
   };
 
-  const handleTotalMessage = () => {
-    alert('아직 개화시기가 되지 않았습니다.');
+  const handleOpenMessageList = (e, messageVisibility) => {
+    const { messageListVisible, setMessageListVisible } = messageVisibility;
+    const backgroundElement = e.target.parentElement.parentElement.nextSibling;
+    const messageListElement = backgroundElement.children[0];
+
+    if (!messageListVisible) {
+      messageListElement.classList.add(style.moveIn);
+      backgroundElement.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
+      backgroundElement.style.zIndex = 101;
+      backgroundElement.style.display = 'block';
+
+      setMessageListVisible(!messageListVisible);
+      setTimeout(() => {
+        messageListElement.classList.remove(style.moveIn);
+      }, 900);
+    }
   };
 
   const handleWatchTree = () => {
@@ -220,7 +254,7 @@ const ShareTreePage = () => {
           firstText={'링크 공유하기'}
           firstClick={handleCopyLink}
           secondText={'전체 메세지 보기'}
-          secondClick={handleTotalMessage}
+          secondClick={(e) => handleOpenMessageList(e, messageVisibility)}
         />
       ) : (
         <LongButtonList
@@ -233,6 +267,10 @@ const ShareTreePage = () => {
         <HamburgerButton />
       </div>
       {isMenuOpen && <SideMenu loginName={localNickname} />}
+      <messageContext.Provider value={messageVisibility}>
+        <MessageList />
+        <MessageDetail />
+      </messageContext.Provider>
     </div>
   );
 };

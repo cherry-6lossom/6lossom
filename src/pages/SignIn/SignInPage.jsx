@@ -42,15 +42,23 @@ export default function SignInPage() {
     if (
       name === 'email' &&
       value.includes('@') &&
-      value.substring(0, value.lastIndexOf('@')) !== '' &&
-      value.substr(value.lastIndexOf('@') + 1) !== ''
+      value.substring(0, value.indexOf('@')) !== '' &&
+      value.substring(value.indexOf('@') + 1) !== '' &&
+      value.substring(value.indexOf('@') + 1).includes('.') &&
+      value.substring(0, value.indexOf('.')) !== '' &&
+      value.substring(value.indexOf('.') + 1) !== '' &&
+      value.substring(value.indexOf('.') - 1, value.indexOf('.')) !== '@'
     ) {
       e.target.nextSibling.classList.add(style.validatePassed);
     } else if (
       name === 'email' &&
       (!value.includes('@') ||
-        value.substring(0, value.lastIndexOf('@')) === '' ||
-        value.substr(value.lastIndexOf('@') + 1) === '')
+        value.substring(0, value.indexOf('@')) === '' ||
+        value.substring(value.indexOf('@') + 1) === '' ||
+        !value.substring(value.indexOf('@') + 1).includes('.') ||
+        value.substring(0, value.indexOf('.')) === '' ||
+        value.substring(value.indexOf('.') + 1) === '' ||
+        value.substring(value.indexOf('.') - 1, value.indexOf('.')) === '@')
     ) {
       e.target.nextSibling.classList.remove(style.validatePassed);
     }
