@@ -1,0 +1,27 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.enrollWrap {
+  margin: 0 auto;
+  justify-content: center;
+  @include message-modal;
+  width: rem(350px);
+  height: rem(200px);
+  text-align: center;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  padding-top: rem(19px);
+  .notice {
+    // background-color: aqua;
+  }
+  .noticeDetail {
+    @include message-input;
+    display: flex;
+    flex-direction: column;
+    width: rem(330px);
+    height: rem(80px);
+    justify-content: center;
+    margin: rem(16px) auto 0;
+  }
+}

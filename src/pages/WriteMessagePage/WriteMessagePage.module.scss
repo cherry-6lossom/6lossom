@@ -1,0 +1,24 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.writeMessageWrap {
+  margin: 0 auto;
+  min-width: rem(350px);
+  max-width: rem(768px);
+  height: 100%;
+  position: relative;
+  background-color: $cherryblossom100;
+  padding-top: rem(75px);
+
+  .writeMessageHeader {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modalButtonContainer {
+    display: flex;
+    flex-direction: row;
+    background-color: aqua;
+  }
+}
