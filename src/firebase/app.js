@@ -3,6 +3,8 @@ import {
   getFirestore,
   collection,
   getDocs,
+  query,
+  orderBy,
 } from 'firebase/firestore';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
@@ -31,13 +33,12 @@ const googleProvider = new GoogleAuthProvider();
 export { auth, googleProvider };
 
 // collection의 모든 문서 가져오기
-export const useCallCollection = async () => {
-  let userList = [];
-  const querySnapshot = await getDocs(collection(db, 'users'));
+export const useCallCollection = async (collectionName) => {
+  let list = [];
+  const querySnapshot = await getDocs(collection(db, collectionName));
   querySnapshot.forEach((doc) => {
-    userList.push(doc.data());
+    list.push(doc.data());
   });
 
-  return userList;
+  return list;
 };
-

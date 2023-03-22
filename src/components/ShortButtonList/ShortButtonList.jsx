@@ -1,5 +1,5 @@
 import ShortButton from './../ShortButton/ShortButton';
-import style from '@/pages/MakeTreePage/MakeTreePage.module.scss';
+import style from '@/components/ShortButtonList/ShortButtonList.module.scss';
 
 const ShortButtonList = ({
   firstText,

@@ -1,15 +1,30 @@
 import style from './MessageList.module.scss';
-import { useContext } from 'react';
+import { useContext, useLayoutEffect, useRef, useState } from 'react';
 import MessageItem from '@/components/MessageItem/MessageItem';
 import messageContext from '@/contexts/messageContext';
+import { useCallCollection } from '@/firebase/app';
+import { useParams } from 'react-router-dom';
 
-const MessageList = () => {
+const MessageList = ({
+  listBackgroundRef,
+  messageListRef,
+  messageDetailRef,
+  handleOpenMessageDetail,
+}) => {
   const messageVisibility = useContext(messageContext);
+  const backgroundElement = listBackgroundRef.current;
+  const messageListElement = messageListRef.current;
+  const { uid } = useParams();
+  const [flowerList, setFlowerList] = useState([]);
+
+  useLayoutEffect(() => {
+    useCallCollection(`users/${uid}/flowerList`).then((res) => {
+      setFlowerList(res.sort((a, b) => a.createdAt - b.createdAt));
+    });
+  }, []);
 
   const handleCloseMessageListWithButton = (e, messageVisibility) => {
     const { messageListVisible, setMessageListVisible } = messageVisibility;
-    const messageListElement = e.target.parentElement.parentElement;
-    const backgroundElement = messageListElement.parentElement;
 
     if (messageListVisible) {
       messageListElement.classList.add(style.moveOut);
@@ -27,8 +42,6 @@ const MessageList = () => {
   const handleCloseMessageListWithBackground = (e, messageVisibility) => {
     const { messageListVisible, setMessageListVisible } = messageVisibility;
     const clickedTarget = e.target;
-    const backgroundElement = e.currentTarget;
-    const messageListElement = backgroundElement.children[0];
 
     if (backgroundElement === clickedTarget && messageListVisible) {
       messageListElement.classList.add(style.moveOut);
@@ -42,24 +55,24 @@ const MessageList = () => {
       }, 400);
     }
   };
-
   return (
     <div
+      ref={listBackgroundRef}
       onClick={(e) =>
         handleCloseMessageListWithBackground(e, messageVisibility)
       }
       className={style.messageListBackground}
     >
-      <div className={style.messageListWrapper}>
+      <div ref={messageListRef} className={style.messageListWrapper}>
         <div className={style.messageListContainer}>
           <div className={style.messageList}>
             <ul className={style.MessageItemWrapper}>
-              <MessageItem />
-              <MessageItem />
-              <MessageItem />
-              <MessageItem />
-              <MessageItem />
-              <MessageItem />
+              {flowerList.map((flower) => (
+                <MessageItem
+                  flower={flower}
+                  handleOpenMessageDetail={handleOpenMessageDetail}
+                />
+              ))}
             </ul>
           </div>
           <button
