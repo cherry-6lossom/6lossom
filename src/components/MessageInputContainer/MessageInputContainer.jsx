@@ -1,5 +1,6 @@
 import classes from '@/components/MessageInputContainer/MessageInputContainer.module.scss';
 import { useState, useRef } from 'react';
+import LongButtonList from './../LongButtonList/LongButtonList';
 
 const MessageInputContainer = () => {
   const authorInput = useRef();
@@ -21,6 +22,19 @@ const MessageInputContainer = () => {
     if (inputValue.length <= 500) {
       setText(inputValue);
     }
+  };
+
+  const handleSubmit = () => {
+    if (state.author.length < 1) {
+      authorInput.current.focus();
+      return;
+    }
+    if (state.content.length < 2) {
+      contentInput.current.focus();
+      return;
+    }
+
+    alert('저장성공');
   };
 
   return (
@@ -55,6 +69,12 @@ const MessageInputContainer = () => {
         </div>
         <p className={classes.textLength}>{text.length} / 500</p>
       </div>
+      <LongButtonList
+        firstText={'완료'}
+        firstClick={handleSubmit}
+        secondText={'이전'}
+        secondClick={() => alert('버튼 테스트 ')}
+      />
     </div>
   );
 };

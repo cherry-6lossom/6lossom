@@ -21,12 +21,12 @@ const WriteMessagePage = () => {
         />
       </header>
       <MessageInputContainer />
-      <LongButtonList
+      {/* <LongButtonList
         firstText={'완료'}
         firstClick={() => alert('버튼 테스트 ')}
         secondText={'이전'}
         secondClick={() => alert('버튼 테스트 ')}
-      />
+      /> */}
     </div>
   );
 };
