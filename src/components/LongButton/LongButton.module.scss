@@ -1,0 +1,19 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.longButton {
+  @include pink-button;
+  width: 80%;
+  height: rem(54px);
+  border: none;
+  border-radius: rem(12px);
+  cursor: pointer;
+}
+
+.longButton:hover {
+  background-color: $cherryblossom300;
+}
+
+.longButton:focus {
+  border: 5px solid $secondary;
+}

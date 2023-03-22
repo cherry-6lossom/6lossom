@@ -1,0 +1,29 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.pageSetting {
+  min-width: rem(350px);
+  max-width: rem(768px);
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  padding: rem(100px) rem(8px) rem(130px) rem(8px);
+  background-color: $cherryblossom100;
+}
+
+.headerTitle {
+  margin-bottom: rem(20px);
+}
+
+.headerSubTitle {
+  margin-bottom: rem(20px);
+}
+
+.buttonList {
+  width: rem(348px);
+  height: rem(100px);
+}
+
+.buttonItem {
+  width: rem(348px);
+}

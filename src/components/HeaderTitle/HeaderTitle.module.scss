@@ -1,0 +1,17 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.headerTitle {
+  display: inline-block;
+  text-align: center;
+
+  color: $secondary;
+
+  font-size: rem(24px);
+  text-shadow: rem(-1px) 0 #350b0b, 0 rem(1px) #350b0b, rem(1px) 0 #350b0b,
+    0 rem(-1px) #350b0b;
+
+  span {
+    color: $primary;
+  }
+}

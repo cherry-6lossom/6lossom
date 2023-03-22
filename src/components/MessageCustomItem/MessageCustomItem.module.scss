@@ -1,0 +1,6 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+div > img {
+  filter: drop-shadow(rem(2px) rem(3px) rem(4px) rgba(102, 62, 79, 0.35));
+}

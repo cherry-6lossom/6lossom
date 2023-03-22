@@ -1,0 +1,30 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.backgroundCustomItem {
+  position: relative;
+
+  .backgroundCustomButton {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    img {
+      width: 60%;
+    }
+  }
+}
+
+.backgroundCustomSelectText {
+  font-size: rem(18px);
+
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 1;
+
+  color: $white;
+  text-shadow: rem(-1px) 0 #350b0b, 0 rem(1px) #350b0b, rem(1px) 0 #350b0b,
+    0 rem(-1px) #350b0b;
+}
