@@ -18,9 +18,9 @@ function App() {
           <Route path="/write-message-page" element={<WriteMessagePage />} />
         </Routes>
       </BrowserRouter> */}
-      {/* <ModalEnroll /> */}
-      {/* <ModalButtonList /> */}
-      <ModalButton />
+      <ModalEnroll />
+      {/* <ModalButtonList firstText={'완료'} secondText={'취소'} /> */}
+      {/* <ModalButton /> */}
     </div>
   );
 }

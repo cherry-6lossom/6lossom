@@ -17,7 +17,7 @@ const ModalEnroll = () => {
           firstText={'취소'}
           firstClick={() => alert('버튼클릭')}
           secondText={'완료'}
-          secondTClick={() => alert('버튼클릭')}
+          secondClick={() => alert('버튼클릭')}
         />
       </div>
     </>
