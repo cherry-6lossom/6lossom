@@ -12,7 +12,6 @@
   justify-content: center;
   @include message-modal;
   width: rem(350px);
-  // height: rem(200px);
   text-align: center;
   display: flex;
   position: relative;
@@ -42,6 +41,14 @@
   button {
     width: rem(175px);
     height: rem(48px);
+    cursor: pointer;
+
+    &:hover {
+      background-color: $cherryblossom200;
+    }
+    &:focus {
+      background-color: $cherryblossom200;
+    }
   }
 
   .cancel {
