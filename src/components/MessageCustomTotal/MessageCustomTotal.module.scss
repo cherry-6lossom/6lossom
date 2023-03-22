@@ -1,0 +1,37 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.blossomMain {
+  width: rem(344px);
+  height: rem(344px);
+  background-color: $white;
+  border: 2px solid $message-input;
+  border-radius: rem(12px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blossomImage {
+  width: rem(246px);
+  height: rem(246px);
+  filter: drop-shadow(rem(2px) rem(3px) rem(4px) rgba(102, 62, 79, 0.35));
+}
+
+.blossomSelect {
+  width: rem(345px);
+  height: rem(92px);
+  display: flex;
+  justify-content: space-between;
+  margin-top: rem(20px);
+}
+
+.blossomItems {
+  width: rem(70px);
+  height: rem(70px);
+  padding: rem(10px);
+  border-radius: rem(20px);
+  filter: drop-shadow(rem(2px) rem(3px) rem(4px) rgba(102, 62, 79, 0.35));
+  background-color: $cherryblossom500;
+}
