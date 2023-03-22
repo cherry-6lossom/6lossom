@@ -39,6 +39,7 @@ const MessageInputContainer = () => {
             value={state.content}
             onChange={handleChangeState}
             ref={contentInput}
+            maxLength={500}
           />
         </div>
       </div>
