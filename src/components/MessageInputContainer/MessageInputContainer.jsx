@@ -52,8 +52,8 @@ const MessageInputContainer = () => {
             ref={contentInput}
             maxLength={500}
           />
-          <p>{text.length} / 500</p>
         </div>
+        <p className={classes.textLength}>{text.length} / 500</p>
       </div>
     </div>
   );
