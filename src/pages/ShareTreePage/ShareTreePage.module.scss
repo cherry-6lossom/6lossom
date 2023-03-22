@@ -53,56 +53,6 @@
         top: 0;
         right: 0;
         left: 0;
-
-        .flower {
-          width: 12%;
-
-          button img {
-            width: 100%;
-          }
-        }
-
-        .flower0 {
-          position: absolute;
-          top: 35%;
-          right: 20%;
-        }
-
-        .flower1 {
-          position: absolute;
-          top: 30%;
-          left: 30%;
-        }
-
-        .flower2 {
-          position: absolute;
-          bottom: 18%;
-          right: 52%;
-        }
-
-        .flower3 {
-          position: absolute;
-          bottom: 0;
-          left: 20%;
-        }
-
-        .flower4 {
-          position: absolute;
-          top: 20%;
-          right: 35%;
-        }
-
-        .flower5 {
-          position: absolute;
-          top: 70%;
-          right: 30%;
-        }
-
-        button {
-          background-color: transparent;
-          border: none;
-          cursor: pointer;
-        }
       }
 
       .arrowButton {
