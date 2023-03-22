@@ -85,20 +85,8 @@ const ShareTreePage = () => {
   }, []);
 
   useLayoutEffect(() => {
-    switch (flowerList.length) {
-      case pageTotalCount:
-        setHasNextPage(false);
-        setHasPrevPage(true);
-        break;
-      case 6:
-        setHasNextPage(true);
-        setHasPrevPage(false);
-        break;
-      default:
-        setHasNextPage(true);
-        setHasPrevPage(true);
-        break;
-    }
+    setHasNextPage(flowerList.length === pageTotalCount ? false : true);
+    setHasPrevPage(flowerList.length <= 6 ? false : true);
   }, [flowerList.length, pageTotalCount]);
 
   const flowerListRef = collection(db, `users/${uid}/flowerList`);
