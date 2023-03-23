@@ -17,6 +17,10 @@ const App = () => {
           <Route path="/make-tree" element={<MakeTreePage />} />
           <Route path="/share-tree/:uid" element={<ShareTreePage />} />
           <Route path="/message-custom/:uid" element={<MessageCustomPage />} />
+          <Route
+            path="/message-write/:uid/:msgId"
+            element={<MessageCustomPage />}
+          />
         </Routes>
       </BrowserRouter>
     </div>

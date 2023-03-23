@@ -93,7 +93,7 @@ const ShareTreePage = () => {
 
   const getPageTotalCount = async () => {
     const res = await getCountFromServer(
-      query(flowerListRef, orderBy('createdAt', 'asc'))
+      query(flowerListRef, orderBy('createAt', 'asc'))
     );
 
     setPageTotalCount(res.data().count);
@@ -107,13 +107,13 @@ const ShareTreePage = () => {
         if (!firstVisible) {
           q = query(
             flowerListRef,
-            orderBy('createdAt', 'asc'),
+            orderBy('createAt', 'asc'),
             limit(limitCount)
           );
         } else {
           q = query(
             flowerListRef,
-            orderBy('createdAt', 'asc'),
+            orderBy('createAt', 'asc'),
             endBefore(firstVisible),
             limitToLast(limitCount)
           );
@@ -121,11 +121,11 @@ const ShareTreePage = () => {
         break;
       case 'next':
         if (!lastVisible) {
-          q = query(flowerListRef, orderBy('createdAt'), limit(limitCount));
+          q = query(flowerListRef, orderBy('createAt'), limit(limitCount));
         } else {
           q = query(
             flowerListRef,
-            orderBy('createdAt'),
+            orderBy('createAt'),
             startAfter(lastVisible),
             limit(limitCount)
           );

@@ -1,4 +1,4 @@
-import ShortButton from './../ShortButton/ShortButton';
+import ShortButton from '@/components/ShortButton/ShortButton';
 import style from '@/components/ShortButtonList/ShortButtonList.module.scss';
 
 const ShortButtonList = ({

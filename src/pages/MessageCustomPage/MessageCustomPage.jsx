@@ -6,8 +6,18 @@ import ShortButtonList from '@/components/ShortButtonList/ShortButtonList';
 import Header from '@/components/Header/Header';
 import { useNavigate, useParams } from 'react-router-dom';
 import { db } from '@/firebase/app';
-import { useLayoutEffect, useState } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
+import { useLayoutEffect, useRef, useState } from 'react';
+import {
+  addDoc,
+  collection,
+  doc,
+  getCountFromServer,
+  getDoc,
+  orderBy,
+  query,
+  serverTimestamp,
+  setDoc,
+} from 'firebase/firestore';
 import messageCustomContext from '@/contexts/messageCustomContext';
 
 import blossomImg1 from '@/assets/custom/cherry-blossom1.png';
@@ -15,7 +25,6 @@ import blossomImg2 from '@/assets/custom/cherry-blossom2.png';
 import blossomImg3 from '@/assets/custom/cherry-blossom3.png';
 import blossomImg4 from '@/assets/custom/cherry-blossom4.png';
 import classNames from 'classnames';
-import { useUpdateData } from '@/firebase/firestore/useUpdateData';
 
 const blossomInfoList = [
   {
@@ -43,10 +52,26 @@ const blossomInfoList = [
 const MessageCustomPage = () => {
   const navigate = useNavigate();
   const { uid } = useParams();
+  const [pageTotalCount, setPageTotalCount] = useState(0);
+  const index = useRef(pageTotalCount);
+
   const [nickname, setNickname] = useState('');
   const [blossomSrc, setBlossomSrc] = useState(
     '/src/assets/custom/cherry-blossom1.png'
   );
+
+  const getPageTotalCount = async () => {
+    const flowerListRef = collection(db, `users/${uid}/flowerList`);
+    const res = await getCountFromServer(
+      query(flowerListRef, orderBy('createAt', 'asc'))
+    );
+
+    setPageTotalCount(res.data().count);
+  };
+
+  useLayoutEffect(() => {
+    getPageTotalCount();
+  }, [pageTotalCount]);
 
   useLayoutEffect(() => {
     (async () => {
@@ -63,16 +88,32 @@ const MessageCustomPage = () => {
     blossomInfoList.map((item) => {
       if (parseInt(buttonElement.id) === item.id) {
         blossomImage.src = item.src;
-        setSelectBg(item.src);
+        setBlossomSrc(item.src);
         return;
       }
     });
   };
 
-  const handleNext = () => {
-    useUpdateData(`users/${uid}/flowerList`, {
-      // flowerSrc: src,
+  const handleNext = async () => {
+    const createAt = serverTimestamp();
+    index.current += 1;
+
+    const flowerRef = doc(
+      db,
+      'users',
+      uid,
+      'flowerList',
+      String(index.current)
+    );
+
+    await setDoc(flowerRef, {
+      nickname: '',
+      contents: '',
+      flowerSrc: blossomSrc,
+      createAt,
     });
+
+    navigate(`/message-write/${uid}/${index.current}`);
   };
 
   return (
@@ -80,11 +121,9 @@ const MessageCustomPage = () => {
       value={{ blossomInfoList, setBlossomSrc, handleSelect }}
     >
       <div className={styles.pageSetting}>
-        <Header
-          userName={nickname}
-          className={styles.header}
-          subText={'벚꽃을 골라주세요!'}
-        />
+        <div className={styles.header}>
+          <Header userName={nickname} subText={'벚꽃을 골라주세요!'} />
+        </div>
         <div className={styles.blossomMain}>
           <img
             className={classNames('blossomImage', styles.blossomImage)}
@@ -93,15 +132,12 @@ const MessageCustomPage = () => {
           />
         </div>
         <MessageCustomList className={styles.customBlossom} />
-        <footer className={styles.buttonList}>
-          <div className={styles.buttonItem}>
-            <ShortButtonList
-              firstText={'이전'}
-              firstClick={() => navigate(-1)}
-              secondText={'다음'}
-            />
-          </div>
-        </footer>
+        <ShortButtonList
+          firstText={'이전'}
+          firstClick={() => navigate(-1)}
+          secondText={'다음'}
+          secondClick={handleNext}
+        />
       </div>
     </messageCustomContext.Provider>
   );

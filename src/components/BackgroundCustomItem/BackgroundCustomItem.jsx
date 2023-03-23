@@ -7,6 +7,7 @@ const BackgroundCustomItem = ({ smallSrc, id, handleSelect }) => {
         onClick={handleSelect}
         className={style.backgroundCustomButton}
         id={id}
+        type={'button'}
       >
         <img src={smallSrc} alt={`배경${id}`} />
         <span className={style.backgroundCustomSelectText}>SELECT</span>
