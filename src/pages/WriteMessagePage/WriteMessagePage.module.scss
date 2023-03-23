@@ -8,8 +8,26 @@
   height: 100%;
   position: relative;
   background-color: $cherryblossom100;
-  padding-top: rem(75px);
   justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  justify-content: center;
+  gap: 8%;
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5%;
+  }
+
+  .flower {
+    @include pink-shadow;
+    width: 15%;
+    margin: rem(20px) 0;
+  }
 
   .writeMessageHeader {
     text-align: center;

@@ -34,7 +34,8 @@
 
     .blossomImage {
       width: 50%;
-      filter: drop-shadow(rem(2px) rem(3px) rem(4px) rgba(102, 62, 79, 0.35));
+      @include pink-shadow;
+      //
     }
   }
 }

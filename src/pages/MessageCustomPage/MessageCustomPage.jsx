@@ -5,8 +5,8 @@ import UsageDescription from '@/components/UsageDescription/UsageDescription';
 import ShortButtonList from '@/components/ShortButtonList/ShortButtonList';
 import Header from '@/components/Header/Header';
 import { useNavigate, useParams } from 'react-router-dom';
-import { db } from '@/firebase/app';
-import { useLayoutEffect, useRef, useState } from 'react';
+import { db, useCallCollection } from '@/firebase/app';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import {
   addDoc,
   collection,
@@ -53,7 +53,6 @@ const MessageCustomPage = () => {
   const navigate = useNavigate();
   const { uid } = useParams();
   const [pageTotalCount, setPageTotalCount] = useState(0);
-  const index = useRef(pageTotalCount);
 
   const [nickname, setNickname] = useState('');
   const [blossomSrc, setBlossomSrc] = useState(
@@ -69,15 +68,14 @@ const MessageCustomPage = () => {
     setPageTotalCount(res.data().count);
   };
 
-  useLayoutEffect(() => {
-    getPageTotalCount();
-  }, [pageTotalCount]);
+  useLayoutEffect(() => {}, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     (async () => {
       const docRef = doc(db, 'users', uid);
       const docSnap = await getDoc(docRef);
       setNickname(docSnap.data().userNickname);
+      getPageTotalCount();
     })();
   }, []);
 
@@ -95,25 +93,21 @@ const MessageCustomPage = () => {
   };
 
   const handleNext = async () => {
-    const createAt = serverTimestamp();
-    index.current += 1;
-
     const flowerRef = doc(
       db,
       'users',
       uid,
       'flowerList',
-      String(index.current)
+      String(pageTotalCount)
     );
 
     await setDoc(flowerRef, {
       nickname: '',
       contents: '',
       flowerSrc: blossomSrc,
-      createAt,
     });
 
-    navigate(`/message-write/${uid}/${index.current}`);
+    navigate(`/write-message/${uid}/${pageTotalCount}`);
   };
 
   return (
