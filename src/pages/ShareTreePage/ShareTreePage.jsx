@@ -38,12 +38,15 @@ import {
 } from 'firebase/firestore';
 import classNames from 'classnames';
 import Flower from '@/components/Flower/Flower';
+import ModalProjectInfo from '@/components/ModalProjectInfo/ModalProjectInfo';
 
 const ShareTreePage = () => {
   const [messageListVisible, setMessageListVisible] = useState(false);
   const [messageDetailVisible, setMessageDetailVisible] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [flowerInfo, setFlowerInfo] = useState({});
+  const [modal, setModal] = useState(false);
+
   const { uid } = useParams();
   const listBackgroundRef = useRef();
   const messageListRef = useRef();
@@ -155,8 +158,8 @@ const ShareTreePage = () => {
         setFlowerList(
           flowerList.slice(
             undefined,
-            Number(lastVisible.id) % 6 === 0
-              ? Number(lastVisible.id) - 5
+            Number(lastVisible.id + 1) % 6 === 0
+              ? Number(lastVisible.id) - 6
               : Number(lastVisible.id) - (Number(lastVisible.id) % 6)
           )
         );
@@ -233,6 +236,10 @@ const ShareTreePage = () => {
       navigate('/');
       localStorage.clear();
     }
+  };
+
+  const handleModal = () => {
+    setModal(!modal);
   };
 
   useEffect(() => {
@@ -317,7 +324,9 @@ const ShareTreePage = () => {
             <div onClick={handleMenuClick}>
               <HamburgerButton />
             </div>
-            {isMenuOpen && <SideMenu loginName={localNickname} />}
+            {isMenuOpen && (
+              <SideMenu handleModal={handleModal} loginName={localNickname} />
+            )}
           </div>
 
           <MessageList
@@ -332,6 +341,8 @@ const ShareTreePage = () => {
           />
         </flowerContext.Provider>
       </messageContext.Provider>
+      {modal ? <ModalProjectInfo handleModal={handleModal} /> : null}
+      {console.log(modal)}
     </>
   );
 };

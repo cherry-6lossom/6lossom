@@ -9,9 +9,7 @@ const ModalProjectInfo = ({ handleModal }) => {
             className={classes.projectInfoClose}
             type="button"
             alt="닫기"
-            onClick={() => {
-              handleModal();
-            }}
+            onClick={handleModal}
           >
             close
           </button>

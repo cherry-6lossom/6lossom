@@ -2,7 +2,7 @@ import style from '@/components/SideMenu/sideMenu.module.scss';
 import { useNavigate } from 'react-router-dom';
 import ShortButton from './../ShortButton/ShortButton';
 
-function SideMenu({ loginName }) {
+function SideMenu({ loginName, handleModal }) {
   const navigate = useNavigate();
   return (
     <>
@@ -12,7 +12,11 @@ function SideMenu({ loginName }) {
           {loginName ? `${loginName}님` : '로그인'}
         </div>
         <div className={style.sideMenuNav}>
-          <ShortButton text={'About'} className={style.shortButton} />
+          <ShortButton
+            text={'About'}
+            onClick={handleModal}
+            className={style.shortButton}
+          />
           <ShortButton
             onClick={() =>
               (location.href = 'https://github.com/cherry-6lossom/6lossom')
