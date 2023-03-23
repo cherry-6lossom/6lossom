@@ -39,6 +39,7 @@ import {
 import classNames from 'classnames';
 import Flower from '@/components/Flower/Flower';
 import ModalProjectInfo from '@/components/ModalProjectInfo/ModalProjectInfo';
+import Notification from '@/components/Notification/Notification';
 
 const ShareTreePage = () => {
   const [messageListVisible, setMessageListVisible] = useState(false);
@@ -81,6 +82,19 @@ const ShareTreePage = () => {
   const [hasPrevPage, setHasPrevPage] = useState(false);
   const [hasNextPage, setHasNextPage] = useState(true);
   const [renderList, setRenderList] = useState([]);
+
+  const preventGoBack = () => {
+    history.pushState(null, '', location.href);
+  };
+
+  useEffect(() => {
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', preventGoBack);
+
+    return () => {
+      window.removeEventListener('popstate', preventGoBack);
+    };
+  }, []);
 
   useLayoutEffect(() => {
     getPageTotalCount();
@@ -296,6 +310,7 @@ const ShareTreePage = () => {
                   <ul>
                     {renderList.map((item) => (
                       <Flower
+                        uid={uid}
                         item={item}
                         handleOpenMessageDetail={handleOpenMessageDetail}
                         messageDetailRef={messageDetailRef}

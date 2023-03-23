@@ -82,12 +82,6 @@ const WriteMessagePage = () => {
     });
 
     window.location.replace(`/share-tree/${uid}`);
-
-    // 뒤로 가기 막기 코드
-    history.pushState(null, null, location.href);
-    window.onpopstate = function (event) {
-      history.go(1);
-    };
   };
 
   return (
