@@ -42,54 +42,6 @@ const backgroundImageList = [
   },
 ];
 
-const flowerList = [
-  {
-    id: 0,
-    nickName: '사람1',
-    contents: '하이1',
-  },
-  {
-    id: 1,
-    nickName: '사람2',
-    contents: '하이2',
-  },
-  {
-    id: 2,
-    nickName: '사람3',
-    contents: '하이3',
-  },
-  {
-    id: 3,
-    nickName: '사람4',
-    contents: '하이4',
-  },
-  {
-    id: 4,
-    nickName: '사람5',
-    contents: '하이5',
-  },
-  {
-    id: 5,
-    nickName: '사람6',
-    contents: '하이6',
-  },
-  {
-    id: 6,
-    nickName: '사람7',
-    contents: '하이7',
-  },
-  {
-    id: 7,
-    nickName: '사람8',
-    contents: '하이8',
-  },
-  {
-    id: 8,
-    nickName: '사람9',
-    contents: '하이9',
-  },
-];
-
 export const BgContext = createContext();
 
 const MakeTreePage = () => {
