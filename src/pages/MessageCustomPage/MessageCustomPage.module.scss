@@ -5,37 +5,37 @@
   min-width: rem(350px);
   max-width: rem(768px);
   margin: 0 auto;
+  padding: 2% 5%;
   height: 100%;
 
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
   background-color: $cherryblossom100;
-}
 
-.blossomMain {
-  width: rem(344px);
-  height: rem(344px);
-  background-color: $white;
-  border: 2px solid $message-input;
-  border-radius: rem(12px);
+  position: relative;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: space-between;
+  gap: 10%;
 
-  .blossomImage {
-    width: rem(246px);
-    height: rem(246px);
-    filter: drop-shadow(rem(2px) rem(3px) rem(4px) rgba(102, 62, 79, 0.35));
+  .header {
+    margin-bottom: 5%;
   }
-}
 
-.buttonList {
-  width: rem(348px);
-  height: rem(100px);
-}
+  .blossomMain {
+    height: 55%;
+    background-color: $white;
+    border: 2px solid $message-input;
+    border-radius: rem(12px);
 
-.buttonItem {
-  width: rem(348px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .blossomImage {
+      width: 50%;
+      @include pink-shadow;
+      //
+    }
+  }
 }

@@ -69,7 +69,7 @@ const MakeTreePage = () => {
   };
 
   // 완료 버튼 클릭 이벤트
-  const handleComplete = async () => {
+  const handleComplete = () => {
     updateData(localUid, {
       bgSrc: selectBg,
       isMade: true,

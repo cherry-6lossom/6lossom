@@ -19,7 +19,10 @@ function App() {
           <Route path="/make-tree" element={<MakeTreePage />} />
           <Route path="/share-tree/:uid" element={<ShareTreePage />} />
           <Route path="/message-custom/:uid" element={<MessageCustomPage />} />
-          <Route path="/write-message" element={<WriteMessagePage />} />
+          <Route
+            path="/write-message/:uid/:msgId"
+            element={<WriteMessagePage />}
+          />
         </Routes>
       </BrowserRouter>
     </div>

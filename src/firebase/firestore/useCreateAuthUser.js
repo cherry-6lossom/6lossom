@@ -1,4 +1,10 @@
-import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  serverTimestamp,
+  setDoc,
+} from 'firebase/firestore';
 import { useCallback, useMemo, useState } from 'react';
 import { db } from '@/firebase/app';
 
@@ -18,6 +24,7 @@ export function useCreateAuthUser(collectionKey = 'users') {
   const createAuthUser = useCallback(
     async (userAuth, additionData = {}) => {
       const userDocRef = doc(db, collectionKey, userAuth.uid);
+      const flowerRef = doc(db, 'users', userAuth.uid, 'flowerList', '0');
 
       setIsLoading(true);
 
@@ -30,7 +37,6 @@ export function useCreateAuthUser(collectionKey = 'users') {
           let url = '';
           let isMade = false;
           let bgSrc = '';
-          let flowerList = [];
 
           await setDoc(userDocRef, {
             createAt,
@@ -41,8 +47,14 @@ export function useCreateAuthUser(collectionKey = 'users') {
             url,
             isMade,
             bgSrc,
-            flowerList,
             ...additionData,
+          });
+
+          await setDoc(flowerRef, {
+            nickname: '6lossom',
+            contents: '환영합니다.',
+            flowerSrc: '/src/assets/custom/cherry-blossom1.png',
+            createAt,
           });
         } else {
           throw new ReferenceError(
