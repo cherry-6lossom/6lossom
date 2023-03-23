@@ -4,19 +4,31 @@
 .pageSetting {
   min-width: rem(350px);
   max-width: rem(768px);
+  margin: 0 auto;
+  height: 100%;
+
   display: flex;
   flex-flow: column wrap;
   align-items: center;
-  padding: rem(100px) rem(8px) rem(130px) rem(8px);
   background-color: $cherryblossom100;
 }
 
-.headerTitle {
-  margin-bottom: rem(20px);
-}
+.blossomMain {
+  width: rem(344px);
+  height: rem(344px);
+  background-color: $white;
+  border: 2px solid $message-input;
+  border-radius: rem(12px);
 
-.headerSubTitle {
-  margin-bottom: rem(20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .blossomImage {
+    width: rem(246px);
+    height: rem(246px);
+    filter: drop-shadow(rem(2px) rem(3px) rem(4px) rgba(102, 62, 79, 0.35));
+  }
 }
 
 .buttonList {
