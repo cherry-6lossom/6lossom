@@ -8,6 +8,7 @@ import HeaderTitle from '@/components/HeaderTitle/HeaderTitle';
 import MessageInputContainer from '@/components/MessageInputContainer/MessageInputContainer';
 import UsageDescription from '@/components/UsageDescription/UsageDescription';
 import LongButtonList from '@/components/LongButtonList/LongButtonList';
+import Header from '@/components/Header/Header';
 
 const WriteMessagePage = () => {
   const handlePrev = () => {};
@@ -19,21 +20,23 @@ const WriteMessagePage = () => {
     author: '',
     content: '',
   });
+  const [text, setText] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
-  const handleChangeState = (e) => {
+  const handleChangeState = (e, text) => {
+    const { name, value } = e.target;
+
+    if (name === 'content') {
+      if (value.length <= 500) {
+        setText(value);
+      }
+    }
+
     setState({
       ...state,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
-  const [text, setText] = useState('');
-  const handleChangeText = (e) => {
-    const inputValue = e.target.value;
-    if (inputValue.length <= 500) {
-      setText(inputValue);
-    }
-  };
-  const [showModal, setShowModal] = useState(false);
 
   const handleSubmit = () => {
     if (state.author.length < 1) {
@@ -52,30 +55,40 @@ const WriteMessagePage = () => {
     setShowModal(false);
   };
 
-  return (
-    <div className={classes.writeMessageWrap}>
-      {showModal && <ModalEnroll handleCloseModal={handleCloseModal} />}
+  const handleComplete = () => {
+    navigate('/');
+  };
 
-      <header className={classes.writeMessageHeader}>
-        <HeaderTitle mainText={'육캔두잇님의 벚꽃나무'} />
-        <UsageDescription
-          className={classNames(classes.notice)}
-          subText={'님에게 메세지를 남겨주세요'}
+  return (
+    <>
+      <div className={classes.writeMessageWrap}>
+        <div>
+          <Header
+            className={classes.notice}
+            subText={'님에게 메세지를 남겨주세요'}
+          />
+        </div>
+        <MessageInputContainer
+          authorInput={authorInput}
+          contentInput={contentInput}
+          state={state}
+          text={text}
+          handleChangeState={handleChangeState}
         />
-      </header>
-      <MessageInputContainer
-        authorOnChange={handleChangeState}
-        contentOnChange={(e) => {
-          handleChangeState(e), handleChangeText(e);
-        }}
-      />
-      <LongButtonList
-        firstText={'완료'}
-        firstClick={handleSubmit}
-        secondText={'이전'}
-        secondClick={() => navigate(-1)}
-      />
-    </div>
+        <LongButtonList
+          firstText={'완료'}
+          firstClick={handleSubmit}
+          secondText={'이전'}
+          secondClick={() => navigate(-1)}
+        />
+      </div>
+      {showModal && (
+        <ModalEnroll
+          handleCloseModal={handleCloseModal}
+          handleComplete={handleComplete}
+        />
+      )}
+    </>
   );
 };
 
