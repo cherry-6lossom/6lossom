@@ -2,10 +2,11 @@ import style from '@/components/ShortButton/ShortButton.module.scss';
 import classNames from 'classnames';
 import githubIcon from '@/assets/brand-logo/github-logo.png';
 
-function ShortButton({ onClick, text, className }) {
+function ShortButton({ type, onClick, text, className }) {
   return (
     <>
       <button
+        type={type ? type : null}
         onClick={onClick ? onClick : null}
         className={
           className

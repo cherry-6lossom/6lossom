@@ -5,6 +5,7 @@ import MakeTreePage from '@/pages/MakeTreePage/MakeTreePage';
 import SignUpPage from '@/pages/SignUp/SignUpPage';
 import SignInPage from '@/pages/SignIn/SignInPage';
 import ShareTreePage from '@/pages/ShareTreePage/ShareTreePage';
+import MessageCustomPage from '@/pages/MessageCustomPage/MessageCustomPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/make-tree" element={<MakeTreePage />} />
           <Route path="/share-tree/:uid" element={<ShareTreePage />} />
+          <Route path="/message-custom/:uid" element={<MessageCustomPage />} />
         </Routes>
       </BrowserRouter> */}
       <ModalEnroll />

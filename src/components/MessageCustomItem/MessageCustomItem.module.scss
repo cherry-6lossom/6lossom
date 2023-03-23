@@ -1,6 +1,13 @@
 @import '@/styles/utils/function';
 @import '@/styles/theme/theme';
 
-div > img {
+.blossomButton {
+  padding: rem(10px) 0;
+  border-radius: rem(20px);
   filter: drop-shadow(rem(2px) rem(3px) rem(4px) rgba(102, 62, 79, 0.35));
+  background-color: $cherryblossom500;
+  height: 100%;
+  .blossomImage {
+    width: 65%;
+  }
 }
