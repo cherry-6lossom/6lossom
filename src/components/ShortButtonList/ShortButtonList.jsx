@@ -6,11 +6,16 @@ const ShortButtonList = ({
   firstClick,
   secondText,
   secondClick,
+  type,
 }) => {
   return (
     <div className={style.ShortButtonList}>
       <ShortButton onClick={firstClick} text={firstText} />
-      <ShortButton onClick={secondClick} text={secondText} />
+      <ShortButton
+        onClick={secondClick ? secondClick : null}
+        text={secondText}
+        type={type}
+      />
     </div>
   );
 };
