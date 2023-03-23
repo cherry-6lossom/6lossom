@@ -223,6 +223,8 @@ const ShareTreePage = () => {
     }
   };
 
+  const handleCreateMessage = () => navigate(`/message-custom/${uid}`);
+
   const handleWatchTree = () => {
     if (localUid) {
       window.location.replace(`/share-tree/${localUid}`);
@@ -307,6 +309,7 @@ const ShareTreePage = () => {
             ) : (
               <LongButtonList
                 firstText={'벚꽃 달아주기'}
+                firstClick={handleCreateMessage}
                 secondText={'내 벚꽃나무 보러가기'}
                 secondClick={handleWatchTree}
               />
