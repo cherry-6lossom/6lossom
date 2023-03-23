@@ -342,7 +342,6 @@ const ShareTreePage = () => {
         </flowerContext.Provider>
       </messageContext.Provider>
       {modal ? <ModalProjectInfo handleModal={handleModal} /> : null}
-      {console.log(modal)}
     </>
   );
 };
