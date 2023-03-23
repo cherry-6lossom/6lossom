@@ -29,11 +29,7 @@ const Flower = ({ uid, item, handleOpenMessageDetail }) => {
         key={id}
       >
         <button
-          onClick={(e) => {
-            if (uid !== localUid) {
-              alert('벚꽃나무의 주인만 볼 수 있습니다.');
-              return;
-            }
+          onClick={() => {
             handleOpenMessageDetail(messageVisibility, item);
           }}
         >

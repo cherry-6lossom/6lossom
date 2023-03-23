@@ -213,6 +213,17 @@ const ShareTreePage = () => {
     const backgroundElement = messageDetailRef.current;
     setFlowerInfo(message);
 
+    if (uid !== localUid) {
+      const checkOwnerNotification = document.querySelector(
+        '.targetCheckOwnerNotification'
+      );
+      checkOwnerNotification.classList.add(style.animateNotification);
+      setTimeout(() => {
+        checkOwnerNotification.classList.remove(style.animateNotification);
+      }, 3000);
+      return;
+    }
+
     if (!messageDetailVisible) {
       backgroundElement.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
       backgroundElement.style.zIndex = 102;
@@ -320,6 +331,14 @@ const ShareTreePage = () => {
                 </div>
               )}
             </div>
+
+            <Notification
+              className={classNames(
+                'targetCheckOwnerNotification',
+                style.notificationStyling
+              )}
+              text={'벚꽃나무의 주인만이 메세지 확인이 가능합니다 !'}
+            />
 
             {uid === localUid ? (
               <LongButtonList
