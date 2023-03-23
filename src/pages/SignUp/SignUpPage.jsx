@@ -31,9 +31,9 @@ export default function SignUpPage() {
     const { name, email, password, passwordConfirm } = formStateRef.current;
 
     if (!name || name.trim().length < 2 || name.trim().length > 8) {
-      e.target.childNodes[0].classList.add(style.submitWrongData);
+      e.target.childNodes[0].classList.add(style.animateNotification);
       setTimeout(() => {
-        e.target.childNodes[0].classList.remove(style.submitWrongData);
+        e.target.childNodes[0].classList.remove(style.animateNotification);
       }, 2000);
       return;
     }
@@ -48,25 +48,25 @@ export default function SignUpPage() {
       email.substring(email.indexOf('.') + 1) === '' ||
       email.substring(email.indexOf('.') - 1, email.indexOf('.')) === '@'
     ) {
-      e.target.childNodes[1].classList.add(style.submitWrongData);
+      e.target.childNodes[1].classList.add(style.animateNotification);
       setTimeout(() => {
-        e.target.childNodes[1].classList.remove(style.submitWrongData);
+        e.target.childNodes[1].classList.remove(style.animateNotification);
       }, 2000);
       return;
     }
 
     if (!password || password.trim().length < 6) {
-      e.target.childNodes[2].classList.add(style.submitWrongData);
+      e.target.childNodes[2].classList.add(style.animateNotification);
       setTimeout(() => {
-        e.target.childNodes[2].classList.remove(style.submitWrongData);
+        e.target.childNodes[2].classList.remove(style.animateNotification);
       }, 2000);
       return;
     }
 
     if (!Object.is(password, passwordConfirm)) {
-      e.target.childNodes[2].classList.add(style.submitWrongData);
+      e.target.childNodes[2].classList.add(style.animateNotification);
       setTimeout(() => {
-        e.target.childNodes[2].classList.remove(style.submitWrongData);
+        e.target.childNodes[2].classList.remove(style.animateNotification);
       }, 2000);
       return;
     }
@@ -74,9 +74,9 @@ export default function SignUpPage() {
     const user = await signUp(email, password, name);
 
     if (!user) {
-      e.target.childNodes[3].classList.add(style.submitWrongData);
+      e.target.childNodes[3].classList.add(style.animateNotification);
       setTimeout(() => {
-        e.target.childNodes[3].classList.remove(style.submitWrongData);
+        e.target.childNodes[3].classList.remove(style.animateNotification);
       }, 2000);
     }
 
@@ -153,19 +153,19 @@ export default function SignUpPage() {
         <h2 className={style.signUpPageTitle}>회원가입</h2>
         <form className={style.form} onSubmit={handleSignUp}>
           <Notification
-            className={style.submitWrongDataDefault}
+            className={style.notificationStyling}
             text={'이름을 확인해주세요 !'}
           />
           <Notification
-            className={style.submitWrongDataDefault}
+            className={style.notificationStyling}
             text={'이메일 확인해주세요 !'}
           />
           <Notification
-            className={style.submitWrongDataDefault}
+            className={style.notificationStyling}
             text={'비밀번호를 확인해주세요 !'}
           />
           <Notification
-            className={style.submitWrongDataDefault}
+            className={style.notificationStyling}
             text={'이미 가입된 회원정보입니다 !'}
           />
           <FormInput name="name" label="이름" onChange={handleChangeInput} />
