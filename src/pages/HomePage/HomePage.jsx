@@ -4,7 +4,8 @@ import OriginTree from '@/components/OriginTree/OriginTree';
 import style from './HomePage.module.scss';
 import moonLogo from '@/assets/main-page/main-logo.png';
 import blossom from '@/assets/custom/cherry-blossom3.png';
-import postBox from '@/assets/main-page/click-me-postbox.png';
+import ModalProjectInfo from '@/components/ModalProjectInfo/ModalProjectInfo';
+import ProjectInfoButton from '@/components/ProjectInfoButton/ProjectInfoButton';
 import blossomTree from '@/assets/main-page/main-tree.png';
 import classNames from 'classnames';
 
@@ -12,9 +13,16 @@ import { googleProvider } from '@/firebase/app';
 import { useSignOut } from '@/firebase/auth/useSignOut';
 
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const HomePage = () => {
   const { signOut } = useSignOut();
+
+  const [modal, setModal] = useState(false);
+
+  const handleModal = () => {
+    setModal(!modal);
+  };
   const navigate = useNavigate();
 
   window.onload = () => {
@@ -71,8 +79,8 @@ const HomePage = () => {
           src={blossom}
           alt="벚꽃잎"
         />
-        <img className={style.postBox} src={postBox} alt="우체통" />
-        <span className={style.clickMeText}>click me!</span>
+        <ProjectInfoButton handleModal={handleModal} />
+        {modal ? <ModalProjectInfo handleModal={handleModal} /> : null}
       </div>
       <div className={style.loginButtonList}>
         <button

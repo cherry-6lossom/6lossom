@@ -1,0 +1,47 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.ProjectInfoBackground {
+  @include modal-background;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+  top: -5%;
+}
+
+.ProjectInfoContainer {
+  width: rem(360px);
+  height: rem(733px);
+  border-radius: rem(30px);
+  background-image: url(/src/assets/project-info/project-info.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+}
+
+.projectInfoClose {
+  width: rem(55px);
+  height: rem(30px);
+  border-radius: rem(10px);
+  border: none;
+  position: absolute;
+  bottom: 4%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: $primary;
+  color: $white;
+  border: $black;
+  cursor: pointer;
+  &:hover {
+    background-color: $cherryblossom300;
+  }
+}
+
+.title {
+  font-size: rem(12px);
+  color: $black;
+  background-color: #ff9cc6;
+}

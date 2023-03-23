@@ -2,8 +2,9 @@
 @import '@/styles/theme/theme';
 
 .LongButtonContainer {
-  position: absolute;
-  bottom: rem(40px);
+  margin-top: rem(30px);
+  position: flex;
+  bottom: 30%;
   left: 0;
   right: 0;
   display: flex;

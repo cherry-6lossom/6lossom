@@ -1,0 +1,69 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.modalBackground {
+  @include modal-background;
+  position: absolute;
+  top: 0;
+  z-index: 100;
+}
+
+.enrollWrap {
+  margin: 0 auto;
+  justify-content: center;
+  @include message-modal;
+  width: rem(350px);
+  text-align: center;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  padding-top: rem(19px);
+
+  .noticeDetail {
+    @include message-input;
+    display: flex;
+    flex-direction: column;
+    width: rem(330px);
+    height: rem(80px);
+    justify-content: center;
+    margin: rem(16px) auto rem(16px);
+  }
+}
+
+.buttonList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: rem(350px);
+  height: rem(48px);
+  background-color: black;
+  border-radius: 0 0 rem(20px) rem(20px);
+
+  button {
+    width: rem(175px);
+    height: rem(48px);
+    cursor: pointer;
+
+    &:hover {
+      background-color: $cherryblossom200;
+    }
+    &:focus {
+      background-color: $cherryblossom200;
+    }
+  }
+
+  .cancel {
+    background-color: $cherryblossom100;
+    border-radius: 0 0 0 rem(20px);
+    border-top: 2px solid $secondary;
+    border-right: 2px solid $secondary;
+    color: $secondary;
+  }
+
+  .done {
+    background-color: $cherryblossom100;
+    border-radius: 0 0 rem(20px) 0;
+    border-top: 2px solid $secondary;
+    color: $secondary;
+  }
+}
