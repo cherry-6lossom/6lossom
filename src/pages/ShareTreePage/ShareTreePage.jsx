@@ -39,6 +39,7 @@ import {
 import classNames from 'classnames';
 import Flower from '@/components/Flower/Flower';
 import ModalProjectInfo from '@/components/ModalProjectInfo/ModalProjectInfo';
+import Notification from '@/components/Notification/Notification';
 
 const ShareTreePage = () => {
   const [messageListVisible, setMessageListVisible] = useState(false);
@@ -296,6 +297,7 @@ const ShareTreePage = () => {
                   <ul>
                     {renderList.map((item) => (
                       <Flower
+                        uid={uid}
                         item={item}
                         handleOpenMessageDetail={handleOpenMessageDetail}
                         messageDetailRef={messageDetailRef}
