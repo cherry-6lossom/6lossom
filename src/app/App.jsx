@@ -6,11 +6,12 @@ import SignUpPage from '@/pages/SignUp/SignUpPage';
 import SignInPage from '@/pages/SignIn/SignInPage';
 import ShareTreePage from '@/pages/ShareTreePage/ShareTreePage';
 import MessageCustomPage from '@/pages/MessageCustomPage/MessageCustomPage';
+import WriteMessagePage from '@/pages/WriteMessagePage/WriteMessagePage';
 
 function App() {
   return (
     <div className="App">
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/signin" element={<SignInPage />} />
@@ -18,11 +19,9 @@ function App() {
           <Route path="/make-tree" element={<MakeTreePage />} />
           <Route path="/share-tree/:uid" element={<ShareTreePage />} />
           <Route path="/message-custom/:uid" element={<MessageCustomPage />} />
+          <Route path="/write-message" element={<WriteMessagePage />} />
         </Routes>
-      </BrowserRouter> */}
-      <ModalEnroll />
-      {/* <ModalButtonList firstText={'완료'} secondText={'취소'} /> */}
-      {/* <ModalButton /> */}
+      </BrowserRouter>
     </div>
   );
 }

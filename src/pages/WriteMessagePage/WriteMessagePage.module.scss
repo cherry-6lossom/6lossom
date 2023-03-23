@@ -9,11 +9,19 @@
   position: relative;
   background-color: $cherryblossom100;
   padding-top: rem(75px);
+  justify-content: center;
 
   .writeMessageHeader {
     text-align: center;
+    justify-content: center;
     display: flex;
     flex-direction: column;
+
+    .notice {
+      margin-top: rem(16px);
+      left: 50%;
+      transform: translateX(-50%);
+    }
   }
 
   .modalButtonContainer {

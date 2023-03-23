@@ -1,20 +1,16 @@
 import classes from '@/components/MessageInputContainer/MessageInputContainer.module.scss';
 import { useState, useRef } from 'react';
+import ModalEnroll from '@/components/ModalEnroll/ModalEnroll';
+import LongButtonList from './../LongButtonList/LongButtonList';
 
-const MessageInputContainer = () => {
-  const authorInput = useRef();
-  const contentInput = useRef();
-  const [state, setState] = useState({
-    author: '',
-    content: '',
-  });
-
-  const handleChangeState = (e) => {
-    setState({
-      ...state,
-      [e.target.name]: e.target.value,
-    });
-  };
+const MessageInputContainer = ({
+  authorInput,
+  contentInput,
+  state,
+  text,
+  handleChangeState,
+}) => {
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <div className={classes.messageInputContainer}>
@@ -28,6 +24,7 @@ const MessageInputContainer = () => {
             value={state.author}
             onChange={handleChangeState}
             ref={authorInput}
+            maxLength={15}
           />
         </div>
         <div className={classes.contentContainer}>
@@ -39,8 +36,10 @@ const MessageInputContainer = () => {
             value={state.content}
             onChange={handleChangeState}
             ref={contentInput}
+            maxLength={500}
           />
         </div>
+        <p className={classes.textLength}>{text.length} / 500</p>
       </div>
     </div>
   );
