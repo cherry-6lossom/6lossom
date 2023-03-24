@@ -96,21 +96,24 @@
   width: 120%;
   position: relative;
   top: 6%;
-  left: -10%;
+  left: 50%;
 }
 
 .notificationStyling {
   position: absolute;
-  top: 50%;
-  left: 50%;
   transform: translateX(-50%);
   z-index: 5;
-  // white-space: nowrap;
   padding: rem(5px) rem(16px);
   background-color: $secondary;
   border-radius: rem(14px);
   color: $white;
   opacity: 0;
+}
+
+@media (max-width: 500px) {
+  .notificationStyling {
+    font-size: 77%;
+  }
 }
 
 .animateNotification {
