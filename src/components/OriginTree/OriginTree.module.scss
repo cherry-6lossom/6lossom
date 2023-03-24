@@ -2,19 +2,13 @@
 @import '@/styles/theme/theme';
 
 .blossomTree {
-  position: relative;
+  position: absolute;
+  top: 15%;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: inherit;
-
-  .blossomTreeImage {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%);
-
-    width: 80%;
-  }
+  height: 80%;
+  background: center / contain no-repeat
+    url('/src/assets/main-page/main-tree.png');
 }

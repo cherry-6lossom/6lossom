@@ -7,16 +7,13 @@
   max-width: rem(768px);
   height: 100%;
 
-  background: url('../../assets/custom/bg-pink.png') center no-repeat;
-  object-fit: cover;
+  background: center / contain no-repeat url('../../assets/custom/bg-pink.png');
 
   position: relative;
 
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: column;
-  align-items: space-between;
-  gap: 8%;
 
   .blossomTreeContainer {
     width: 100%;
@@ -24,6 +21,7 @@
     position: relative;
 
     display: flex;
+
     justify-content: center;
     align-items: center;
 
@@ -31,7 +29,7 @@
       position: absolute;
       top: 0;
       width: 100%;
-      height: 90%;
+      height: 100%;
 
       .pagination {
         display: inline-flex;
@@ -46,13 +44,9 @@
         border-radius: 12px;
       }
 
-      ul {
-        width: inherit;
-        height: 50%;
-        position: absolute;
-        top: 0;
-        right: 0;
-        left: 0;
+      .originTreeContainer {
+        height: 100%;
+        position: relative;
       }
 
       .arrowButton {
@@ -108,12 +102,6 @@
   border-radius: rem(14px);
   color: $white;
   opacity: 0;
-}
-
-@media (max-width: 500px) {
-  .notificationStyling {
-    font-size: 77%;
-  }
 }
 
 .animateNotification {

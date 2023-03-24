@@ -87,16 +87,14 @@ const ShareTreePage = () => {
     history.pushState(null, '', location.href);
   };
 
-  useEffect(() => {}, []);
-
   useLayoutEffect(() => {
     getPageTotalCount();
-    queryPage(6, 'next');
+    queryPage(7, 'next');
   }, []);
 
   useLayoutEffect(() => {
     setHasNextPage(flowerList.length === pageTotalCount ? false : true);
-    setHasPrevPage(flowerList.length <= 6 ? false : true);
+    setHasPrevPage(flowerList.length <= 7 ? false : true);
   }, [flowerList.length, pageTotalCount]);
 
   const flowerListRef = collection(db, `users/${uid}/flowerList`);
@@ -165,9 +163,9 @@ const ShareTreePage = () => {
         setFlowerList(
           flowerList.slice(
             undefined,
-            Number(lastVisible.id + 1) % 6 === 0
-              ? Number(lastVisible.id) - 6
-              : Number(lastVisible.id) - (Number(lastVisible.id) % 6)
+            Number(lastVisible.id + 1) % 7 === 0
+              ? Number(lastVisible.id) - 7
+              : Number(lastVisible.id) - (Number(lastVisible.id) % 7)
           )
         );
         break;
@@ -335,25 +333,8 @@ const ShareTreePage = () => {
                 <div>Loading...</div>
               ) : (
                 <div className={style.flowerList}>
-                  <OriginTree />
-                  <span className={style.pagination}>
-                    {flowerList.length}/{pageTotalCount}
-                  </span>
-                  <button
-                    className={classNames(style.arrowButton, style.leftButton)}
-                    disabled={!hasPrevPage}
-                    onClick={() => queryPage(6, 'prev')}
-                  >
-                    <img src={leftButton} alt="이전 페이지 보기" />
-                  </button>
-                  <button
-                    className={classNames(style.arrowButton, style.rightButton)}
-                    disabled={!hasNextPage}
-                    onClick={() => queryPage(6, 'next')}
-                  >
-                    <img src={rightButton} alt="다음 페이지 보기" />
-                  </button>
-                  <ul>
+                  <div className={style.originTreeContainer}>
+                    <OriginTree />
                     {renderList.map((item) => (
                       <Flower
                         uid={uid}
@@ -361,7 +342,24 @@ const ShareTreePage = () => {
                         handleOpenMessageDetail={handleOpenMessageDetail}
                       />
                     ))}
-                  </ul>
+                  </div>
+                  <span className={style.pagination}>
+                    {flowerList.length}/{pageTotalCount}
+                  </span>
+                  <button
+                    className={classNames(style.arrowButton, style.leftButton)}
+                    disabled={!hasPrevPage}
+                    onClick={() => queryPage(7, 'prev')}
+                  >
+                    <img src={leftButton} alt="이전 페이지 보기" />
+                  </button>
+                  <button
+                    className={classNames(style.arrowButton, style.rightButton)}
+                    disabled={!hasNextPage}
+                    onClick={() => queryPage(7, 'next')}
+                  >
+                    <img src={rightButton} alt="다음 페이지 보기" />
+                  </button>
                 </div>
               )}
             </div>

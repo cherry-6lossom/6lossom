@@ -13,30 +13,30 @@ const Flower = ({ uid, item, handleOpenMessageDetail }) => {
   };
 
   return (
-    <>
-      <li
-        className={classNames(
-          style.flower,
-          id % 6 === 0
-            ? style.flower0
-            : id % 6 === 1
-            ? style.flower1
-            : id % 6 === 2
-            ? style.flower2
-            : id % 6 === 3
-            ? style.flower3
-            : id % 6 === 4
-            ? style.flower4
-            : style.flower5
-        )}
-        key={id}
-      >
-        <button onClick={handleFlower}>
-          <img src={flowerSrc} alt="벚꽃 메세지" />
-          {nickname}
-        </button>
-      </li>
-    </>
+    <div
+      className={classNames(
+        style.flower,
+        id % 7 === 0
+          ? style.flower0
+          : id % 7 === 1
+          ? style.flower1
+          : id % 7 === 2
+          ? style.flower2
+          : id % 7 === 3
+          ? style.flower3
+          : id % 7 === 4
+          ? style.flower4
+          : id % 7 === 5
+          ? style.flower5
+          : style.flower6
+      )}
+      key={id}
+    >
+      <button onClick={handleFlower}>
+        <img src={flowerSrc} alt="벚꽃 메세지" />
+        <span>{nickname}</span>
+      </button>
+    </div>
   );
 };
 

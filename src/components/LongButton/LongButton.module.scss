@@ -16,9 +16,9 @@
 }
 
 .longButton:hover {
-  background-color: $cherryblossom300;
+  background-color: $secondary;
 }
 
 .longButton:focus {
-  border: 5px solid $secondary;
+  background-color: $secondary;
 }

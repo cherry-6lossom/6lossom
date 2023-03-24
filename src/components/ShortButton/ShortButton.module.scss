@@ -6,7 +6,7 @@
   border: none;
   border-radius: rem(12px);
   width: 100%;
-  height: 55%;
+  height: rem(64px);
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -20,9 +20,9 @@
 }
 
 .shortButton:hover {
-  background-color: $cherryblossom300;
+  background-color: $secondary;
 }
 
 .shortButton:focus {
-  border: rem(3px) solid #ff5ea1;
+  background-color: $secondary;
 }
