@@ -4,10 +4,8 @@ import messageContext from '@/contexts/messageContext';
 import { useContext } from 'react';
 
 const Flower = ({ disabled, uid, item, handleOpenMessageDetail }) => {
-  console.log(disabled);
   const messageVisibility = useContext(messageContext);
-  const { messageDetailVisible, setMessageDetailVisible } = messageVisibility;
-  const { id, flowerSrc, nickname, contents } = item;
+  const { id, flowerSrc, nickname } = item;
   const localUid = JSON.parse(localStorage.getItem('uid'));
 
   const handleFlower = () => {

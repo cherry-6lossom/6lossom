@@ -92,6 +92,23 @@
   animation: moveIn 0.9s ease;
 }
 
+.notificationStyling {
+  position: relative;
+  top: 9%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 52.1%;
+  padding: rem(5px) rem(16px);
+  background-color: $secondary;
+  border-radius: rem(14px);
+  color: $white;
+  opacity: 0;
+}
+
+.animateNotification {
+  animation: fadeInAndOut 3s ease;
+}
+
 @keyframes moveIn {
   0% {
     top: 100%;
@@ -111,5 +128,23 @@
   100% {
     top: 20%;
     height: 80%;
+  }
+}
+
+@keyframes fadeInAndOut {
+  0% {
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
   }
 }

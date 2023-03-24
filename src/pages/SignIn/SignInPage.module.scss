@@ -92,17 +92,17 @@
   background: center / contain no-repeat url('@/assets/login/check-pink.png');
 }
 
-.submitWrongDataDefault {
+.notificationStyling {
   position: absolute;
   opacity: 0;
-}
-
-.submitWrongData {
   bottom: rem(75px);
   background-color: $secondary;
   border-radius: rem(14px);
   color: $white;
   padding: rem(5px) rem(16px);
+}
+
+.animateNotification {
   animation: fadeInAndOut 2s ease;
 }
 

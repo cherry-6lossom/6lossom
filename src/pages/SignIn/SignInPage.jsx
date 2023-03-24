@@ -28,9 +28,9 @@ export default function SignInPage() {
     await signIn(email, password);
 
     if (!user) {
-      e.target.childNodes[0].classList.add(style.submitWrongData);
+      e.target.childNodes[0].classList.add(style.animateNotification);
       setTimeout(() => {
-        e.target.childNodes[0].classList.remove(style.submitWrongData);
+        e.target.childNodes[0].classList.remove(style.animateNotification);
       }, 2000);
     }
   };
@@ -92,7 +92,7 @@ export default function SignInPage() {
 
         <form className={style.form} onSubmit={handleSignIn}>
           <Notification
-            className={style.submitWrongDataDefault}
+            className={style.notificationStyling}
             text={'이메일 또는 비밀번호를 확인해주세요 !'}
           />
           <FormInput
