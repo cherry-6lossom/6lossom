@@ -81,8 +81,6 @@ export default function SignUpPage() {
     }
 
     await createAuthUser(user);
-
-    localStorage.setItem('uid', JSON.stringify(user.uid));
   };
 
   const handleChangeInput = (e) => {

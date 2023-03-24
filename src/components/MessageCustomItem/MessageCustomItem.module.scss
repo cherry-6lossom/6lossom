@@ -3,6 +3,8 @@
 
 .blossomButton {
   padding: rem(10px) 0;
+  border: none;
+  cursor: pointer;
   border-radius: rem(20px);
   background-color: $primary;
   height: 100%;
