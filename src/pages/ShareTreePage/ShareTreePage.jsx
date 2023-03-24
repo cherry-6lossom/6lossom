@@ -215,6 +215,15 @@ const ShareTreePage = () => {
         checkOwnerNotification.classList.remove(style.animateNotification);
       }, 3000);
       return;
+    } else if (!msgActive) {
+      const checkPeriodNotification = document.querySelector(
+        '.targetCheckPeriodNotification'
+      );
+      checkPeriodNotification.classList.add(style.animateNotification);
+      setTimeout(() => {
+        checkPeriodNotification.classList.remove(style.animateNotification);
+      }, 4000);
+      return;
     }
 
     if (!messageDetailVisible) {
@@ -246,7 +255,13 @@ const ShareTreePage = () => {
 
   const handleCreateMessage = () => {
     if (!active) {
-      alert('3월 15일부터 4월 14일까지 메세지 작성할 수 있습니다.');
+      const checkCreatableNotification = document.querySelector(
+        '.targetCheckCreatableNotification'
+      );
+      checkCreatableNotification.classList.add(style.animateNotification);
+      setTimeout(() => {
+        checkCreatableNotification.classList.remove(style.animateNotification);
+      }, 4000);
     } else {
       navigate(`/message-custom/${uid}`);
     }
@@ -284,14 +299,13 @@ const ShareTreePage = () => {
       });
     });
 
-    const msgStartDate = new Date(today.getFullYear(), 3, 15);
-    const msgEndDate = new Date(today.getFullYear(), 3, 29);
-
-    const startDate = new Date(today.getFullYear(), 2, 15);
-    const endDate = new Date(today.getFullYear(), 3, 14);
-
+    const msgStartDate = new Date(today.getFullYear(), 3, 15); // 4월 15일
+    const msgEndDate = new Date(today.getFullYear(), 3, 29); // 4월 29일
     const isMsgActive = today >= msgStartDate && today <= msgEndDate;
     setMsgActive(isMsgActive);
+
+    const startDate = new Date(today.getFullYear(), 1, 15); // 3월 15일
+    const endDate = new Date(today.getFullYear(), 2, 14); // 4월 14일
     const isActive = today >= startDate && today <= endDate;
     setActive(isActive);
 
@@ -340,34 +354,42 @@ const ShareTreePage = () => {
                     <img src={rightButton} alt="다음 페이지 보기" />
                   </button>
                   <ul>
-                    {renderList.map((item) =>
-                      msgActive ? (
-                        <Flower
-                          uid={uid}
-                          item={item}
-                          handleOpenMessageDetail={handleOpenMessageDetail}
-                        />
-                      ) : (
-                        <Flower
-                          disabled={!msgActive}
-                          item={item}
-                          uid={uid}
-                          handleOpenMessageDetail={handleOpenMessageDetail}
-                        />
-                      )
-                    )}
+                    {renderList.map((item) => (
+                      <Flower
+                        uid={uid}
+                        item={item}
+                        handleOpenMessageDetail={handleOpenMessageDetail}
+                      />
+                    ))}
                   </ul>
                 </div>
               )}
             </div>
+            <div className={style.notificationContainer}>
+              <Notification
+                className={classNames(
+                  'targetCheckOwnerNotification',
+                  style.notificationStyling
+                )}
+                text={'벚꽃나무의 주인만이 메세지 확인이 가능합니다 !'}
+              />
 
-            <Notification
-              className={classNames(
-                'targetCheckOwnerNotification',
-                style.notificationStyling
-              )}
-              text={'벚꽃나무의 주인만이 메세지 확인이 가능합니다 !'}
-            />
+              <Notification
+                className={classNames(
+                  'targetCheckPeriodNotification',
+                  style.notificationStyling
+                )}
+                text={'4월 15일 ~ 4월 29일에 메세지를 볼 수 있습니다 !'}
+              />
+
+              <Notification
+                className={classNames(
+                  'targetCheckCreatableNotification',
+                  style.notificationStyling
+                )}
+                text={'3월 15일 ~ 4월 14일에 메세지를 작성할 수 있습니다 !'}
+              />
+            </div>
 
             {uid === localUid ? (
               <LongButtonList

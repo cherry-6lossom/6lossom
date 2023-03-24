@@ -3,21 +3,13 @@ import classNames from 'classnames';
 import messageContext from '@/contexts/messageContext';
 import { useContext } from 'react';
 
-const Flower = ({ disabled, uid, item, handleOpenMessageDetail }) => {
+const Flower = ({ uid, item, handleOpenMessageDetail }) => {
   const messageVisibility = useContext(messageContext);
   const { id, flowerSrc, nickname } = item;
   const localUid = JSON.parse(localStorage.getItem('uid'));
 
   const handleFlower = () => {
-    if (disabled) {
-      alert('4월 15일 ~ 4월 29일에 메세지를 볼 수 있습니다.');
-    } else {
-      if (uid !== localUid) {
-        alert('벚꽃나무의 주인만 볼 수 있습니다.');
-        return;
-      }
-      handleOpenMessageDetail(messageVisibility, item);
-    }
+    handleOpenMessageDetail(messageVisibility, item);
   };
 
   return (
