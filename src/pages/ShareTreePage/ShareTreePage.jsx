@@ -87,14 +87,7 @@ const ShareTreePage = () => {
     history.pushState(null, '', location.href);
   };
 
-  useEffect(() => {
-    history.pushState(null, '', location.href);
-    window.addEventListener('popstate', preventGoBack);
-
-    return () => {
-      window.removeEventListener('popstate', preventGoBack);
-    };
-  }, []);
+  useEffect(() => {}, []);
 
   useLayoutEffect(() => {
     getPageTotalCount();
@@ -240,7 +233,13 @@ const ShareTreePage = () => {
     }
   };
 
-  const handleCreateMessage = () => navigate(`/message-custom/${uid}`);
+  const handleCreateMessage = () => {
+    if (!active) {
+      alert('3월 15일부터 4월 14일까지 메세지 작성할 수 있습니다.');
+    } else {
+      navigate(`/message-custom/${uid}`);
+    }
+  };
 
   const handleWatchTree = () => {
     if (localUid) {
@@ -256,6 +255,10 @@ const ShareTreePage = () => {
     setModal(!modal);
   };
 
+  const today = new Date();
+  const [msgActive, setMsgActive] = useState(false);
+  const [active, setActive] = useState(false);
+
   useEffect(() => {
     const unsub = onSnapshot(doc(db, 'users', uid), (doc) => {
       setUserNickname(doc.data().userNickname);
@@ -269,6 +272,24 @@ const ShareTreePage = () => {
         }
       });
     });
+
+    const msgStartDate = new Date(today.getFullYear(), 3, 15);
+    const msgEndDate = new Date(today.getFullYear(), 3, 29);
+
+    const startDate = new Date(today.getFullYear(), 2, 15);
+    const endDate = new Date(today.getFullYear(), 3, 14);
+
+    const isMsgActive = today >= msgStartDate && today <= msgEndDate;
+    setMsgActive(isMsgActive);
+    const isActive = today >= startDate && today <= endDate;
+    setActive(isActive);
+
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', preventGoBack);
+
+    return () => {
+      window.removeEventListener('popstate', preventGoBack);
+    };
   }, []);
 
   return (
@@ -308,14 +329,22 @@ const ShareTreePage = () => {
                     <img src={rightButton} alt="다음 페이지 보기" />
                   </button>
                   <ul>
-                    {renderList.map((item) => (
-                      <Flower
-                        uid={uid}
-                        item={item}
-                        handleOpenMessageDetail={handleOpenMessageDetail}
-                        messageDetailRef={messageDetailRef}
-                      />
-                    ))}
+                    {renderList.map((item) =>
+                      msgActive ? (
+                        <Flower
+                          uid={uid}
+                          item={item}
+                          handleOpenMessageDetail={handleOpenMessageDetail}
+                        />
+                      ) : (
+                        <Flower
+                          disabled={!msgActive}
+                          item={item}
+                          uid={uid}
+                          handleOpenMessageDetail={handleOpenMessageDetail}
+                        />
+                      )
+                    )}
                   </ul>
                 </div>
               )}
@@ -327,6 +356,13 @@ const ShareTreePage = () => {
                 firstClick={handleCopyLink}
                 secondText={'전체 메세지 보기'}
                 secondClick={(e) => handleOpenMessageList(e, messageVisibility)}
+              />
+            ) : active ? (
+              <LongButtonList
+                firstText={'벚꽃 달아주기'}
+                firstClick={handleCreateMessage}
+                secondText={'내 벚꽃나무 보러가기'}
+                secondClick={handleWatchTree}
               />
             ) : (
               <LongButtonList
