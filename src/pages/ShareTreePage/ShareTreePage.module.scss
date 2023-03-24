@@ -92,12 +92,20 @@
   animation: moveIn 0.9s ease;
 }
 
-.notificationStyling {
+.notificationContainer {
+  width: 120%;
   position: relative;
-  top: 9%;
+  top: 6%;
+  left: -10%;
+}
+
+.notificationStyling {
+  position: absolute;
+  top: 50%;
   left: 50%;
   transform: translateX(-50%);
-  width: 52.1%;
+  z-index: 5;
+  // white-space: nowrap;
   padding: rem(5px) rem(16px);
   background-color: $secondary;
   border-radius: rem(14px);
