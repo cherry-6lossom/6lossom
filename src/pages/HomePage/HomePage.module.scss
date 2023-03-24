@@ -6,7 +6,7 @@
   min-width: rem(350px);
   max-width: rem(768px);
   height: 100%;
-  background: url('../../assets/custom/bg-pink.png') center no-repeat;
+  background: center / cover no-repeat url('../../assets/custom/bg-pink.png');
   position: relative;
   object-fit: cover;
 

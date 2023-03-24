@@ -61,7 +61,7 @@ const MakeTreePage = () => {
 
     backgroundImageList.map((item) => {
       if (parseInt(buttonElement.id) === item.id) {
-        backgoundImage.style = `background :url(${item.bigSrc}) center no-repeat`;
+        backgoundImage.style = `background: center / cover no-repeat url(${item.bigSrc})`;
         setSelectBg(item.bigSrc);
         return;
       }
@@ -137,7 +137,9 @@ const MakeTreePage = () => {
           <BackgroundCustomList />
           <ShortButtonList
             firstText={'취소'}
-            firstClick={() => navigate('/')}
+            firstClick={() => {
+              window.location.replace('/');
+            }}
             secondText={'완료'}
             type={'submit'}
           />

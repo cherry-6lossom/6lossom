@@ -115,23 +115,27 @@ const MessageCustomPage = () => {
       value={{ blossomInfoList, setBlossomSrc, handleSelect }}
     >
       <div className={styles.pageSetting}>
-        <div className={styles.header}>
-          <Header userName={nickname} subText={'벚꽃을 골라주세요!'} />
+        <div className={styles.customContainer}>
+          <div className={styles.header}>
+            <Header userName={nickname} subText={'벚꽃을 골라주세요!'} />
+          </div>
+          <div className={styles.blossomMain}>
+            <img
+              className={classNames('blossomImage', styles.blossomImage)}
+              src={blossomSrc}
+              alt="벚꽃이미지"
+            />
+          </div>
+          <MessageCustomList className={styles.customBlossom} />
         </div>
-        <div className={styles.blossomMain}>
-          <img
-            className={classNames('blossomImage', styles.blossomImage)}
-            src={blossomSrc}
-            alt="벚꽃이미지"
+        <div>
+          <ShortButtonList
+            firstText={'이전'}
+            firstClick={() => navigate(-1)}
+            secondText={'다음'}
+            secondClick={handleNext}
           />
         </div>
-        <MessageCustomList className={styles.customBlossom} />
-        <ShortButtonList
-          firstText={'이전'}
-          firstClick={() => navigate(-1)}
-          secondText={'다음'}
-          secondClick={handleNext}
-        />
       </div>
     </messageCustomContext.Provider>
   );

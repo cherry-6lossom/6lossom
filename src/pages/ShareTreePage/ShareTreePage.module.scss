@@ -3,20 +3,18 @@
 
 .shareTreeContainer {
   margin: 0 auto;
+  width: 100%;
   min-width: rem(350px);
   max-width: rem(768px);
   height: 100%;
 
-  background: url('../../assets/custom/bg-pink.png') center no-repeat;
-  object-fit: cover;
+  background: url('/src/assets/custom/bg-pink.png') center / cover no-repeat;
 
   position: relative;
 
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: column;
-  align-items: space-between;
-  gap: 8%;
 
   .blossomTreeContainer {
     width: 100%;
@@ -24,6 +22,7 @@
     position: relative;
 
     display: flex;
+
     justify-content: center;
     align-items: center;
 
@@ -31,14 +30,15 @@
       position: absolute;
       top: 0;
       width: 100%;
-      height: 90%;
+      height: 100%;
 
       .pagination {
+        color: $secondary;
         display: inline-flex;
         justify-content: center;
         align-items: center;
         position: absolute;
-        bottom: 0%;
+        bottom: 3%;
         left: 50%;
         transform: translate(-50%);
         padding: 0 12px;
@@ -46,43 +46,42 @@
         border-radius: 12px;
       }
 
-      ul {
+      .originTreeContainer {
+        height: 100%;
+        position: relative;
+      }
+
+      .swiperButton {
+        position: absolute;
+        bottom: 40%;
+
         width: inherit;
-        height: 50%;
-        position: absolute;
-        top: 0;
-        right: 0;
-        left: 0;
-      }
 
-      .arrowButton {
-        width: 8%;
-        height: 8%;
-        cursor: pointer;
-        border: none;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 16px;
-        background: rgba(255, 255, 255, 0.51);
+        .arrowButton {
+          width: 63px;
+          height: 63px;
+          position: absolute;
 
-        img {
-          width: 42px;
-          height: 42px;
+          cursor: pointer;
+          border: none;
+          border-radius: 50%;
+
+          padding: 12px;
         }
-      }
 
-      .leftButton {
-        position: absolute;
-        top: 50%;
-        left: 5%;
-      }
+        .leftButton {
+          background: url('/src/assets/swiper-button/left.png') 45% 50%/30% 50%
+            no-repeat;
+          background-color: rgba(255, 255, 255, 0.35);
+          left: 5%;
+        }
 
-      .rightButton {
-        position: absolute;
-        top: 50%;
-        right: 5%;
+        .rightButton {
+          background: url('/src/assets/swiper-button/right.png') 55% 50%/30% 50%
+            no-repeat;
+          background-color: rgba(255, 255, 255, 0.35);
+          right: 5%;
+        }
       }
     }
   }
@@ -95,7 +94,7 @@
 .notificationContainer {
   width: 120%;
   position: relative;
-  top: 6%;
+  top: -4%;
   left: 50%;
 }
 
@@ -108,12 +107,6 @@
   border-radius: rem(14px);
   color: $white;
   opacity: 0;
-}
-
-@media (max-width: 500px) {
-  .notificationStyling {
-    font-size: 77%;
-  }
 }
 
 .animateNotification {

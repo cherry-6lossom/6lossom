@@ -2,14 +2,10 @@
 @import '@/styles/theme/theme';
 
 .LongButtonContainer {
-  margin-top: rem(30px);
-  position: flex;
-  bottom: 30%;
-  left: 0;
-  right: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: rem(20px);
+  margin-bottom: rem(25px);
 }

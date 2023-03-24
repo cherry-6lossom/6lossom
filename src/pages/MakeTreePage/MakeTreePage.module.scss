@@ -7,7 +7,7 @@
   max-width: rem(768px);
   height: 100%;
 
-  background: url('../../assets/custom/bg-pink.png') center no-repeat;
+  background: center / cover no-repeat url('../../assets/custom/bg-pink.png');
   object-fit: cover;
 
   position: relative;

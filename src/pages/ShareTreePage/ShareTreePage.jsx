@@ -87,16 +87,14 @@ const ShareTreePage = () => {
     history.pushState(null, '', location.href);
   };
 
-  useEffect(() => {}, []);
-
   useLayoutEffect(() => {
     getPageTotalCount();
-    queryPage(6, 'next');
+    queryPage(7, 'next');
   }, []);
 
   useLayoutEffect(() => {
     setHasNextPage(flowerList.length === pageTotalCount ? false : true);
-    setHasPrevPage(flowerList.length <= 6 ? false : true);
+    setHasPrevPage(flowerList.length <= 7 ? false : true);
   }, [flowerList.length, pageTotalCount]);
 
   const flowerListRef = collection(db, `users/${uid}/flowerList`);
@@ -165,9 +163,9 @@ const ShareTreePage = () => {
         setFlowerList(
           flowerList.slice(
             undefined,
-            Number(lastVisible.id + 1) % 6 === 0
-              ? Number(lastVisible.id) - 6
-              : Number(lastVisible.id) - (Number(lastVisible.id) % 6)
+            Number(lastVisible.id + 1) % 7 === 0
+              ? Number(lastVisible.id) - 7
+              : Number(lastVisible.id) - (Number(lastVisible.id) % 7)
           )
         );
         break;
@@ -322,7 +320,9 @@ const ShareTreePage = () => {
       <messageContext.Provider value={messageVisibility}>
         <flowerContext.Provider value={{ flowerInfo, setFlowerInfo }}>
           <div
-            style={{ background: `url(${bgSrc}) center no-repeat` }}
+            style={{
+              background: `url(${bgSrc}) center / cover no-repeat `,
+            }}
             className={style.shareTreeContainer}
           >
             <Header
@@ -335,25 +335,8 @@ const ShareTreePage = () => {
                 <div>Loading...</div>
               ) : (
                 <div className={style.flowerList}>
-                  <OriginTree />
-                  <span className={style.pagination}>
-                    {flowerList.length}/{pageTotalCount}
-                  </span>
-                  <button
-                    className={classNames(style.arrowButton, style.leftButton)}
-                    disabled={!hasPrevPage}
-                    onClick={() => queryPage(6, 'prev')}
-                  >
-                    <img src={leftButton} alt="이전 페이지 보기" />
-                  </button>
-                  <button
-                    className={classNames(style.arrowButton, style.rightButton)}
-                    disabled={!hasNextPage}
-                    onClick={() => queryPage(6, 'next')}
-                  >
-                    <img src={rightButton} alt="다음 페이지 보기" />
-                  </button>
-                  <ul>
+                  <div className={style.originTreeContainer}>
+                    <OriginTree />
                     {renderList.map((item) => (
                       <Flower
                         uid={uid}
@@ -361,7 +344,28 @@ const ShareTreePage = () => {
                         handleOpenMessageDetail={handleOpenMessageDetail}
                       />
                     ))}
-                  </ul>
+                  </div>
+                  <span className={style.pagination}>
+                    {flowerList.length}/{pageTotalCount}
+                  </span>
+                  <div className={style.swiperButton}>
+                    <button
+                      className={classNames(
+                        style.arrowButton,
+                        style.leftButton
+                      )}
+                      disabled={!hasPrevPage}
+                      onClick={() => queryPage(7, 'prev')}
+                    ></button>
+                    <button
+                      className={classNames(
+                        style.arrowButton,
+                        style.rightButton
+                      )}
+                      disabled={!hasNextPage}
+                      onClick={() => queryPage(7, 'next')}
+                    ></button>
+                  </div>
                 </div>
               )}
             </div>
@@ -371,7 +375,7 @@ const ShareTreePage = () => {
                   'targetCheckOwnerNotification',
                   style.notificationStyling
                 )}
-                text={'벚꽃나무의 주인만이 메세지 확인이 가능합니다 !'}
+                text={'나의 벚꽃나무만 확인이 가능합니다 !'}
               />
 
               <Notification
@@ -379,7 +383,7 @@ const ShareTreePage = () => {
                   'targetCheckPeriodNotification',
                   style.notificationStyling
                 )}
-                text={'4월 15일 ~ 4월 29일에 메세지를 볼 수 있습니다 !'}
+                text={'아직 벚꽃이 피지 않았습니다 !'}
               />
 
               <Notification
@@ -387,7 +391,7 @@ const ShareTreePage = () => {
                   'targetCheckCreatableNotification',
                   style.notificationStyling
                 )}
-                text={'3월 15일 ~ 4월 14일에 메세지를 작성할 수 있습니다 !'}
+                text={'작성기한이 마감되었습니다 !'}
               />
             </div>
 

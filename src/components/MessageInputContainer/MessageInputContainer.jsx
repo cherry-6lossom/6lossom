@@ -24,7 +24,7 @@ const MessageInputContainer = ({
             value={state.author}
             onChange={handleChangeState}
             ref={authorInput}
-            maxLength={10}
+            maxLength={6}
           />
         </div>
         <div className={classes.contentContainer}>
