@@ -40,6 +40,7 @@ import classNames from 'classnames';
 import Flower from '@/components/Flower/Flower';
 import ModalProjectInfo from '@/components/ModalProjectInfo/ModalProjectInfo';
 import Notification from '@/components/Notification/Notification';
+import { useSignOut } from '@/firebase/auth/useSignOut';
 
 const ShareTreePage = () => {
   const [messageListVisible, setMessageListVisible] = useState(false);
@@ -265,13 +266,16 @@ const ShareTreePage = () => {
     }
   };
 
+  const { signOut } = useSignOut();
+
   const handleWatchTree = () => {
     if (localUid) {
       window.location.replace(`/share-tree/${localUid}`);
     } else {
       alert('로그인이 필요합니다.');
-      navigate('/');
+      signOut();
       localStorage.clear();
+      navigate('/');
     }
   };
 
