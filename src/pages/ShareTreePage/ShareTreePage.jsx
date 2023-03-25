@@ -77,12 +77,11 @@ const ShareTreePage = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [flowerList, setFlowerList] = useState([]);
-  const [firstVisible, setFirstVisible] = useState(null);
+  const [renderList, setRenderList] = useState([]);
   const [lastVisible, setLastVisible] = useState(null);
   const [pageTotalCount, setPageTotalCount] = useState(0);
   const [hasPrevPage, setHasPrevPage] = useState(false);
   const [hasNextPage, setHasNextPage] = useState(true);
-  const [renderList, setRenderList] = useState([]);
 
   const preventGoBack = () => {
     history.pushState(null, '', location.href);
@@ -110,36 +109,23 @@ const ShareTreePage = () => {
 
   const queryPage = async (limitCount = 10, text) => {
     let q;
+    if (!lastVisible) {
+      q = query(flowerListRef, orderBy('createAt', 'asc'), limit(limitCount));
+    } else {
+      let updateCount = flowerList.length - 7;
+      q = query(
+        flowerListRef,
+        orderBy('createAt', 'asc'),
+        text === 'next' ? startAfter(lastVisible) : endBefore(lastVisible),
 
-    switch (text) {
-      case 'prev':
-        if (!firstVisible) {
-          q = query(
-            flowerListRef,
-            orderBy('createAt', 'asc'),
-            limit(limitCount)
-          );
-        } else {
-          q = query(
-            flowerListRef,
-            orderBy('createAt', 'asc'),
-            endBefore(firstVisible),
-            limitToLast(limitCount)
-          );
-        }
-        break;
-      case 'next':
-        if (!lastVisible) {
-          q = query(flowerListRef, orderBy('createAt'), limit(limitCount));
-        } else {
-          q = query(
-            flowerListRef,
-            orderBy('createAt'),
-            startAfter(lastVisible),
-            limit(limitCount)
-          );
-        }
-        break;
+        limit(
+          text === 'next'
+            ? limitCount
+            : updateCount <= limitCount
+            ? limitCount
+            : updateCount
+        )
+      );
     }
 
     const docSnapshot = await getDocs(q);
@@ -159,26 +145,10 @@ const ShareTreePage = () => {
       listItem.push({ id: doc.id, ...doc.data() });
     });
 
-    switch (text) {
-      case 'prev':
-        setFlowerList(
-          flowerList.slice(
-            undefined,
-            Number(lastVisible.id + 1) % 7 === 0
-              ? Number(lastVisible.id) - 7
-              : Number(lastVisible.id) - (Number(lastVisible.id) % 7)
-          )
-        );
-        break;
-      case 'next':
-        setFlowerList([...flowerList, ...listItem]);
-        break;
-    }
-
+    const updateList =
+      text === 'next' ? [...flowerList, ...listItem] : listItem;
+    setFlowerList(updateList);
     setRenderList(listItem);
-
-    let prevDoc = docs[0];
-    if (prevDoc) setFirstVisible(prevDoc);
 
     let nextDoc = docs[docs.length - 1];
     if (nextDoc) setLastVisible(nextDoc);
@@ -354,6 +324,7 @@ const ShareTreePage = () => {
                   </span>
                   <div className={style.swiperButton}>
                     <button
+                      type="button"
                       className={classNames(
                         style.arrowButton,
                         style.leftButton
@@ -362,6 +333,7 @@ const ShareTreePage = () => {
                       onClick={() => queryPage(7, 'prev')}
                     ></button>
                     <button
+                      type="button"
                       className={classNames(
                         style.arrowButton,
                         style.rightButton
