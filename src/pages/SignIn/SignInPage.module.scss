@@ -51,6 +51,13 @@
       background-color: #f798bf;
     }
 
+    .toSignUpPage:active {
+      position: relative;
+      top: rem(2px);
+      left: rem(2px);
+      box-shadow: rem(1px) rem(1px) rem(2px) $cherryblossom700;
+    }
+
     .toSignUpPageWithDescription {
       margin-top: rem(24px);
       color: $cherryblossom800;
@@ -84,6 +91,13 @@
 
     .signInButton:hover {
       background-color: #fc579c;
+    }
+
+    .signInButton:active {
+      position: relative;
+      top: rem(2px);
+      left: rem(2px);
+      box-shadow: rem(1px) rem(1px) rem(2px) $cherryblossom700;
     }
   }
 }

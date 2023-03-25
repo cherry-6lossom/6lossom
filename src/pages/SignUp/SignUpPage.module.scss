@@ -72,6 +72,13 @@
       background-color: #fc579c;
     }
 
+    .signUpButton:active {
+      position: relative;
+      top: rem(2px);
+      left: rem(2px);
+      box-shadow: rem(1px) rem(1px) rem(2px) $cherryblossom700;
+    }
+
     .resetButton {
       width: 90%;
       height: rem(44px);
@@ -86,6 +93,13 @@
 
     .resetButton:hover {
       background-color: #f798bf;
+    }
+
+    .resetButton:active {
+      position: relative;
+      top: rem(2px);
+      left: rem(2px);
+      box-shadow: rem(1px) rem(1px) rem(2px) $cherryblossom700;
     }
   }
 }
