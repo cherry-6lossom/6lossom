@@ -162,58 +162,55 @@ const ShareTreePage = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const notification = (className) => {
+    const CopyNotification = document.querySelector(`.${className}`);
+    CopyNotification.classList.add(style.animateNotification);
+    setTimeout(() => {
+      CopyNotification.classList.remove(style.animateNotification);
+    }, 4000);
+  };
+
   const handleCopyLink = () => {
     let url = `https://localhost:3000${location.pathname}`;
-
     navigator.clipboard.writeText(url);
-
-    alert('링크가 복사되었습니다.');
+    notification('targetCheckLinkCopyNotification');
   };
 
   const handleOpenMessageDetail = (messageVisibility, message) => {
-    const { messageDetailVisible, setMessageDetailVisible } = messageVisibility;
     const backgroundElement = messageDetailRef.current;
     setFlowerInfo(message);
 
     if (uid !== localUid) {
-      const checkOwnerNotification = document.querySelector(
-        '.targetCheckOwnerNotification'
-      );
-      checkOwnerNotification.classList.add(style.animateNotification);
-      setTimeout(() => {
-        checkOwnerNotification.classList.remove(style.animateNotification);
-      }, 3000);
+      notification('targetCheckOwnerNotification');
       return;
     } else if (!msgActive) {
-      const checkPeriodNotification = document.querySelector(
-        '.targetCheckPeriodNotification'
-      );
-      checkPeriodNotification.classList.add(style.animateNotification);
-      setTimeout(() => {
-        checkPeriodNotification.classList.remove(style.animateNotification);
-      }, 4000);
+      notification('targetCheckPeriodNotification');
       return;
     }
 
     if (!messageDetailVisible) {
       backgroundElement.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
-      backgroundElement.style.zIndex = 102;
       backgroundElement.style.display = 'block';
+      backgroundElement.style.zIndex = 102;
 
       setMessageDetailVisible(!messageDetailVisible);
     }
   };
 
   const handleOpenMessageList = (e, messageVisibility) => {
-    const { messageListVisible, setMessageListVisible } = messageVisibility;
     const backgroundElement = listBackgroundRef.current;
     const messageListElement = messageListRef.current;
+
+    if (!msgActive) {
+      notification('targetCheckPeriodNotification');
+      return;
+    }
 
     if (!messageListVisible) {
       messageListElement.classList.add(style.moveIn);
       backgroundElement.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
-      backgroundElement.style.zIndex = 101;
       backgroundElement.style.display = 'block';
+      backgroundElement.style.zIndex = 101;
 
       setMessageListVisible(!messageListVisible);
       setTimeout(() => {
@@ -224,13 +221,7 @@ const ShareTreePage = () => {
 
   const handleCreateMessage = () => {
     if (!active) {
-      const checkCreatableNotification = document.querySelector(
-        '.targetCheckCreatableNotification'
-      );
-      checkCreatableNotification.classList.add(style.animateNotification);
-      setTimeout(() => {
-        checkCreatableNotification.classList.remove(style.animateNotification);
-      }, 4000);
+      notification('targetCheckCreatableNotification');
     } else {
       navigate(`/message-custom/${uid}`);
     }
@@ -360,6 +351,14 @@ const ShareTreePage = () => {
                   style.notificationStyling
                 )}
                 text={'아직 벚꽃이 피지 않았습니다 !'}
+              />
+
+              <Notification
+                className={classNames(
+                  'targetCheckLinkCopyNotification',
+                  style.notificationStyling
+                )}
+                text={'링크가 복사되었습니다 !'}
               />
 
               <Notification

@@ -80,7 +80,6 @@ export default function SignInPage() {
 
   if (user) {
     localStorage.setItem('uid', JSON.stringify(user.uid));
-    localStorage.setItem('user', JSON.stringify(user.displayName));
 
     navigate('/make-tree');
   }
