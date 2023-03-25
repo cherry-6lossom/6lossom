@@ -142,6 +142,7 @@ export default function SignUpPage() {
   }
 
   if (user) {
+    localStorage.setItem('uid', JSON.stringify(user.uid));
     navigate('/make-tree');
   }
 

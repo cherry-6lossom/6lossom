@@ -19,6 +19,13 @@
   background-color: $secondary;
 }
 
+.longButton:active {
+  position: relative;
+  top: rem(2px);
+  left: rem(2px);
+  box-shadow: rem(1px) rem(1px) rem(2px) $cherryblossom700;
+}
+
 .longButton:focus {
   background-color: $secondary;
 }

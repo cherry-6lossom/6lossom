@@ -9,24 +9,27 @@
 }
 
 .enrollWrap {
-  margin: 0 auto;
-  justify-content: center;
-  @include message-modal;
-  width: rem(350px);
-  text-align: center;
   display: flex;
-  position: relative;
+  justify-content: center;
   flex-direction: column;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  width: rem(350px);
+  margin: 0 auto;
   padding-top: rem(19px);
+  @include message-modal;
+  border: transparent;
+  text-align: center;
 
   .noticeDetail {
-    @include message-input;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     width: rem(330px);
     height: rem(80px);
-    justify-content: center;
     margin: rem(16px) auto rem(16px);
+    @include message-input;
   }
 }
 
@@ -38,6 +41,7 @@
   height: rem(48px);
   background-color: black;
   border-radius: 0 0 rem(20px) rem(20px);
+  border: transparent;
 
   button {
     width: rem(175px);
@@ -55,15 +59,15 @@
   .cancel {
     background-color: $cherryblossom100;
     border-radius: 0 0 0 rem(20px);
-    border-top: 2px solid $secondary;
-    border-right: 2px solid $secondary;
+    border: 2px solid $secondary;
+    border-right: transparent;
     color: $secondary;
   }
 
   .done {
     background-color: $cherryblossom100;
     border-radius: 0 0 rem(20px) 0;
-    border-top: 2px solid $secondary;
+    border: 2px solid $secondary;
     color: $secondary;
   }
 }
