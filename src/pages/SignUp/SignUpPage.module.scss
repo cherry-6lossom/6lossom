@@ -1,4 +1,5 @@
 @import '@/styles/utils/function';
+@import '@/styles/utils/layout';
 @import '@/styles/theme/theme';
 
 .signUpPageWrapper {
@@ -9,13 +10,27 @@
   background: center / cover no-repeat url('@/assets/custom/bg-pink.png');
   position: relative;
 
+  @include font-sm {
+    font-size: rem(12px);
+  }
+
+  @include font-lg {
+    font-size: rem(16px);
+  }
+
   .toSignInPage {
     position: absolute;
     top: rem(60px);
     left: rem(15px);
     background-color: transparent;
     border-color: transparent;
-    font-size: rem(32px);
+    @include font-sm {
+      font-size: rem(24px);
+    }
+
+    @include font-lg {
+      font-size: rem(32px);
+    }
     color: $secondary;
     cursor: pointer;
   }
@@ -32,7 +47,13 @@
         margin-top: 10%;
       }
       margin-bottom: rem(75px);
-      font-size: rem(24px);
+      @include font-sm {
+        font-size: rem(20px);
+      }
+
+      @include font-lg {
+        font-size: rem(24px);
+      }
       color: $secondary;
       text-align: center;
     }
@@ -59,7 +80,14 @@
       margin-top: rem(75px);
       width: 90%;
       height: rem(44px);
-      font-size: rem(14px);
+
+      @include font-sm {
+        font-size: rem(10px);
+      }
+
+      @include font-lg {
+        font-size: rem(14px);
+      }
       @include button-shadow;
       background-color: $secondary;
       color: white;
@@ -82,7 +110,13 @@
     .resetButton {
       width: 90%;
       height: rem(44px);
-      font-size: rem(14px);
+      @include font-sm {
+        font-size: rem(10px);
+      }
+
+      @include font-lg {
+        font-size: rem(14px);
+      }
       @include button-shadow;
       background-color: $primary;
       color: white;

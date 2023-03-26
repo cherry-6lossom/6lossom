@@ -77,12 +77,11 @@ const ShareTreePage = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [flowerList, setFlowerList] = useState([]);
-  const [firstVisible, setFirstVisible] = useState(null);
+  const [renderList, setRenderList] = useState([]);
   const [lastVisible, setLastVisible] = useState(null);
   const [pageTotalCount, setPageTotalCount] = useState(0);
   const [hasPrevPage, setHasPrevPage] = useState(false);
   const [hasNextPage, setHasNextPage] = useState(true);
-  const [renderList, setRenderList] = useState([]);
 
   const preventGoBack = () => {
     history.pushState(null, '', location.href);
@@ -110,36 +109,23 @@ const ShareTreePage = () => {
 
   const queryPage = async (limitCount = 10, text) => {
     let q;
+    if (!lastVisible) {
+      q = query(flowerListRef, orderBy('createAt', 'asc'), limit(limitCount));
+    } else {
+      let updateCount = flowerList.length - 7;
+      q = query(
+        flowerListRef,
+        orderBy('createAt', 'asc'),
+        text === 'next' ? startAfter(lastVisible) : endBefore(lastVisible),
 
-    switch (text) {
-      case 'prev':
-        if (!firstVisible) {
-          q = query(
-            flowerListRef,
-            orderBy('createAt', 'asc'),
-            limit(limitCount)
-          );
-        } else {
-          q = query(
-            flowerListRef,
-            orderBy('createAt', 'asc'),
-            endBefore(firstVisible),
-            limitToLast(limitCount)
-          );
-        }
-        break;
-      case 'next':
-        if (!lastVisible) {
-          q = query(flowerListRef, orderBy('createAt'), limit(limitCount));
-        } else {
-          q = query(
-            flowerListRef,
-            orderBy('createAt'),
-            startAfter(lastVisible),
-            limit(limitCount)
-          );
-        }
-        break;
+        limit(
+          text === 'next'
+            ? limitCount
+            : updateCount <= limitCount
+            ? limitCount
+            : updateCount
+        )
+      );
     }
 
     const docSnapshot = await getDocs(q);
@@ -159,26 +145,10 @@ const ShareTreePage = () => {
       listItem.push({ id: doc.id, ...doc.data() });
     });
 
-    switch (text) {
-      case 'prev':
-        setFlowerList(
-          flowerList.slice(
-            undefined,
-            Number(lastVisible.id + 1) % 7 === 0
-              ? Number(lastVisible.id) - 7
-              : Number(lastVisible.id) - (Number(lastVisible.id) % 7)
-          )
-        );
-        break;
-      case 'next':
-        setFlowerList([...flowerList, ...listItem]);
-        break;
-    }
-
-    setRenderList(listItem);
-
-    let prevDoc = docs[0];
-    if (prevDoc) setFirstVisible(prevDoc);
+    const updateList =
+      text === 'next' ? [...flowerList, ...listItem] : listItem;
+    setFlowerList(updateList);
+    setRenderList(listItem.slice(-7, undefined));
 
     let nextDoc = docs[docs.length - 1];
     if (nextDoc) setLastVisible(nextDoc);
@@ -192,58 +162,55 @@ const ShareTreePage = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const notification = (className) => {
+    const CopyNotification = document.querySelector(`.${className}`);
+    CopyNotification.classList.add(style.animateNotification);
+    setTimeout(() => {
+      CopyNotification.classList.remove(style.animateNotification);
+    }, 4000);
+  };
+
   const handleCopyLink = () => {
     let url = `https://localhost:3000${location.pathname}`;
-
     navigator.clipboard.writeText(url);
-
-    alert('링크가 복사되었습니다.');
+    notification('targetCheckLinkCopyNotification');
   };
 
   const handleOpenMessageDetail = (messageVisibility, message) => {
-    const { messageDetailVisible, setMessageDetailVisible } = messageVisibility;
     const backgroundElement = messageDetailRef.current;
     setFlowerInfo(message);
 
     if (uid !== localUid) {
-      const checkOwnerNotification = document.querySelector(
-        '.targetCheckOwnerNotification'
-      );
-      checkOwnerNotification.classList.add(style.animateNotification);
-      setTimeout(() => {
-        checkOwnerNotification.classList.remove(style.animateNotification);
-      }, 3000);
+      notification('targetCheckOwnerNotification');
       return;
     } else if (!msgActive) {
-      const checkPeriodNotification = document.querySelector(
-        '.targetCheckPeriodNotification'
-      );
-      checkPeriodNotification.classList.add(style.animateNotification);
-      setTimeout(() => {
-        checkPeriodNotification.classList.remove(style.animateNotification);
-      }, 4000);
+      notification('targetCheckPeriodNotification');
       return;
     }
 
     if (!messageDetailVisible) {
       backgroundElement.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
-      backgroundElement.style.zIndex = 102;
       backgroundElement.style.display = 'block';
+      backgroundElement.style.zIndex = 102;
 
       setMessageDetailVisible(!messageDetailVisible);
     }
   };
 
   const handleOpenMessageList = (e, messageVisibility) => {
-    const { messageListVisible, setMessageListVisible } = messageVisibility;
     const backgroundElement = listBackgroundRef.current;
     const messageListElement = messageListRef.current;
+
+    if (!msgActive) {
+      notification('targetCheckPeriodNotification');
+      return;
+    }
 
     if (!messageListVisible) {
       messageListElement.classList.add(style.moveIn);
       backgroundElement.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
-      backgroundElement.style.zIndex = 101;
       backgroundElement.style.display = 'block';
+      backgroundElement.style.zIndex = 101;
 
       setMessageListVisible(!messageListVisible);
       setTimeout(() => {
@@ -254,13 +221,7 @@ const ShareTreePage = () => {
 
   const handleCreateMessage = () => {
     if (!active) {
-      const checkCreatableNotification = document.querySelector(
-        '.targetCheckCreatableNotification'
-      );
-      checkCreatableNotification.classList.add(style.animateNotification);
-      setTimeout(() => {
-        checkCreatableNotification.classList.remove(style.animateNotification);
-      }, 4000);
+      notification('targetCheckCreatableNotification');
     } else {
       navigate(`/message-custom/${uid}`);
     }
@@ -331,7 +292,6 @@ const ShareTreePage = () => {
           >
             <Header
               userName={userNickname}
-              className={style.shareTreeSubTitle}
               subText={`${pageTotalCount}송이의 벚꽃이 피었어요 ! `}
             />
             <div className={style.blossomTreeContainer}>
@@ -354,6 +314,7 @@ const ShareTreePage = () => {
                   </span>
                   <div className={style.swiperButton}>
                     <button
+                      type="button"
                       className={classNames(
                         style.arrowButton,
                         style.leftButton
@@ -362,6 +323,7 @@ const ShareTreePage = () => {
                       onClick={() => queryPage(7, 'prev')}
                     ></button>
                     <button
+                      type="button"
                       className={classNames(
                         style.arrowButton,
                         style.rightButton
@@ -388,6 +350,14 @@ const ShareTreePage = () => {
                   style.notificationStyling
                 )}
                 text={'아직 벚꽃이 피지 않았습니다 !'}
+              />
+
+              <Notification
+                className={classNames(
+                  'targetCheckLinkCopyNotification',
+                  style.notificationStyling
+                )}
+                text={'링크가 복사되었습니다 !'}
               />
 
               <Notification
