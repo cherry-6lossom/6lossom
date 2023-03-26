@@ -6,31 +6,29 @@
   min-width: rem(350px);
   max-width: rem(768px);
   height: 100%;
-  background: center / cover no-repeat url('../../assets/custom/bg-pink.png');
+  background: url('../../assets/custom/bg-pink.png') center / cover no-repeat;
   position: relative;
-  object-fit: cover;
 
   display: flex;
-  flex-direction: column;
-  align-items: space-between;
-  gap: 8%;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+  align-items: center;
 
   .homeLogo {
     width: rem(222px);
     height: rem(36px);
     position: relative;
-    top: rem(101px);
-    left: 50%;
-    transform: translate(-50%);
     font-size: rem(32px);
     line-height: rem(24px);
-    text-align: center;
     display: flex;
     justify-content: space-between;
+    text-align: center;
 
-    img {
+    .moonLogo {
       width: rem(30px);
       height: rem(30px);
+      background: url('@/assets/main-page/main-logo.png') center / cover
+        no-repeat;
     }
 
     .homeTitleInfo {
@@ -71,116 +69,38 @@
     }
 
     .homeSubTitle {
-      width: rem(375px);
+      position: absolute;
+      top: rem(40px);
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
       font-size: rem(12px);
       color: $white;
       text-shadow: -1px 0 $title, 0 1px $title, 1px 0 $title, 0 -1px $title;
-      position: absolute;
-      top: rem(40px);
-      left: rem(-70px);
     }
   }
 
   .tree {
     position: relative;
-    top: 10%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: inherit;
+    width: 80%;
+    height: 60%;
 
     .blossomTree {
-      width: 80%;
-      position: relative;
-    }
-
-    .bigFlower,
-    .smallFlower {
       position: absolute;
-      filter: drop-shadow(2px 3px 4px rgba(102, 62, 79, 0.35));
-    }
-
-    .bigFlower {
-      width: 11%;
-    }
-
-    .smallFlower {
-      width: 8%;
-    }
-
-    .flower1 {
-      top: 26%;
-      left: 42%;
-    }
-
-    .flower2 {
-      top: 16%;
-      left: 24%;
-    }
-
-    .flower3 {
-      top: 29%;
-      left: 70%;
-    }
-
-    .flower4 {
-      top: 12%;
-      left: 63%;
-    }
-
-    .flower5 {
-      top: 37%;
-      left: 20%;
-    }
-
-    .flower6 {
-      top: 42%;
-      left: 60%;
-    }
-
-    .postBox {
-      width: 8%;
-      position: absolute;
-      bottom: 26%;
-      right: 33%;
-      cursor: pointer;
-    }
-
-    .clickMeText {
-      position: absolute;
-      bottom: 35%;
-      right: 25%;
-      background-color: $white;
-      color: $secondary;
-      padding: 3px 12px;
-      text-align: center;
-      border-radius: 10px;
-      border: 1px solid $secondary;
-      @include gray-shadow;
-    }
-
-    .clickMeText::after {
-      display: block;
-      content: '';
-      border-top: 10px solid $white;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-bottom: 0px solid transparent;
-      position: absolute;
+      background: url('@/assets/main-page/main-tree-with-flower.png') center /
+        contain no-repeat;
+      width: 100%;
+      height: 100%;
     }
   }
 
   .loginButtonList {
-    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: rem(8px);
-    position: absolute;
-    bottom: 2%;
+    gap: rem(10px);
+    width: 100%;
 
     .loginButton {
       width: 80%;
@@ -194,6 +114,23 @@
       gap: rem(20px);
       cursor: pointer;
       border-radius: rem(12px);
+    }
+
+    .generalButton {
+      background-color: $secondary;
+      color: white;
+      border-color: transparent;
+    }
+
+    .generalButton:hover {
+      background-color: #fc579c;
+    }
+
+    .generalButton:active {
+      position: relative;
+      top: rem(2px);
+      left: rem(2px);
+      box-shadow: rem(1px) rem(1px) rem(2px) $cherryblossom700;
     }
 
     .googleButton {
@@ -219,57 +156,41 @@
       box-shadow: rem(1px) rem(1px) rem(2px) $cherryblossom700;
     }
 
-    .facebookButton {
-      background-color: $facebook;
-      color: white;
-    }
+    // 페이스북, 트위터 인증 요청 중. 추후에 가능하면 추가 예정
+    // .facebookButton {
+    //   background-color: $facebook;
+    //   color: white;
+    // }
 
-    .facebookButton::before {
-      display: flex;
-      content: '';
-      width: rem(24px);
-      height: rem(24px);
-      background: url(../../assets/brand-logo/facebook-white.png) center
-        no-repeat;
-    }
+    // .facebookButton::before {
+    //   display: flex;
+    //   content: '';
+    //   width: rem(24px);
+    //   height: rem(24px);
+    //   background: url(../../assets/brand-logo/facebook-white.png) center
+    //     no-repeat;
+    // }
 
-    .facebookButton:hover {
-      background-color: #0c63d4;
-    }
+    // .facebookButton:hover {
+    //   background-color: #0c63d4;
+    // }
 
-    .twitterButton {
-      background-color: $twitter;
-      color: white;
-    }
+    // .twitterButton {
+    //   background-color: $twitter;
+    //   color: white;
+    // }
 
-    .twitterButton::before {
-      display: flex;
-      content: '';
-      width: rem(24px);
-      height: rem(24px);
-      background: url(../../assets/brand-logo/twitter-white.png) center
-        no-repeat;
-    }
+    // .twitterButton::before {
+    //   display: flex;
+    //   content: '';
+    //   width: rem(24px);
+    //   height: rem(24px);
+    //   background: url(../../assets/brand-logo/twitter-white.png) center
+    //     no-repeat;
+    // }
 
-    .twitterButton:hover {
-      background-color: #0c8bd9;
-    }
-
-    .generalButton {
-      background-color: $secondary;
-      color: white;
-      border-color: transparent;
-    }
-
-    .generalButton:hover {
-      background-color: #fc579c;
-    }
-
-    .generalButton:active {
-      position: relative;
-      top: rem(2px);
-      left: rem(2px);
-      box-shadow: rem(1px) rem(1px) rem(2px) $cherryblossom700;
-    }
+    // .twitterButton:hover {
+    //   background-color: #0c8bd9;
+    // }
   }
 }

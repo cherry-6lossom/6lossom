@@ -1,13 +1,12 @@
-import LoginButton from '@/components/LoginButton/LoginButton';
-import OriginTree from '@/components/OriginTree/OriginTree';
-
 import style from './HomePage.module.scss';
-import moonLogo from '@/assets/main-page/main-logo.png';
+import classNames from 'classnames';
 import blossom from '@/assets/custom/cherry-blossom3.png';
+import blossomTree from '@/assets/main-page/main-tree.png';
+
+import LoginButton from '@/components/LoginButton/LoginButton';
 import ModalProjectInfo from '@/components/ModalProjectInfo/ModalProjectInfo';
 import ProjectInfoButton from '@/components/ProjectInfoButton/ProjectInfoButton';
-import blossomTree from '@/assets/main-page/main-tree.png';
-import classNames from 'classnames';
+import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
 import { googleProvider } from '@/firebase/app';
 import { useSignOut } from '@/firebase/auth/useSignOut';
@@ -34,7 +33,11 @@ const HomePage = () => {
     <>
       <div className={style.homeContainer}>
         <div className={style.homeLogo}>
-          <img src={moonLogo} alt="" />
+          <figure className={style.moonLogo}>
+            <A11yHidden as={'figcaption'}>
+              초승달과 벚꽃이 함께있는 모양의 아이콘입니다.
+            </A11yHidden>
+          </figure>
           <h1 className={style.homeTitleInfo} aria-label="벚꽃이 지면">
             <span className={style.homeTitleShadow}>벚꽃이 지면</span>
             <span className={style.homeTitleBorder}>벚꽃이 지면</span>
@@ -45,41 +48,11 @@ const HomePage = () => {
           </h2>
         </div>
         <div className={style.tree}>
-          <img
-            className={classNames(style.blossomTree)}
-            src={blossomTree}
-            alt="벚꽃나무"
-          />
-          <img
-            className={classNames(style.flower1, style.bigFlower)}
-            src={blossom}
-            alt="벚꽃잎"
-          />
-          <img
-            className={classNames(style.flower2, style.bigFlower)}
-            src={blossom}
-            alt="벚꽃잎"
-          />
-          <img
-            className={classNames(style.flower3, style.bigFlower)}
-            src={blossom}
-            alt="벚꽃잎"
-          />
-          <img
-            className={classNames(style.flower4, style.smallFlower)}
-            src={blossom}
-            alt="벚꽃잎"
-          />
-          <img
-            className={classNames(style.flower5, style.smallFlower)}
-            src={blossom}
-            alt="벚꽃잎"
-          />
-          <img
-            className={classNames(style.flower6, style.smallFlower)}
-            src={blossom}
-            alt="벚꽃잎"
-          />
+          <figure className={style.blossomTree}>
+            <A11yHidden as={'figcaption'}>
+              벚꽃이지면 프로젝트의 메인 벚꽃나무 이미지입니다.
+            </A11yHidden>
+          </figure>
           <ProjectInfoButton handleModal={handleModal} />
         </div>
         <div className={style.loginButtonList}>
