@@ -39,9 +39,7 @@
   justify-content: space-between;
   width: rem(350px);
   height: rem(48px);
-  background-color: black;
   border-radius: 0 0 rem(20px) rem(20px);
-  border: transparent;
 
   button {
     width: rem(175px);
@@ -60,7 +58,9 @@
     background-color: $cherryblossom100;
     border-radius: 0 0 0 rem(20px);
     border: 2px solid $secondary;
-    border-right: transparent;
+    border-right: none;
+    border-left: none;
+    border-bottom: none;
     color: $secondary;
   }
 
@@ -68,6 +68,8 @@
     background-color: $cherryblossom100;
     border-radius: 0 0 rem(20px) 0;
     border: 2px solid $secondary;
+    border-right: none;
+    border-bottom: none;
     color: $secondary;
   }
 }
