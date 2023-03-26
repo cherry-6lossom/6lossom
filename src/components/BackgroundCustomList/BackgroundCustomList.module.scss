@@ -1,0 +1,9 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.backgroundCustomList {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}

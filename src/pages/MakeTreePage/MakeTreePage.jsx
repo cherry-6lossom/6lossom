@@ -1,16 +1,13 @@
+import style from './MakeTreePage.module.scss';
 import { createContext, useState, useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import HeaderTitle from '@/components/HeaderTitle/HeaderTitle';
 import UsageDescription from '@/components/UsageDescription/UsageDescription';
-import blossomTree from '@/assets/main-page/main-tree.png';
 import BackgroundCustomList from '@/components/BackgroundCustomList/BackgroundCustomList';
 import ShortButtonList from '@/components/ShortButtonList/ShortButtonList';
 import OriginTree from '@/components/OriginTree/OriginTree';
 
 import classNames from 'classnames';
-import style from './MakeTreePage.module.scss';
-import headerStyle from '@/components/Header/Header.module.scss';
 import selectPink from '@/assets/custom/select-bg-pink.png';
 import selectNight from '@/assets/custom/select-bg-night.png';
 import selectSky from '@/assets/custom/select-bg-sky.png';
@@ -112,7 +109,7 @@ const MakeTreePage = () => {
         onSubmit={handleComplete}
         className={classNames('MakeTreePage', style.makeTreeContainer)}
       >
-        <header className={headerStyle.header}>
+        <header className={style.header}>
           <UsageDescription subText={'벚꽃나무에 이름을 적어주세요'} />
           <div className={style.headerTitle}>
             <input
@@ -128,21 +125,25 @@ const MakeTreePage = () => {
             <span>님의 벚꽃나무</span>
           </div>
         </header>
-        <OriginTree className={style.originTree} />
-        <div className={style.makeTreeCustom}>
-          <UsageDescription
-            className={style.makeTreeCustomText}
-            subText={'벚꽃나무의 하늘을 선택해주세요.'}
-          />
-          <BackgroundCustomList />
-          <ShortButtonList
-            firstText={'취소'}
-            firstClick={() => {
-              window.location.replace('/');
-            }}
-            secondText={'완료'}
-            type={'submit'}
-          />
+        <div className={style.originTreeContainer}>
+          <OriginTree className={style.originTree} />
+        </div>
+        <div className={style.makeTreeCustomContainer}>
+          <div className={style.makeTreeCustom}>
+            <UsageDescription
+              className={style.makeTreeCustomText}
+              subText={'벚꽃나무의 하늘을 선택해주세요.'}
+            />
+            <BackgroundCustomList />
+            <ShortButtonList
+              firstText={'취소'}
+              firstClick={() => {
+                window.location.replace('/');
+              }}
+              secondText={'완료'}
+              type={'submit'}
+            />
+          </div>
         </div>
       </form>
     </BgContext.Provider>
