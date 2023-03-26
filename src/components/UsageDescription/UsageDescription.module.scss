@@ -1,4 +1,5 @@
 @import '@/styles/utils/function';
+@import '@/styles/utils/layout';
 @import '@/styles/theme/theme';
 
 .subTitle {
@@ -14,6 +15,14 @@
   display: flex;
   align-items: center;
   gap: rem(10px);
+
+  @include font-sm {
+    font-size: rem(12px);
+  }
+
+  @include font-lg {
+    font-size: rem(16px);
+  }
 
   img {
     width: rem(20px);

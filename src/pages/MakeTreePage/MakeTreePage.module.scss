@@ -22,8 +22,22 @@
     flex-flow: column nowrap;
     align-items: center;
 
+    @include font-sm {
+      font-size: rem(12px);
+    }
+
+    @include font-lg {
+      font-size: rem(16px);
+    }
+
     .headerTitle {
-      font-size: rem(24px);
+      @include font-sm {
+        font-size: rem(20px);
+      }
+
+      @include font-lg {
+        font-size: rem(24px);
+      }
       text-shadow: rem(-1px) 0 #350b0b, 0 rem(1px) #350b0b, rem(1px) 0 #350b0b,
         0 rem(-1px) #350b0b;
 

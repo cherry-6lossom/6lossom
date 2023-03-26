@@ -1,6 +1,14 @@
 @import '@/styles/utils/function';
+@import '@/styles/utils/layout';
 @import '@/styles/theme/theme';
 
 .modalButtonContainer {
   background-color: aqua;
+  @include font-sm {
+    font-size: rem(12px);
+  }
+
+  @include font-lg {
+    font-size: rem(16px);
+  }
 }

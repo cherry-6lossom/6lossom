@@ -1,4 +1,5 @@
 @import '@/styles/utils/function';
+@import '@/styles/utils/layout';
 @import '@/styles/theme/theme';
 
 .messageItemContainer {
@@ -6,6 +7,13 @@
   padding: rem(12px);
   @include message-modal;
   cursor: pointer;
+
+  @include font-sm {
+    font-size: rem(12px);
+  }
+  @include font-lg {
+    font-size: rem(16px);
+  }
 }
 
 .messageItem {
@@ -27,7 +35,12 @@
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: center;
-  font-size: rem(18px);
+  @include font-sm {
+    font-size: rem(14px);
+  }
+  @include font-lg {
+    font-size: rem(18px);
+  }
   color: $secondary;
 }
 
@@ -43,7 +56,12 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   line-height: rem(20px);
-  font-size: rem(15px);
+  @include font-sm {
+    font-size: rem(11px);
+  }
+  @include font-lg {
+    font-size: rem(15px);
+  }
   color: $secondary;
   text-overflow: ellipsis;
   word-wrap: break-word;
