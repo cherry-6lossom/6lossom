@@ -1,4 +1,5 @@
 @import '@/styles/utils/function';
+@import '@/styles/utils/layout';
 @import '@/styles/theme/theme';
 
 .backgroundCustomItem {
@@ -16,7 +17,13 @@
 }
 
 .backgroundCustomSelectText {
-  font-size: rem(18px);
+  @include font-sm {
+    font-size: rem(14px);
+  }
+
+  @include font-lg {
+    font-size: rem(18px);
+  }
 
   position: absolute;
   bottom: 15%;

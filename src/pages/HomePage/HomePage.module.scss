@@ -1,4 +1,5 @@
 @import '@/styles/utils/function';
+@import '@/styles/utils/layout';
 @import '@/styles/theme/theme';
 
 .homeContainer {
@@ -15,6 +16,14 @@
   align-items: space-between;
   gap: 8%;
 
+  @include font-sm {
+    font-size: rem(12px);
+  }
+
+  @include font-lg {
+    font-size: rem(16px);
+  }
+
   .homeLogo {
     width: rem(222px);
     height: rem(36px);
@@ -22,11 +31,11 @@
     top: rem(101px);
     left: 50%;
     transform: translate(-50%);
-    font-size: rem(32px);
     line-height: rem(24px);
     text-align: center;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     img {
       width: rem(30px);
@@ -35,6 +44,14 @@
 
     .homeTitleInfo {
       width: rem(180px);
+
+      @include font-sm {
+        font-size: rem(24px);
+      }
+
+      @include font-lg {
+        font-size: rem(32px);
+      }
     }
 
     .homeTitle {
@@ -72,7 +89,6 @@
 
     .homeSubTitle {
       width: rem(375px);
-      font-size: rem(12px);
       color: $white;
       text-shadow: -1px 0 $title, 0 1px $title, 1px 0 $title, 0 -1px $title;
       position: absolute;
@@ -185,7 +201,6 @@
     .loginButton {
       width: 80%;
       height: rem(44px);
-      font-size: rem(14px);
       @include button-shadow;
       border: rem(1px) solid $gray300;
       display: flex;
@@ -217,42 +232,6 @@
       top: rem(2px);
       left: rem(2px);
       box-shadow: rem(1px) rem(1px) rem(2px) $cherryblossom700;
-    }
-
-    .facebookButton {
-      background-color: $facebook;
-      color: white;
-    }
-
-    .facebookButton::before {
-      display: flex;
-      content: '';
-      width: rem(24px);
-      height: rem(24px);
-      background: url(../../assets/brand-logo/facebook-white.png) center
-        no-repeat;
-    }
-
-    .facebookButton:hover {
-      background-color: #0c63d4;
-    }
-
-    .twitterButton {
-      background-color: $twitter;
-      color: white;
-    }
-
-    .twitterButton::before {
-      display: flex;
-      content: '';
-      width: rem(24px);
-      height: rem(24px);
-      background: url(../../assets/brand-logo/twitter-white.png) center
-        no-repeat;
-    }
-
-    .twitterButton:hover {
-      background-color: #0c8bd9;
     }
 
     .generalButton {

@@ -1,4 +1,5 @@
 @import '@/styles/utils/function';
+@import '@/styles/utils/layout';
 @import '@/styles/theme/theme';
 
 .writeMessageWrap {
@@ -12,6 +13,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+
+  @include font-sm {
+    font-size: rem(12px);
+  }
+
+  @include font-lg {
+    font-size: rem(16px);
+  }
 
   .header {
     display: flex;

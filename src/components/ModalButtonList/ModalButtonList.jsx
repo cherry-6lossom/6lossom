@@ -1,6 +1,5 @@
 import ModalButton from '../ModalButton/ModalButton';
 import style from '@/pages/WriteMessagePage/WriteMessagePage.module.scss';
-// import styles from '@/components/ModalButtonList/ModalButtonList.module.scss';
 
 const ModalButtonList = ({
   firstText,

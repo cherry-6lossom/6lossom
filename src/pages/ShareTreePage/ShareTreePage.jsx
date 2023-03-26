@@ -292,7 +292,6 @@ const ShareTreePage = () => {
           >
             <Header
               userName={userNickname}
-              className={style.shareTreeSubTitle}
               subText={`${pageTotalCount}송이의 벚꽃이 피었어요 ! `}
             />
             <div className={style.blossomTreeContainer}>

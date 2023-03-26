@@ -1,7 +1,16 @@
 @import '@/styles/utils/function';
+@import '@/styles/utils/layout';
 @import '@/styles/theme/theme';
 
 .sideMenuContainer {
+  @include font-sm {
+    font-size: rem(12px);
+  }
+
+  @include font-lg {
+    font-size: rem(16px);
+  }
+
   .sideMenuBackground {
     @include modal-background;
     width: 100%;
@@ -28,9 +37,16 @@
       margin-bottom: rem(10px);
       padding-bottom: rem(6px);
       border-bottom: rem(3px) solid $cherryblossom300;
-      font-size: rem(20px);
       line-height: rem(20px);
       color: $secondary;
+
+      @include font-sm {
+        font-size: rem(16px);
+      }
+
+      @include font-lg {
+        font-size: rem(20px);
+      }
     }
 
     .sideMenuNav {
