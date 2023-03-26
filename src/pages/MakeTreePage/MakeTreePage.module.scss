@@ -1,4 +1,5 @@
 @import '@/styles/utils/function';
+@import '@/styles/utils/layout';
 @import '@/styles/theme/theme';
 
 .makeTreeContainer {
@@ -7,80 +8,86 @@
   max-width: rem(768px);
   height: 100%;
 
-  background: center / cover no-repeat url('../../assets/custom/bg-pink.png');
-  object-fit: cover;
+  background: center / cover no-repeat url('@/assets/custom/bg-pink.png');
 
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
-  align-items: space-between;
-  gap: 8%;
+  align-items: center;
+  padding-top: rem(40px);
 
-  .headerTitle {
-    font-size: rem(24px);
-    text-shadow: rem(-1px) 0 #350b0b, 0 rem(1px) #350b0b, rem(1px) 0 #350b0b,
-      0 rem(-1px) #350b0b;
+  .header {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
 
-    .userNickname {
-      text-align: center;
+    .headerTitle {
+      font-size: rem(24px);
+      text-shadow: rem(-1px) 0 #350b0b, 0 rem(1px) #350b0b, rem(1px) 0 #350b0b,
+        0 rem(-1px) #350b0b;
 
-      margin-top: rem(10px);
+      .userNickname {
+        text-align: center;
 
-      color: $secondary;
-      background-color: transparent;
-      border: none;
-      border-bottom: 1px solid $secondary;
-      outline: none;
+        margin-top: rem(10px);
 
-      height: 100%;
-      padding: 5px;
-      padding-bottom: 0;
-      z-index: 5;
-    }
+        color: $secondary;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid $secondary;
+        outline: none;
 
-    .userNickname::placeholder {
-      color: $gray300;
-    }
+        height: 100%;
+        padding: 5px;
+        padding-bottom: 0;
+        z-index: 5;
+      }
 
-    span {
-      color: $primary;
+      .userNickname::placeholder {
+        color: $gray300;
+      }
+
+      span {
+        color: $primary;
+      }
     }
   }
 
-  .makeTreeCustom {
-    box-sizing: border-box;
+  .originTreeContainer {
+    position: relative;
+    width: 60%;
+    height: 60%;
+  }
 
-    height: 25%;
-    padding: rem(20px);
-
+  .makeTreeCustomContainer {
     position: absolute;
-    left: 0%;
-    right: 0%;
-    bottom: 0%;
-
+    bottom: 0;
+    height: 30%;
+    padding: rem(10px);
     background-color: $cherryblossom100;
-
     border-top-left-radius: rem(32px);
     border-top-right-radius: rem(32px);
 
-    text-align: center;
-    vertical-align: center;
+    .makeTreeCustom {
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: space-evenly;
+      align-items: center;
+      width: 50%;
+      height: 100%;
+      margin: 0 auto;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+      @include mobile-sm {
+        justify-content: baseline;
+        width: 100%;
+        height: auto;
+      }
 
-    .makeTreeCustomText {
-      display: inline-block;
-      margin-bottom: rem(15px);
+      @include mobile-lg {
+        width: 100%;
+        height: 100%;
+      }
     }
-  }
-
-  .BackgroundCustomList {
-    display: flex;
-    justify-content: center;
-    gap: rem(20px);
   }
 }
