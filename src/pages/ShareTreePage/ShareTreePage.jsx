@@ -148,7 +148,7 @@ const ShareTreePage = () => {
     const updateList =
       text === 'next' ? [...flowerList, ...listItem] : listItem;
     setFlowerList(updateList);
-    setRenderList(listItem);
+    setRenderList(listItem.slice(-7, undefined));
 
     let nextDoc = docs[docs.length - 1];
     if (nextDoc) setLastVisible(nextDoc);

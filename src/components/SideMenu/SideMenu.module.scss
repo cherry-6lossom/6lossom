@@ -14,19 +14,18 @@
   }
 
   .sideMenuBar {
-    color: $cherryblossom700;
     position: absolute;
     top: 0;
     bottom: 0;
     right: 0;
-    width: 40%;
+    width: rem(325px);
     border-radius: rem(30px) 0 0 rem(30px);
     background-color: #ffebf4;
     padding: rem(30px);
 
     .sideMenuTitle {
-      margin-top: 30%;
-      margin-bottom: rem(20px);
+      margin-top: 10%;
+      margin-bottom: rem(10px);
       padding-bottom: rem(6px);
       border-bottom: rem(3px) solid $cherryblossom300;
       font-size: rem(20px);
@@ -47,10 +46,21 @@
     }
 
     .contents {
-      margin-bottom: rem(20px);
       display: flex;
       flex-direction: column;
       gap: rem(5px);
+      background-color: $white;
+      padding: rem(24px) rem(5px);
+      border-radius: rem(20px);
+      color: $cherryblossom700;
+
+      span {
+        line-height: rem(20px);
+      }
+
+      .importantText {
+        color: $secondary;
+      }
     }
   }
 }
