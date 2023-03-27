@@ -1,4 +1,4 @@
-import styles from '@/components/ModalButton/ModalButton.module.scss';
+import styles from './ModalButton.module.scss';
 
 const ModalButton = ({ text, onClick }) => {
   return (

@@ -1,4 +1,4 @@
-import styles from '@/pages/MessageCustomPage/MessageCustomPage.module.scss';
+import styles from './MessageCustomPage.module.scss';
 import MessageCustomList from '@/components/MessageCustomList/MessageCustomList';
 import HeaderTitle from '@/components/HeaderTitle/HeaderTitle';
 import UsageDescription from '@/components/UsageDescription/UsageDescription';

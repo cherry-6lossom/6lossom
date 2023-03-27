@@ -1,6 +1,6 @@
-import style from '@/components/SideMenu/sideMenu.module.scss';
+import style from './sideMenu.module.scss';
 import { useNavigate } from 'react-router-dom';
-import ShortButton from './../ShortButton/ShortButton';
+import ShortButton from '@/components/ShortButton/ShortButton';
 import { useSignOut } from '@/firebase/auth/useSignOut';
 
 function SideMenu({ loginName, handleModal }) {

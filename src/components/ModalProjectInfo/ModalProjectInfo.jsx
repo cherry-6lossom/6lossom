@@ -1,4 +1,4 @@
-import classes from '@/components/ModalProjectInfo/ModalProjectInfo.module.scss';
+import classes from './ModalProjectInfo.module.scss';
 import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
 const ModalProjectInfo = ({ handleModal }) => {

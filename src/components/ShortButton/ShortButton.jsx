@@ -1,4 +1,4 @@
-import style from '@/components/ShortButton/ShortButton.module.scss';
+import style from './ShortButton.module.scss';
 import classNames from 'classnames';
 import githubIcon from '@/assets/brand-logo/github-logo.png';
 

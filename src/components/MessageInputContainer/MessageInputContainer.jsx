@@ -1,7 +1,7 @@
-import classes from '@/components/MessageInputContainer/MessageInputContainer.module.scss';
+import classes from './MessageInputContainer.module.scss';
 import { useState, useRef } from 'react';
 import ModalEnroll from '@/components/ModalEnroll/ModalEnroll';
-import LongButtonList from './../LongButtonList/LongButtonList';
+import LongButtonList from '@/components/LongButtonList/LongButtonList';
 
 const MessageInputContainer = ({
   authorInput,
