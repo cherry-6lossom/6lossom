@@ -35,7 +35,7 @@ const Flower = ({ uid, item, handleOpenMessageDetail }) => {
       >
         <span>{nickname}</span>
         <button className={style.flowerButton} onClick={handleFlower}>
-          <img src={flowerSrc} alt="벚꽃 메세지" />
+          <img src={`/assets/${flowerSrc}.png`} alt="벚꽃 메세지" />
         </button>
       </div>
     </>

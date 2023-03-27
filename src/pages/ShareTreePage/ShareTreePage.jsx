@@ -40,6 +40,7 @@ import classNames from 'classnames';
 import Flower from '@/components/Flower/Flower';
 import ModalProjectInfo from '@/components/ModalProjectInfo/ModalProjectInfo';
 import Notification from '@/components/Notification/Notification';
+import loading from '@/assets/loading/Spinner.svg';
 import { useSignOut } from '@/firebase/auth/useSignOut';
 
 const ShareTreePage = () => {
@@ -296,7 +297,9 @@ const ShareTreePage = () => {
             />
             <div className={style.blossomTreeContainer}>
               {isLoading ? (
-                <div>Loading...</div>
+                <div>
+                  <img src={loading} alt="로딩 중" />
+                </div>
               ) : (
                 <div className={style.flowerList}>
                   <div className={style.originTreeContainer}>
