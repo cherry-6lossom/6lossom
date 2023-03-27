@@ -1,0 +1,30 @@
+@import '@/styles/utils/function';
+@import '@/styles/utils/layout';
+@import '@/styles/theme/theme';
+
+.subTitle {
+  background-color: $cherryblossom500;
+  border-radius: rem(14px);
+  color: $white;
+  position: relative;
+
+  padding: rem(5px) rem(16px);
+  margin: rem(10px) 0;
+  width: fit-content;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: rem(10px);
+
+  @include font-sm {
+    font-size: rem(12px);
+  }
+
+  @include font-lg {
+    font-size: rem(16px);
+  }
+
+  img {
+    width: rem(20px);
+  }
+}

@@ -1,0 +1,78 @@
+@import '@/styles/utils/function';
+@import '@/styles/utils/layout';
+@import '@/styles/theme/theme';
+
+.clickMe {
+  position: relative;
+  top: 60%;
+  left: 55%;
+  width: 10%;
+  height: 17%;
+  background-color: transparent;
+  border: transparent;
+  cursor: pointer;
+
+  @include mobile-sm {
+    top: 58%;
+    left: 56%;
+    width: 15%;
+  }
+  @include mobile-lg {
+    top: 58%;
+    left: 58%;
+    width: 15%;
+  }
+  @include tablet {
+    top: 61%;
+    left: 56%;
+  }
+
+  .clickMeText {
+    position: absolute;
+    top: 0;
+    left: 20%;
+    width: rem(95px);
+    height: rem(25px);
+    background-color: $white;
+    color: $secondary;
+    padding: 3px 12px;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 10px;
+    border: 1px solid $secondary;
+    @include gray-shadow;
+    cursor: pointer;
+
+    @include font-sm {
+      line-height: 1.5;
+    }
+  }
+
+  .clickMeText::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: rem(11px);
+    width: rem(12px);
+    height: rem(12px);
+    border-top: 12px solid $secondary;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 0px solid transparent;
+  }
+
+  .clickMeText::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: rem(12px);
+    width: rem(10px);
+    height: rem(10px);
+    border-top: 10px solid $white;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 0px solid transparent;
+  }
+}

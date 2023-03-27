@@ -1,0 +1,31 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.longButton {
+  @include pink-button;
+  width: 90%;
+  height: rem(54px);
+  border: none;
+  border-radius: rem(12px);
+  position: relative;
+  @include button-shadow;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.longButton:hover {
+  background-color: $secondary;
+}
+
+.longButton:active {
+  position: relative;
+  top: rem(2px);
+  left: rem(2px);
+  box-shadow: rem(1px) rem(1px) rem(2px) $cherryblossom700;
+}
+
+.longButton:focus {
+  background-color: $secondary;
+}

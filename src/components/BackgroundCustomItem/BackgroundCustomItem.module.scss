@@ -1,0 +1,48 @@
+@import '@/styles/utils/function';
+@import '@/styles/utils/layout';
+@import '@/styles/theme/theme';
+
+.backgroundCustomItem {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  position: relative;
+
+  .backgroundCustomButton {
+    width: 90%;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    @include mobile {
+      width: 70%;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+}
+
+.backgroundCustomButton:active {
+  position: relative;
+  top: rem(2px);
+  left: rem(2px);
+}
+
+.backgroundCustomSelectText {
+  @include font-sm {
+    font-size: rem(14px);
+  }
+
+  @include font-lg {
+    font-size: rem(18px);
+  }
+
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: $white;
+  text-shadow: rem(-1px) 0 #350b0b, 0 rem(1px) #350b0b, rem(1px) 0 #350b0b,
+    0 rem(-1px) #350b0b;
+}

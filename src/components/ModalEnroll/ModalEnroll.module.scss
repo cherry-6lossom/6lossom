@@ -1,0 +1,88 @@
+@import '@/styles/utils/function';
+@import '@/styles/utils/layout';
+@import '@/styles/theme/theme';
+
+.modalBackground {
+  @include modal-background;
+  position: absolute;
+  top: 0;
+  z-index: 100;
+
+  @include font-sm {
+    font-size: rem(12px);
+  }
+
+  @include font-lg {
+    font-size: rem(16px);
+  }
+}
+
+.enrollWrap {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  width: rem(350px);
+  margin: 0 auto;
+  padding-top: rem(19px);
+  @include message-modal;
+  border: transparent;
+  text-align: center;
+
+  .noticeDetail {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: rem(330px);
+    height: rem(80px);
+    margin: rem(16px) auto rem(16px);
+    @include message-input;
+
+    p {
+      line-height: 1.5;
+    }
+  }
+}
+
+.buttonList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: rem(350px);
+  height: rem(48px);
+  border-radius: 0 0 rem(20px) rem(20px);
+
+  button {
+    width: rem(175px);
+    height: rem(48px);
+    cursor: pointer;
+
+    &:hover {
+      background-color: $cherryblossom200;
+    }
+    &:focus {
+      background-color: $cherryblossom200;
+    }
+  }
+
+  .cancel {
+    background-color: $cherryblossom100;
+    border-radius: 0 0 0 rem(20px);
+    border: 2px solid $secondary;
+    border-right: none;
+    border-left: none;
+    border-bottom: none;
+    color: $secondary;
+  }
+
+  .done {
+    background-color: $cherryblossom100;
+    border-radius: 0 0 rem(20px) 0;
+    border: 2px solid $secondary;
+    border-right: none;
+    border-bottom: none;
+    color: $secondary;
+  }
+}

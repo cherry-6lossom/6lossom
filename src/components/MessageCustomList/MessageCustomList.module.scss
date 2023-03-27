@@ -1,0 +1,10 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.blossomSelect {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: rem(16px);
+  width: 100%;
+}

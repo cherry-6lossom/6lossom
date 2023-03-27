@@ -1,0 +1,56 @@
+@import '@/styles/utils/function';
+@import '@/styles/utils/layout';
+@import '@/styles/theme/theme';
+
+.writeMessageWrap {
+  margin: 0 auto;
+  min-width: rem(350px);
+  max-width: rem(768px);
+  height: 100%;
+  position: relative;
+  background-color: $cherryblossom100;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  @include font-sm {
+    font-size: rem(12px);
+  }
+
+  @include font-lg {
+    font-size: rem(16px);
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5%;
+  }
+
+  .flower {
+    @include pink-shadow;
+    width: 15%;
+    margin: rem(20px) 0;
+  }
+
+  .writeMessageHeader {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+
+    .notice {
+      margin-top: rem(16px);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  .modalButtonContainer {
+    display: flex;
+    flex-direction: row;
+  }
+}

@@ -1,0 +1,175 @@
+@import '@/styles/utils/function';
+@import '@/styles/utils/layout';
+@import '@/styles/theme/theme';
+
+.signUpPageWrapper {
+  margin: 0 auto;
+  min-width: rem(350px);
+  max-width: rem(768px);
+  min-height: 100%;
+  background: center / cover no-repeat url('@/assets/custom/bg-pink.png');
+  position: relative;
+
+  @include font-sm {
+    font-size: rem(12px);
+  }
+
+  @include font-lg {
+    font-size: rem(16px);
+  }
+
+  .toSignInPage {
+    position: absolute;
+    top: rem(60px);
+    left: rem(15px);
+    background-color: transparent;
+    border-color: transparent;
+    @include font-sm {
+      font-size: rem(24px);
+    }
+
+    @include font-lg {
+      font-size: rem(32px);
+    }
+    color: $secondary;
+    cursor: pointer;
+  }
+
+  .signUpPageContainer {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+
+    .signUpPageTitle {
+      margin-top: 20%;
+      @media screen and (max-width: 380px) {
+        margin-top: 10%;
+      }
+      margin-bottom: rem(75px);
+      @include font-sm {
+        font-size: rem(20px);
+      }
+
+      @include font-lg {
+        font-size: rem(24px);
+      }
+      color: $secondary;
+      text-align: center;
+    }
+
+    .toSignInPageWithDescription {
+      margin: rem(24px) auto;
+      color: $cherryblossom800;
+    }
+
+    .toSignInPageLink {
+      color: $primary;
+    }
+  }
+
+  .form {
+    position: relative;
+    display: flex;
+    gap: rem(12px);
+    flex-flow: column;
+    align-items: center;
+    width: 100%;
+
+    .signUpButton {
+      margin-top: rem(75px);
+      width: 90%;
+      height: rem(44px);
+
+      @include font-sm {
+        font-size: rem(10px);
+      }
+
+      @include font-lg {
+        font-size: rem(14px);
+      }
+      @include button-shadow;
+      background-color: $secondary;
+      color: white;
+      border-radius: rem(12px);
+      border-color: transparent;
+      cursor: pointer;
+    }
+
+    .signUpButton:hover {
+      background-color: #fc579c;
+    }
+
+    .signUpButton:active {
+      position: relative;
+      top: rem(2px);
+      left: rem(2px);
+      box-shadow: rem(1px) rem(1px) rem(2px) $cherryblossom700;
+    }
+
+    .resetButton {
+      width: 90%;
+      height: rem(44px);
+      @include font-sm {
+        font-size: rem(10px);
+      }
+
+      @include font-lg {
+        font-size: rem(14px);
+      }
+      @include button-shadow;
+      background-color: $primary;
+      color: white;
+      border-radius: rem(12px);
+      border-color: transparent;
+      cursor: pointer;
+    }
+
+    .resetButton:hover {
+      background-color: #f798bf;
+    }
+
+    .resetButton:active {
+      position: relative;
+      top: rem(2px);
+      left: rem(2px);
+      box-shadow: rem(1px) rem(1px) rem(2px) $cherryblossom700;
+    }
+  }
+}
+
+.validatePassed {
+  background: center / contain no-repeat url('@/assets/login/check-pink.png') !important;
+}
+
+.notificationStyling {
+  position: absolute;
+  opacity: 0;
+  bottom: rem(132px);
+  background-color: $secondary;
+  border-radius: rem(14px);
+  color: $white;
+  padding: rem(5px) rem(16px);
+}
+
+.animateNotification {
+  animation: fadeInAndOut 2s ease;
+}
+
+@keyframes fadeInAndOut {
+  0% {
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

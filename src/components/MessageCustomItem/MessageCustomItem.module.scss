@@ -1,0 +1,23 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.blossomButton {
+  padding: rem(10px) 0;
+  border: none;
+  cursor: pointer;
+  border-radius: rem(20px);
+  background-color: $primary;
+  height: 100%;
+  .blossomImage {
+    @include pink-shadow;
+    width: 65%;
+  }
+}
+
+.blossomButton:hover {
+  background-color: $secondary;
+}
+
+.blossomButton:focus {
+  background-color: $secondary;
+}

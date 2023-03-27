@@ -1,0 +1,76 @@
+@import '@/styles/utils/function';
+@import '@/styles/utils/layout';
+@import '@/styles/theme/theme';
+
+.messageWrap {
+  margin: 0 auto;
+  min-width: rem(350px);
+  max-width: rem(768px);
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .textLength {
+    display: block;
+    text-align: right;
+    padding-right: 6%;
+    padding-top: rem(6px);
+
+    color: $secondary;
+  }
+
+  .authorContainer {
+    justify-content: center;
+    display: block;
+    position: relative;
+    text-align: center;
+    display: flex;
+
+    .author {
+      display: block;
+      width: 90%;
+      height: rem(29px);
+      border: 1px;
+      border: 2px solid $secondary;
+      border-radius: 12px;
+      padding: 0 16px 0 16px;
+      color: $content;
+
+      &:focus {
+        @include pink-shadow;
+        outline: none;
+      }
+    }
+  }
+  .contentContainer {
+    justify-content: center;
+    display: block;
+    position: relative;
+    text-align: center;
+    display: flex;
+
+    .content {
+      margin-top: rem(16px);
+      display: block;
+      padding: rem(16px);
+      width: 90%;
+      height: rem(340px);
+      background: $white;
+      border: 2px solid $secondary;
+      border-radius: 12px;
+      resize: none;
+      color: $content;
+      left: 50%;
+
+      @include mobile-sm {
+        height: rem(180px);
+      }
+
+      &:focus {
+        @include pink-shadow;
+        outline: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.blossomTree {
+  position: absolute;
+  top: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80%;
+  background: center / contain no-repeat
+    url('/src/assets/main-page/main-tree.png');
+}

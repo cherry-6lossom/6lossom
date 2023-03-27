@@ -1,0 +1,98 @@
+@import '@/styles/utils/function';
+@import '@/styles/utils/layout';
+@import '@/styles/theme/theme';
+
+.FormInput {
+  position: relative;
+  display: flex;
+  gap: rem(4px);
+  flex-flow: row nowrap;
+  margin-bottom: rem(4px);
+
+  &Inline {
+    display: inline-flex;
+  }
+
+  &Vertical {
+    flex-direction: column;
+  }
+
+  &:focus-within,
+  &.inputed {
+    .label {
+      translate: -10px -100%;
+      scale: 0.64;
+    }
+  }
+
+  @include font-sm {
+    font-size: rem(12px);
+  }
+  @include font-lg {
+    font-size: rem(16px);
+  }
+}
+
+.label {
+  position: absolute;
+  left: rem(20px);
+  top: 50%;
+  translate: 0 -40%;
+  transition: all 0.2s ease-out;
+  color: $secondary;
+  @include font-sm {
+    font-size: rem(10px);
+  }
+  @include font-lg {
+    font-size: rem(14px);
+  }
+}
+
+.input {
+  border-color: transparent;
+  padding: 1.6em 1em 1em;
+  width: clamp(rem(320px), 20vw, rem(500px));
+  transition: all 0.2s ease-out;
+  border-radius: rem(26px);
+  font-size: rem(14px);
+  color: $cherryblossom800;
+
+  &:focus {
+    outline: rem(2px) solid#f03f40;
+  }
+}
+
+.validate {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  right: 5%;
+  width: rem(20px);
+  height: rem(20px);
+  background: center / contain no-repeat url('@/assets/login/check-default.png');
+}
+
+.passwordVisible {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  right: 12%;
+  width: rem(25px);
+  height: rem(25px);
+  background: center / contain no-repeat url('@/assets/login/eye.png');
+  border-color: transparent;
+  cursor: pointer;
+}
+
+.passwordInvisible {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  right: 12%;
+  width: rem(25px);
+  height: rem(25px);
+  background: center / contain no-repeat url('@/assets/login/eyeClosed.png');
+  border-color: transparent;
+  cursor: pointer;
+  opacity: 0.7;
+}

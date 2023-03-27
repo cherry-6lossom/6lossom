@@ -1,0 +1,82 @@
+@import '@/styles/utils/function';
+@import '@/styles/utils/layout';
+@import '@/styles/theme/theme';
+
+.sideMenuContainer {
+  @include font-sm {
+    font-size: rem(12px);
+  }
+
+  @include font-lg {
+    font-size: rem(16px);
+  }
+
+  .sideMenuBackground {
+    @include modal-background;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+  }
+
+  .sideMenuBar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: rem(335px);
+    border-radius: rem(30px) 0 0 rem(30px);
+    background-color: #ffebf4;
+    padding: rem(30px);
+
+    .sideMenuTitle {
+      margin-top: 10%;
+      margin-bottom: rem(10px);
+      padding-bottom: rem(6px);
+      border-bottom: rem(3px) solid $cherryblossom300;
+      line-height: rem(20px);
+      color: $secondary;
+
+      @include font-sm {
+        font-size: rem(16px);
+      }
+
+      @include font-lg {
+        font-size: rem(20px);
+      }
+    }
+
+    .sideMenuNav {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: rem(20px);
+
+      .shortButton {
+        padding: rem(10px) rem(30px);
+      }
+    }
+
+    .contents {
+      display: flex;
+      flex-direction: column;
+      gap: rem(5px);
+      background-color: $white;
+      padding: rem(24px) rem(5px);
+      border-radius: rem(20px);
+      color: $cherryblossom700;
+
+      span {
+        line-height: rem(20px);
+      }
+
+      .importantText {
+        color: $secondary;
+      }
+    }
+  }
+}

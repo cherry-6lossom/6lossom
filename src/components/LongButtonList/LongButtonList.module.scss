@@ -1,0 +1,10 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.LongButtonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: rem(20px);
+}
