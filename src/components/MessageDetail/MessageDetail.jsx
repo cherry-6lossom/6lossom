@@ -1,5 +1,4 @@
 import style from './MessageDetail.module.scss';
-import downloadButton from '@/assets/icon/download.png';
 import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 import { useContext } from 'react';
 import messageContext from '@/contexts/messageContext';
@@ -42,17 +41,6 @@ const messageDetail = ({ flowerInfo, messageDetailRef }) => {
       className={style.messageDetailBackground}
     >
       <div className={style.messageDetailWrapper}>
-        <a
-          href=""
-          className={style.downloadButtonContainer}
-          /* 후에 다운로드 기능 추가 download={} */
-        >
-          <img
-            src={downloadButton}
-            alt="상세 메세지 다운로드 링크"
-            className={style.downloadButton}
-          />
-        </a>
         <ul className={style.messageDetailContainer}>
           <li>
             <figure className={style.moonIcon}>
