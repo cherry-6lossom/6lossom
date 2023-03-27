@@ -15,4 +15,13 @@ export default defineConfig({
   css: {
     devSourcemap: true,
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom'],
+        },
+      },
+    },
+  },
 });
