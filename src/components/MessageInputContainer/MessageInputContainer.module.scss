@@ -35,7 +35,7 @@
       border: 2px solid $secondary;
       border-radius: 12px;
       padding: 0 16px 0 16px;
-      color: $secondary;
+      color: $content;
 
       &:focus {
         @include pink-shadow;
@@ -49,7 +49,6 @@
     position: relative;
     text-align: center;
     display: flex;
-    // flex-direction: column;
 
     .content {
       margin-top: rem(16px);
@@ -61,7 +60,7 @@
       border: 2px solid $secondary;
       border-radius: 12px;
       resize: none;
-      color: $secondary;
+      color: $content;
       left: 50%;
 
       @include mobile-sm {

@@ -39,6 +39,10 @@
     height: rem(80px);
     margin: rem(16px) auto rem(16px);
     @include message-input;
+
+    p {
+      line-height: 1.5;
+    }
   }
 }
 

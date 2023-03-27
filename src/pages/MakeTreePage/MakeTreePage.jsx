@@ -116,8 +116,8 @@ const MakeTreePage = () => {
               type="text"
               name="userNickname"
               value={nickname}
-              maxLength={10}
-              placeholder="닉네임을 입력해주세요"
+              maxLength={6}
+              placeholder="닉네임"
               onChange={handleChange}
               className={style.userNickname}
               required

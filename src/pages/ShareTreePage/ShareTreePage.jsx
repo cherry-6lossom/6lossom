@@ -349,7 +349,7 @@ const ShareTreePage = () => {
                   'targetCheckPeriodNotification',
                   style.notificationStyling
                 )}
-                text={'아직 벚꽃이 피지 않았습니다 !'}
+                text={'아직 벚꽃 열람 시기가 아니에요 !'}
               />
 
               <Notification

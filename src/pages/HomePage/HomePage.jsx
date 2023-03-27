@@ -33,16 +33,18 @@ const HomePage = () => {
     <>
       <div className={style.homeContainer}>
         <div className={style.homeLogo}>
-          <figure className={style.moonLogo}>
-            <A11yHidden as={'figcaption'}>
-              초승달과 벚꽃이 함께있는 모양의 아이콘입니다.
-            </A11yHidden>
-          </figure>
-          <h1 className={style.homeTitleInfo} aria-label="벚꽃이 지면">
-            <span className={style.homeTitleShadow}>벚꽃이 지면</span>
-            <span className={style.homeTitleBorder}>벚꽃이 지면</span>
-            <span className={style.homeTitle}>벚꽃이 지면</span>
-          </h1>
+          <div className={style.homeMainTitle}>
+            <figure className={style.moonLogo}>
+              <A11yHidden as={'figcaption'}>
+                초승달과 벚꽃이 함께있는 모양의 아이콘입니다.
+              </A11yHidden>
+            </figure>
+            <h1 className={style.homeTitleInfo} aria-label="벚꽃이 지면">
+              <span className={style.homeTitleShadow}>벚꽃이 지면</span>
+              <span className={style.homeTitleBorder}>벚꽃이 지면</span>
+              <span className={style.homeTitle}>벚꽃이 지면</span>
+            </h1>
+          </div>
           <h2 className={style.homeSubTitle}>
             벚꽃이 지면 당신의 메세지가 전달됩니다.
           </h2>

@@ -30,7 +30,14 @@
     line-height: rem(24px);
     display: flex;
     justify-content: space-between;
-    text-align: center;
+    align-items: center;
+
+    .homeMainTitle {
+      @include font-sm {
+        position: absolute;
+        margin-left: rem(20px);
+      }
+    }
 
     .moonLogo {
       width: rem(30px);
@@ -66,6 +73,10 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       text-fill-color: transparent;
+
+      @include font-sm {
+        line-height: 1.3;
+      }
     }
 
     .homeTitleBorder {
@@ -74,6 +85,10 @@
       left: rem(45px);
       text-shadow: -1px 0 #350b0b, 0 1px #350b0b, 1px 0 #350b0b, 0 -1px #350b0b;
       color: #ff91c0;
+
+      @include font-sm {
+        line-height: 1.3;
+      }
     }
 
     .homeTitleShadow {
@@ -82,6 +97,9 @@
       top: rem(2px);
       left: rem(45px);
       text-shadow: -1px 0 #350b0b, 0 1px #350b0b, 1px 0 #350b0b, 0 -1px #350b0b;
+      @include font-sm {
+        line-height: 1.3;
+      }
     }
 
     .homeSubTitle {
@@ -91,11 +109,11 @@
       transform: translateX(-50%);
       white-space: nowrap;
       @include font-sm {
-        font-size: rem(10px);
+        font-size: rem(12px);
       }
 
       @include font-lg {
-        font-size: rem(12px);
+        font-size: rem(18px);
       }
       color: $white;
       text-shadow: -1px 0 $title, 0 1px $title, 1px 0 $title, 0 -1px $title;
