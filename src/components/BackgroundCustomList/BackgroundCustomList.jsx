@@ -6,15 +6,15 @@ import { BgContext } from '@/pages/MakeTreePage/MakeTreePage';
 const BackgroundCustomList = () => {
   const { backgroundImageList, handleSelect } = useContext(BgContext);
   return (
-    <div className={style.backgroundCustomList}>
+    <ul className={style.backgroundCustomList}>
       {backgroundImageList.map((item) => (
         <BackgroundCustomItem
+          key={item.id}
           smallSrc={item.smallSrc}
-          id={item.id}
           handleSelect={handleSelect}
         />
       ))}
-    </div>
+    </ul>
   );
 };
 

@@ -304,13 +304,16 @@ const ShareTreePage = () => {
                 <div className={style.flowerList}>
                   <div className={style.originTreeContainer}>
                     <OriginTree />
-                    {renderList.map((item) => (
-                      <Flower
-                        uid={uid}
-                        item={item}
-                        handleOpenMessageDetail={handleOpenMessageDetail}
-                      />
-                    ))}
+                    <ul>
+                      {renderList.map((item) => (
+                        <Flower
+                          uid={uid}
+                          item={item}
+                          key={item.id}
+                          handleOpenMessageDetail={handleOpenMessageDetail}
+                        />
+                      ))}
+                    </ul>
                   </div>
                   <span className={style.pagination}>
                     {flowerList.length}/{pageTotalCount}
@@ -378,13 +381,6 @@ const ShareTreePage = () => {
                 firstClick={handleCopyLink}
                 secondText={'전체 메세지 보기'}
                 secondClick={(e) => handleOpenMessageList(e, messageVisibility)}
-              />
-            ) : active ? (
-              <LongButtonList
-                firstText={'벚꽃 달아주기'}
-                firstClick={handleCreateMessage}
-                secondText={'내 벚꽃나무 보러가기'}
-                secondClick={handleWatchTree}
               />
             ) : (
               <LongButtonList

@@ -69,6 +69,7 @@ const MessageList = ({
             <ul className={style.MessageItemWrapper}>
               {flowerList.map((flower) => (
                 <MessageItem
+                  key={flowerList.indexOf(flower)}
                   flower={flower}
                   handleOpenMessageDetail={handleOpenMessageDetail}
                 />
