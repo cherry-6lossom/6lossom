@@ -1,5 +1,5 @@
 import ShortButton from '@/components/ShortButton/ShortButton';
-import style from '@/components/ShortButtonList/ShortButtonList.module.scss';
+import style from './ShortButtonList.module.scss';
 
 const ShortButtonList = ({
   firstText,

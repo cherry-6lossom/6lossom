@@ -1,4 +1,4 @@
-import styles from '@/components/ModalEnroll/ModalEnroll.module.scss';
+import styles from './ModalEnroll.module.scss';
 
 const ModalEnroll = ({ handleCloseModal, handleComplete }) => {
   return (

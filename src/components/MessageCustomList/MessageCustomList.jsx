@@ -1,4 +1,4 @@
-import styles from '@/components/MessageCustomList/MessageCustomList.module.scss';
+import styles from './MessageCustomList.module.scss';
 import messageCustomContext from '@/contexts/messageCustomContext';
 import { useContext } from 'react';
 import MessageCustomItem from '@/components/MessageCustomItem/MessageCustomItem';

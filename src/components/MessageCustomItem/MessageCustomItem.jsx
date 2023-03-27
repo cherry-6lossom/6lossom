@@ -1,4 +1,4 @@
-import styles from '@/components/MessageCustomItem/MessageCustomItem.module.scss';
+import styles from './MessageCustomItem.module.scss';
 
 const MessageCustomItem = ({ src, id, handleSelect }) => {
   return (

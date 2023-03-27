@@ -1,4 +1,4 @@
-import classes from '@/components/ProjectInfoButton/ProjectInfoButton.module.scss';
+import classes from './ProjectInfoButton.module.scss';
 
 const ProjectInfoButton = ({ handleModal }) => {
   return (

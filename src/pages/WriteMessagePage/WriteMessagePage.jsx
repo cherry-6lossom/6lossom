@@ -1,8 +1,7 @@
 import { useState, useRef, useLayoutEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import classNames from 'classnames';
-import classes from '@/pages/WriteMessagePage/WriteMessagePage.module.scss';
-import style from '@/pages/WriteMessagePage/WriteMessagePage.module.scss';
+import classes from './WriteMessagePage.module.scss';
 import ModalEnroll from '@/components/ModalEnroll/ModalEnroll';
 import HeaderTitle from '@/components/HeaderTitle/HeaderTitle';
 import MessageInputContainer from '@/components/MessageInputContainer/MessageInputContainer';
