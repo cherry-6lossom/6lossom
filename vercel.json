@@ -1,15 +1,3 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
-  "routes": [
-    { "src": "/", "dest": "/" },
-    { "src": "/signin", "dest": "/signin" },
-    { "src": "/signup", "dest": "/signup" },
-    { "src": "/make-tree", "dest": "/make-tree" },
-    { "src": "/share-tree/:uid", "dest": "/share-tree/:uid" },
-    { "src": "/message-custom/:uid", "dest": "/message-custom/:uid" },
-    {
-      "src": "/write-message/:uid/:msgId",
-      "dest": "/write-message/:uid/:msgId"
-    }
-  ]
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
