@@ -53,7 +53,7 @@ export function useCreateAuthUser(collectionKey = 'users') {
           await setDoc(flowerRef, {
             nickname: '6lossom',
             contents: '환영합니다.',
-            flowerSrc: '/src/assets/custom/cherry-blossom1.png',
+            flowerSrc: 'cherry-blossom1',
             createAt,
           });
         } else {

@@ -55,9 +55,7 @@ const MessageCustomPage = () => {
   const [pageTotalCount, setPageTotalCount] = useState(0);
 
   const [nickname, setNickname] = useState('');
-  const [blossomSrc, setBlossomSrc] = useState(
-    '/src/assets/custom/cherry-blossom1.png'
-  );
+  const [blossomSrc, setBlossomSrc] = useState('cherry-blossom1.png');
 
   const getPageTotalCount = async () => {
     const flowerListRef = collection(db, `users/${uid}/flowerList`);
@@ -104,7 +102,7 @@ const MessageCustomPage = () => {
     await setDoc(flowerRef, {
       nickname: '',
       contents: '',
-      flowerSrc: blossomSrc,
+      flowerSrc: `${blossomSrc}`,
     });
 
     navigate(`/write-message/${uid}/${pageTotalCount}`);
@@ -122,7 +120,7 @@ const MessageCustomPage = () => {
           <div className={styles.blossomMain}>
             <img
               className={classNames('blossomImage', styles.blossomImage)}
-              src={blossomSrc}
+              src={`@/assets/custom/${blossomSrc}.png`}
               alt="벚꽃이미지"
             />
           </div>
