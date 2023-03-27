@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import classes from '@/components/HamburgerButton/HamburgerButton.module.scss';
-import SideMenu from '../SideMenu/SideMenu';
 
 function HamburgerButton() {
   return (

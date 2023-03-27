@@ -1,5 +1,5 @@
-import ModalButton from '../ModalButton/ModalButton';
-import style from '@/pages/WriteMessagePage/WriteMessagePage.module.scss';
+import ModalButton from '@/components/ModalButton/ModalButton';
+import style from './WriteMessagePage.module.scss';
 
 const ModalButtonList = ({
   firstText,
