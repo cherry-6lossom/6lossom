@@ -42,6 +42,10 @@
     border: 1px solid $secondary;
     @include gray-shadow;
     cursor: pointer;
+
+    @include font-sm {
+      line-height: 1.5;
+    }
   }
 
   .clickMeText::before {

@@ -76,7 +76,7 @@
   position: absolute;
   top: 50%;
   translate: 0 -50%;
-  right: 11%;
+  right: 12%;
   width: rem(25px);
   height: rem(25px);
   background: center / contain no-repeat url('@/assets/login/eye.png');
@@ -88,10 +88,11 @@
   position: absolute;
   top: 50%;
   translate: 0 -50%;
-  right: 11%;
+  right: 12%;
   width: rem(25px);
   height: rem(25px);
   background: center / contain no-repeat url('@/assets/login/eyeClosed.png');
   border-color: transparent;
   cursor: pointer;
+  opacity: 0.7;
 }
