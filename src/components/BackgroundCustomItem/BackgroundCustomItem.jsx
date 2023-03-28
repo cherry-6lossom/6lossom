@@ -1,8 +1,8 @@
 import style from './BackgroundCustomItem.module.scss';
 
-const BackgroundCustomItem = ({ id, smallSrc, handleSelect }) => {
+const BackgroundCustomItem = ({ keyId, id, smallSrc, handleSelect }) => {
   return (
-    <li key={id} className={style.backgroundCustomItem}>
+    <li key={keyId} className={style.backgroundCustomItem}>
       <button
         onClick={handleSelect}
         className={style.backgroundCustomButton}

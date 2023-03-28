@@ -1,3 +1,4 @@
+import { useCallback, useMemo, useState } from 'react';
 import {
   collection,
   doc,
@@ -5,7 +6,6 @@ import {
   serverTimestamp,
   setDoc,
 } from 'firebase/firestore';
-import { useCallback, useMemo, useState } from 'react';
 import { db } from '@/firebase/app';
 
 /**
@@ -53,7 +53,7 @@ export function useCreateAuthUser(collectionKey = 'users') {
           await setDoc(flowerRef, {
             nickname: '6lossom',
             contents: '환영합니다.',
-            flowerSrc: 'cherry-blossom1',
+            flowerSrc: '/assets/cherry-blossom1.png',
             createAt,
           });
         } else {

@@ -1,57 +1,42 @@
 import style from './MakeTreePage.module.scss';
+
 import { createContext, useState, useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import classNames from 'classnames';
+
+import { useUpdateData } from '@/firebase/firestore/useUpdateData';
+import { useCallCollection } from '@/firebase/app';
 
 import UsageDescription from '@/components/UsageDescription/UsageDescription';
 import BackgroundCustomList from '@/components/BackgroundCustomList/BackgroundCustomList';
 import ShortButtonList from '@/components/ShortButtonList/ShortButtonList';
 import OriginTree from '@/components/OriginTree/OriginTree';
 
-import classNames from 'classnames';
-import selectPink from '@/assets/custom/select-bg-pink.png';
-import selectNight from '@/assets/custom/select-bg-night.png';
-import selectSky from '@/assets/custom/select-bg-sky.png';
-import bgPink from '@/assets/custom/bg-pink.png';
-import bgNight from '@/assets/custom/bg-night.png';
-import bgSky from '@/assets/custom/bg-sky.png';
-
-import { useUpdateData } from '@/firebase/firestore/useUpdateData';
-import { useCallCollection } from '@/firebase/app';
-
-const backgroundImageList = [
-  {
-    id: 1,
-    bigSrc: bgSky,
-    isSelected: false,
-    smallSrc: selectSky,
-  },
-  {
-    id: 2,
-    bigSrc: bgNight,
-    isSelected: false,
-    smallSrc: selectNight,
-  },
-  {
-    id: 3,
-    bigSrc: bgPink,
-    isSelected: false,
-    smallSrc: selectPink,
-  },
-];
+import backgroundImageList from '@/data/backgroundImageList';
 
 export const BgContext = createContext();
 
 const MakeTreePage = () => {
+  const [nickname, setNickname] = useState('');
+  const [selectBg, setSelectBg] = useState('/assets/bg-pink.png');
+
   const navigate = useNavigate();
 
   const { updateData } = useUpdateData('users');
 
-  const [nickname, setNickname] = useState('');
-  const [selectBg, setSelectBg] = useState('/src/assets/custom/bg-pink.png');
-
   const localUid = JSON.parse(localStorage.getItem('uid'));
 
-  // 배경색 선택 이벤트
+  useLayoutEffect(() => {
+    useCallCollection('users').then((userList) => {
+      userList.map((user) => {
+        if (user.uid === localUid && user.isMade) {
+          navigate(`/share-tree/${localUid}`);
+        }
+      });
+    });
+  }, []);
+
   const handleSelect = (e) => {
     const backgoundImage = document.querySelector('.MakeTreePage');
     const buttonElement = e.target.closest('button');
@@ -65,42 +50,29 @@ const MakeTreePage = () => {
     });
   };
 
-  // 완료 버튼 클릭 이벤트
   const handleComplete = () => {
     updateData(localUid, {
       bgSrc: selectBg,
       isMade: true,
-      url: `https://localhost:3000/share-tree/${localUid}`,
       userNickname: nickname,
     });
 
     navigate(`/share-tree/${localUid}`, { replace: true });
 
-    // 뒤로 가기 막기 코드
     history.pushState(null, null, location.href);
     window.onpopstate = function (event) {
       history.go(1);
     };
   };
 
+  const handleChange = (e) => {
+    setNickname(e.target.value);
+  };
+
   const value = {
     backgroundImageList,
     setSelectBg,
     handleSelect,
-  };
-
-  useLayoutEffect(() => {
-    useCallCollection('users').then((userList) => {
-      userList.map((user) => {
-        if (user.uid === localUid && user.isMade) {
-          navigate(`/share-tree/${localUid}`);
-        }
-      });
-    });
-  }, []);
-
-  const handleChange = (e) => {
-    setNickname(e.target.value);
   };
 
   return (

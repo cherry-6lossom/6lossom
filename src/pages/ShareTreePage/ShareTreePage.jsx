@@ -1,4 +1,5 @@
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import style from './ShareTreePage.module.scss';
+
 import {
   useCallback,
   useEffect,
@@ -7,21 +8,12 @@ import {
   useRef,
   useState,
 } from 'react';
-
-import style from './ShareTreePage.module.scss';
-import rightButton from '@/assets/swiper-button/right.png';
-import leftButton from '@/assets/swiper-button/left.png';
-
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import messageContext from '@/contexts/messageContext';
 import flowerContext from '@/contexts/flowerContext';
 
-import Header from '@/components/Header/Header';
-import OriginTree from '@/components/OriginTree/OriginTree';
-import LongButtonList from '@/components/LongButtonList/LongButtonList';
-import HamburgerButton from '@/components/HamburgerButton/HamburgerButton';
-import SideMenu from '@/components/SideMenu/SideMenu';
-import MessageList from '@/components/MessageList/MessageList';
-import MessageDetail from '@/components/MessageDetail/MessageDetail';
+import classNames from 'classnames';
+
 import { db, useCallCollection } from '@/firebase/app';
 import {
   collection,
@@ -36,26 +28,45 @@ import {
   query,
   startAfter,
 } from 'firebase/firestore';
-import classNames from 'classnames';
+import { useSignOut } from '@/firebase/auth/useSignOut';
+
+import Header from '@/components/Header/Header';
+import OriginTree from '@/components/OriginTree/OriginTree';
+import LongButtonList from '@/components/LongButtonList/LongButtonList';
+import HamburgerButton from '@/components/HamburgerButton/HamburgerButton';
+import SideMenu from '@/components/SideMenu/SideMenu';
+import MessageList from '@/components/MessageList/MessageList';
+import MessageDetail from '@/components/MessageDetail/MessageDetail';
 import Flower from '@/components/Flower/Flower';
 import ModalProjectInfo from '@/components/ModalProjectInfo/ModalProjectInfo';
 import Notification from '@/components/Notification/Notification';
+
+import rightButton from '@/assets/swiper-button/right.png';
+import leftButton from '@/assets/swiper-button/left.png';
 import loading from '@/assets/loading/Spinner.svg';
-import { useSignOut } from '@/firebase/auth/useSignOut';
 
 const ShareTreePage = () => {
   const [messageListVisible, setMessageListVisible] = useState(false);
   const [messageDetailVisible, setMessageDetailVisible] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [flowerInfo, setFlowerInfo] = useState({});
-  const [modal, setModal] = useState(false);
 
-  const { uid } = useParams();
-  const listBackgroundRef = useRef();
-  const messageListRef = useRef();
-  const messageDetailRef = useRef();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [localNickname, setLocalNickname] = useState('');
+  const [userNickname, setUserNickname] = useState('');
+  const [bgSrc, setBgSrc] = useState('');
+
+  const [flowerList, setFlowerList] = useState([]);
+  const [renderList, setRenderList] = useState([]);
+  const [lastVisible, setLastVisible] = useState(null);
+  const [pageTotalCount, setPageTotalCount] = useState(0);
+  const [hasPrevPage, setHasPrevPage] = useState(false);
+  const [hasNextPage, setHasNextPage] = useState(true);
+
+  const [msgActive, setMsgActive] = useState(false);
+  const [active, setActive] = useState(false);
 
   const messageVisibility = useMemo(
     () => ({
@@ -71,22 +82,19 @@ const ShareTreePage = () => {
       setMessageDetailVisible,
     ]
   );
+  const listBackgroundRef = useRef();
+  const messageListRef = useRef();
+  const messageDetailRef = useRef();
 
-  // 공유 트리 페이지의 주인
-  const [userNickname, setUserNickname] = useState('');
-  const [bgSrc, setBgSrc] = useState('');
+  const { uid } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [flowerList, setFlowerList] = useState([]);
-  const [renderList, setRenderList] = useState([]);
-  const [lastVisible, setLastVisible] = useState(null);
-  const [pageTotalCount, setPageTotalCount] = useState(0);
-  const [hasPrevPage, setHasPrevPage] = useState(false);
-  const [hasNextPage, setHasNextPage] = useState(true);
+  const flowerListRef = collection(db, `users/${uid}/flowerList`);
+  const { signOut } = useSignOut();
 
-  const preventGoBack = () => {
-    history.pushState(null, '', location.href);
-  };
+  const localUid = JSON.parse(localStorage.getItem('uid'));
+  const today = new Date();
 
   useLayoutEffect(() => {
     getPageTotalCount();
@@ -98,13 +106,47 @@ const ShareTreePage = () => {
     setHasPrevPage(flowerList.length <= 7 ? false : true);
   }, [flowerList.length, pageTotalCount]);
 
-  const flowerListRef = collection(db, `users/${uid}/flowerList`);
+  useEffect(() => {
+    const msgStartDate = new Date(today.getFullYear(), 3, 15); // 4월 15일
+    const msgEndDate = new Date(today.getFullYear(), 3, 29); // 4월 29일
+    const isMsgActive = today >= msgStartDate && today <= msgEndDate;
+
+    const startDate = new Date(today.getFullYear(), 2, 15); // 3월 15일
+    const endDate = new Date(today.getFullYear(), 3, 14); // 4월 14일
+    const isActive = today >= startDate && today <= endDate;
+
+    setMsgActive(isMsgActive);
+    setActive(isActive);
+
+    const unsub = onSnapshot(doc(db, 'users', uid), (doc) => {
+      setUserNickname(doc.data().userNickname);
+      setBgSrc(doc.data().bgSrc);
+    });
+
+    useCallCollection('users').then((userList) => {
+      userList.map((user) => {
+        if (user.uid === localUid) {
+          setLocalNickname(user.userNickname);
+        }
+      });
+    });
+
+    history.pushState(null, '', location.href);
+    window.addEventListener('popstate', preventGoBack);
+
+    return () => {
+      window.removeEventListener('popstate', preventGoBack);
+    };
+  }, []);
+
+  const preventGoBack = () => {
+    history.pushState(null, '', location.href);
+  };
 
   const getPageTotalCount = async () => {
     const res = await getCountFromServer(
       query(flowerListRef, orderBy('createAt', 'asc'))
     );
-
     setPageTotalCount(res.data().count);
   };
 
@@ -155,14 +197,6 @@ const ShareTreePage = () => {
     if (nextDoc) setLastVisible(nextDoc);
   };
 
-  // 로그인 한 사용자
-  const localUid = JSON.parse(localStorage.getItem('uid'));
-  const [localNickname, setLocalNickname] = useState('');
-
-  const handleMenuClick = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
   const notification = (className) => {
     const CopyNotification = document.querySelector(`.${className}`);
     CopyNotification.classList.add(style.animateNotification);
@@ -171,8 +205,12 @@ const ShareTreePage = () => {
     }, 4000);
   };
 
+  const handleMenuClick = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   const handleCopyLink = () => {
-    let url = `https://localhost:3000${location.pathname}`;
+    let url = window.location.href;
     navigator.clipboard.writeText(url);
     notification('targetCheckLinkCopyNotification');
   };
@@ -228,8 +266,6 @@ const ShareTreePage = () => {
     }
   };
 
-  const { signOut } = useSignOut();
-
   const handleWatchTree = () => {
     if (localUid) {
       window.location.replace(`/share-tree/${localUid}`);
@@ -244,42 +280,6 @@ const ShareTreePage = () => {
   const handleModal = () => {
     setModal(!modal);
   };
-
-  const today = new Date();
-  const [msgActive, setMsgActive] = useState(false);
-  const [active, setActive] = useState(false);
-
-  useEffect(() => {
-    const unsub = onSnapshot(doc(db, 'users', uid), (doc) => {
-      setUserNickname(doc.data().userNickname);
-      setBgSrc(doc.data().bgSrc);
-    });
-
-    useCallCollection('users').then((userList) => {
-      userList.map((user) => {
-        if (user.uid === localUid) {
-          setLocalNickname(user.userNickname);
-        }
-      });
-    });
-
-    const msgStartDate = new Date(today.getFullYear(), 3, 15); // 4월 15일
-    const msgEndDate = new Date(today.getFullYear(), 3, 29); // 4월 29일
-    const isMsgActive = today >= msgStartDate && today <= msgEndDate;
-    setMsgActive(isMsgActive);
-
-    const startDate = new Date(today.getFullYear(), 2, 15); // 3월 15일
-    const endDate = new Date(today.getFullYear(), 3, 14); // 4월 14일
-    const isActive = today >= startDate && today <= endDate;
-    setActive(isActive);
-
-    history.pushState(null, '', location.href);
-    window.addEventListener('popstate', preventGoBack);
-
-    return () => {
-      window.removeEventListener('popstate', preventGoBack);
-    };
-  }, []);
 
   return (
     <>

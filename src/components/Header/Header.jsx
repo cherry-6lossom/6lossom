@@ -1,6 +1,7 @@
+import style from './Header.module.scss';
+
 import HeaderTitle from '@/components/HeaderTitle/HeaderTitle';
 import UsageDescription from '@/components/UsageDescription/UsageDescription';
-import style from './Header.module.scss';
 
 const Header = ({ userName, className, subText }) => {
   return (

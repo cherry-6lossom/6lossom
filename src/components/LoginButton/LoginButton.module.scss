@@ -1,0 +1,15 @@
+@import '@/styles/utils/function';
+@import '@/styles/theme/theme';
+
+.loginButton {
+  width: 80%;
+  height: rem(44px);
+  @include button-shadow;
+  border: rem(1px) solid $gray300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: rem(20px);
+  cursor: pointer;
+  border-radius: rem(12px);
+}

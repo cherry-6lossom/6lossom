@@ -1,34 +1,39 @@
+import style from './WriteMessagePage.module.scss';
+
 import { useState, useRef, useLayoutEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import classNames from 'classnames';
-import classes from './WriteMessagePage.module.scss';
+
+import { db, useCallCollection } from '@/firebase/app';
+import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { useUpdateData } from '@/firebase/firestore/useUpdateData';
+
 import ModalEnroll from '@/components/ModalEnroll/ModalEnroll';
 import HeaderTitle from '@/components/HeaderTitle/HeaderTitle';
 import MessageInputContainer from '@/components/MessageInputContainer/MessageInputContainer';
 import UsageDescription from '@/components/UsageDescription/UsageDescription';
 import LongButtonList from '@/components/LongButtonList/LongButtonList';
-import { db, useCallCollection } from '@/firebase/app';
-import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
-import { useUpdateData } from '@/firebase/firestore/useUpdateData';
 
 const WriteMessagePage = () => {
-  const { uid, msgId } = useParams();
-  const { updateData } = useUpdateData(`users/${uid}/flowerList`);
-  const navigate = useNavigate();
-  const authorInput = useRef();
-  const contentInput = useRef();
   const [nickname, setNickname] = useState('');
+  const [flowerSrc, setFlowerSrc] = useState('');
+
+  const [text, setText] = useState('');
   const [state, setState] = useState({
     author: '',
     content: '',
   });
-  const [text, setText] = useState('');
-  const [showModal, setShowModal] = useState(false);
-  const [flowerSrc, setFlowerSrc] = useState('');
 
-  useCallCollection(`users/${uid}/flowerList`).then((flowerList) => {
-    setFlowerSrc(flowerList[msgId].flowerSrc);
-  });
+  const [showModal, setShowModal] = useState(false);
+
+  const authorInput = useRef();
+  const contentInput = useRef();
+
+  const { uid, msgId } = useParams();
+  const navigate = useNavigate();
+
+  const { updateData } = useUpdateData(`users/${uid}/flowerList`);
 
   useLayoutEffect(() => {
     (async () => {
@@ -38,15 +43,17 @@ const WriteMessagePage = () => {
     })();
   }, []);
 
+  useCallCollection(`users/${uid}/flowerList`).then((flowerList) => {
+    setFlowerSrc(flowerList[msgId].flowerSrc);
+  });
+
   const handleChangeState = (e, text) => {
     const { name, value } = e.target;
-
     if (name === 'content') {
       if (value.length <= 500) {
         setText(value);
       }
     }
-
     setState({
       ...state,
       [name]: value,
@@ -85,12 +92,12 @@ const WriteMessagePage = () => {
 
   return (
     <>
-      <div className={classes.writeMessageWrap}>
-        <div className={classes.header}>
+      <div className={style.writeMessageWrap}>
+        <div className={style.header}>
           <HeaderTitle userName={nickname} />
-          <img className={classes.flower} src={flowerSrc} alt="벚꽃이미지" />
+          <img className={style.flower} src={flowerSrc} alt="벚꽃이미지" />
           <UsageDescription
-            className={classes.notice}
+            className={style.notice}
             subText={`${nickname}님에게 메세지를 남겨주세요`}
           />
         </div>

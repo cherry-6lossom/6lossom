@@ -1,4 +1,5 @@
 import style from './SignInPage.module.scss';
+
 import { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -16,10 +17,10 @@ const initialFormState = {
 export default function SignInPage() {
   const formStateRef = useRef(initialFormState);
 
+  const navigate = useNavigate();
+
   const { isLoading: isLoadingSignIn, signIn } = useSignIn();
   const { isLoading, error, user } = useAuthState();
-
-  const navigate = useNavigate();
 
   const handleSignIn = async (e) => {
     e.preventDefault();

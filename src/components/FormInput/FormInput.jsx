@@ -1,6 +1,9 @@
 import style from './FormInput.module.scss';
+
 import { useId, useRef, useEffect, useState } from 'react';
+
 import { bool, string } from 'prop-types';
+
 import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
 export function FormInput({
@@ -11,20 +14,12 @@ export function FormInput({
   vertical,
   ...restProps
 }) {
-  const id = useId();
-  const inputRef = useRef(null);
-
   const [visible, setVisible] = useState(false);
   const [passwordType, setPasswordType] = useState(type);
 
-  const handlePasswordVisibility = () => {
-    if (passwordType === 'text') {
-      setPasswordType('password');
-    } else if (passwordType === 'password') {
-      setPasswordType('text');
-    }
-    setVisible((visible) => !visible);
-  };
+  const inputRef = useRef(null);
+
+  const id = useId();
 
   useEffect(() => {
     const input = inputRef.current;
@@ -42,6 +37,16 @@ export function FormInput({
   const combineClassNames = `${style.FormInput} ${
     vertical ? style.FormInputVertical : ''
   }`.trim();
+
+  const handlePasswordVisibility = () => {
+    if (passwordType === 'text') {
+      setPasswordType('password');
+    } else if (passwordType === 'password') {
+      setPasswordType('text');
+    }
+    setVisible((visible) => !visible);
+  };
+
   return (
     <div className={combineClassNames}>
       {renderLabel(id, label, invisibleLabel)}
