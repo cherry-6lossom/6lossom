@@ -97,7 +97,7 @@ const WriteMessagePage = () => {
           <HeaderTitle userName={nickname} />
           <img
             className={style.flower}
-            src={`/assets/custom/${flowerSrc}.png`}
+            src={`/assets/${flowerSrc}.png`}
             alt="벚꽃이미지"
           />
           <UsageDescription
