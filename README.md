@@ -70,6 +70,13 @@ Figma 디자인 툴을 이용하여 프로젝트의 와이어 프레임을 제�
 
 ​
 
+## 팀 구성원
+
+|![cat](https://user-images.githubusercontent.com/48400229/227978664-d8dc651f-ae44-401f-904c-e5bd1397444a.png)|![tiger](https://user-images.githubusercontent.com/48400229/227978801-dec1461f-a2c3-442d-87a1-de0ad975b049.png)|![hyena](https://user-images.githubusercontent.com/48400229/227978817-c5578094-2391-499c-a2bd-ba28212c32ff.png)|![image](https://user-images.githubusercontent.com/55061153/228149144-69f792be-331c-4ebe-b695-ff9d1929f40d.png)|
+|:---:|:---:|:---:|:---:|
+|[정용우(리더)](https://github.com/qpsqps123)|[신선영](https://github.com/SSY1203)|[이승언](https://github.com/Eonii2)|[김세원](https://github.com/KMSWN)|
+
+
 ## [프로젝트 발표 자료](https://docs.google.com/presentation/d/1AjO5vUGDzHYTQtauhCiBbFJ5zW8ovE8an88FbZRYsGM/edit#slide=id.g227efeae027_1_29)
 
 ## 🧑‍💻 프로젝트 사용 방법 Usage
