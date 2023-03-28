@@ -1,9 +1,12 @@
 import style from './MessageList.module.scss';
+
 import { useContext, useLayoutEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
+import { useCallCollection } from '@/firebase/app';
+
 import MessageItem from '@/components/MessageItem/MessageItem';
 import messageContext from '@/contexts/messageContext';
-import { useCallCollection } from '@/firebase/app';
-import { useParams } from 'react-router-dom';
 
 const MessageList = ({
   listBackgroundRef,
@@ -11,33 +14,19 @@ const MessageList = ({
   messageDetailRef,
   handleOpenMessageDetail,
 }) => {
+  const [flowerList, setFlowerList] = useState([]);
+
+  const { uid } = useParams();
   const messageVisibility = useContext(messageContext);
+
   const backgroundElement = listBackgroundRef.current;
   const messageListElement = messageListRef.current;
-  const { uid } = useParams();
-  const [flowerList, setFlowerList] = useState([]);
 
   useLayoutEffect(() => {
     useCallCollection(`users/${uid}/flowerList`).then((res) => {
       setFlowerList(res.sort((a, b) => a.createdAt - b.createdAt));
     });
   }, []);
-
-  const handleCloseMessageListWithButton = (e, messageVisibility) => {
-    const { messageListVisible, setMessageListVisible } = messageVisibility;
-
-    if (messageListVisible) {
-      messageListElement.classList.add(style.moveOut);
-      setTimeout(() => {
-        backgroundElement.style.backgroundColor = '';
-        backgroundElement.style.zIndex = '';
-        backgroundElement.style.display = '';
-
-        setMessageListVisible(!messageListVisible);
-        messageListElement.classList.remove(style.moveOut);
-      }, 400);
-    }
-  };
 
   const handleCloseMessageListWithBackground = (e, messageVisibility) => {
     const { messageListVisible, setMessageListVisible } = messageVisibility;
@@ -55,6 +44,23 @@ const MessageList = ({
       }, 400);
     }
   };
+
+  const handleCloseMessageListWithButton = (e, messageVisibility) => {
+    const { messageListVisible, setMessageListVisible } = messageVisibility;
+
+    if (messageListVisible) {
+      messageListElement.classList.add(style.moveOut);
+      setTimeout(() => {
+        backgroundElement.style.backgroundColor = '';
+        backgroundElement.style.zIndex = '';
+        backgroundElement.style.display = '';
+
+        setMessageListVisible(!messageListVisible);
+        messageListElement.classList.remove(style.moveOut);
+      }, 400);
+    }
+  };
+
   return (
     <div
       ref={listBackgroundRef}

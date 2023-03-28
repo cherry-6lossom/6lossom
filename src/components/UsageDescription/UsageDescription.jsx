@@ -1,5 +1,7 @@
-import classNames from 'classnames';
 import style from './UsageDescription.module.scss';
+
+import classNames from 'classnames';
+
 import messageIcon from '@/assets/icon/message.png';
 
 const UsageDescription = ({ className = '', subText }) => {

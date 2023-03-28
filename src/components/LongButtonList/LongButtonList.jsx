@@ -1,5 +1,6 @@
-import LongButton from '@/components/LongButton/LongButton';
 import style from './LongButtonList.module.scss';
+
+import LongButton from '@/components/LongButton/LongButton';
 
 const LongButtonList = ({
   firstText,

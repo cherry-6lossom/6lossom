@@ -1,11 +1,12 @@
-import classes from './ModalProjectInfo.module.scss';
+import style from './ModalProjectInfo.module.scss';
+
 import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
 const ModalProjectInfo = ({ handleModal }) => {
   return (
     <>
-      <div className={classes.ProjectInfoBackground}>
-        <figure className={classes.ProjectInfoContainer}>
+      <div className={style.ProjectInfoBackground}>
+        <figure className={style.ProjectInfoContainer}>
           <A11yHidden as={'figcaption'}>
             벚꽃이 지면은 어떤 서비스 인가요? 벚꽃이 지면은 벚꽃 개화시기에 맞춰
             메세지를 볼 수 있는 롤링페이퍼 서비스입니다. 벚꽃이 지면을 통해
@@ -19,7 +20,7 @@ const ModalProjectInfo = ({ handleModal }) => {
             엔드 스쿨 4기 수강생 네 명이 함께 만든 서비스입니다!
           </A11yHidden>
           <button
-            className={classes.projectInfoClose}
+            className={style.projectInfoClose}
             type="button"
             alt="닫기"
             onClick={handleModal}

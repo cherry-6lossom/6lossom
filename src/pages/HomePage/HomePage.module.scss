@@ -7,7 +7,7 @@
   min-width: rem(350px);
   max-width: rem(768px);
   height: 100%;
-  background: url('../../assets/custom/bg-pink.png') center / cover no-repeat;
+  background: url('/assets/bg-pink.png') center / cover no-repeat;
   position: relative;
 
   display: flex;
@@ -142,19 +142,6 @@
     gap: rem(10px);
     width: 100%;
 
-    .loginButton {
-      width: 80%;
-      height: rem(44px);
-      @include button-shadow;
-      border: rem(1px) solid $gray300;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: rem(20px);
-      cursor: pointer;
-      border-radius: rem(12px);
-    }
-
     .generalButton {
       background-color: $secondary;
       color: white;
@@ -181,7 +168,7 @@
       content: '';
       width: rem(24px);
       height: rem(24px);
-      background: url(../../assets/brand-logo/google.png) center no-repeat;
+      background: url('@/assets/brand-logo/google.png') center no-repeat;
     }
 
     .googleButton:hover {

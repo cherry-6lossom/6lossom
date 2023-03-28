@@ -1,10 +1,14 @@
 import style from './Flower.module.scss';
-import classNames from 'classnames';
-import messageContext from '@/contexts/messageContext';
+
 import { useContext } from 'react';
+
+import messageContext from '@/contexts/messageContext';
+
+import classNames from 'classnames';
 
 const Flower = ({ uid, keyId, item, handleOpenMessageDetail }) => {
   const messageVisibility = useContext(messageContext);
+
   const { flowerSrc, id, nickname } = item;
   const localUid = JSON.parse(localStorage.getItem('uid'));
 
@@ -34,7 +38,7 @@ const Flower = ({ uid, keyId, item, handleOpenMessageDetail }) => {
     >
       <span>{nickname}</span>
       <button className={style.flowerButton} onClick={handleFlower}>
-        <img src={`/assets/${flowerSrc}.png`} alt="벚꽃 메세지" />
+        <img src={flowerSrc} alt="벚꽃 메세지" />
       </button>
     </li>
   );

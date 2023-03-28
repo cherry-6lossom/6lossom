@@ -16,6 +16,7 @@ export default defineConfig({
     devSourcemap: true,
   },
   build: {
+    outDir: 'public',
     rollupOptions: {
       output: {
         manualChunks: {

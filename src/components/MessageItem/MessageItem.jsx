@@ -1,10 +1,13 @@
 import style from './MessageItem.module.scss';
+
 import { useContext } from 'react';
+
 import messageContext from '@/contexts/messageContext';
 import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
 const MessageItem = ({ flower, id, handleOpenMessageDetail }) => {
   const messageVisibility = useContext(messageContext);
+
   const { nickname, contents } = flower;
 
   return (
