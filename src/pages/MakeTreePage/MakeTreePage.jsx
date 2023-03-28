@@ -19,9 +19,7 @@ export const BgContext = createContext();
 
 const MakeTreePage = () => {
   const [nickname, setNickname] = useState('');
-  const [selectBg, setSelectBg] = useState(
-    `${import.meta.env.BASE_URL}assets/bg-pink.png`
-  );
+  const [selectBg, setSelectBg] = useState(`bg-pink`);
 
   const navigate = useNavigate();
 
@@ -45,7 +43,7 @@ const MakeTreePage = () => {
 
     backgroundImageList.map((item) => {
       if (parseInt(buttonElement.id) === item.id) {
-        backgoundImage.style = `background: center / cover no-repeat url(${item.bigSrc})`;
+        backgoundImage.style = `background: center / cover no-repeat url(/assets/custom/${item.bigSrc}.png)`;
         setSelectBg(item.bigSrc);
         return;
       }

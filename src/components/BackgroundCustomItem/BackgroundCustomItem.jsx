@@ -9,7 +9,7 @@ const BackgroundCustomItem = ({ keyId, id, smallSrc, handleSelect }) => {
         type={'button'}
         id={id}
       >
-        <img src={smallSrc} alt={`배경${id}`} />
+        <img src={`/assets/custom/${smallSrc}.png`} alt={`배경${id}`} />
         <span className={style.backgroundCustomSelectText}>SELECT</span>
       </button>
     </li>
