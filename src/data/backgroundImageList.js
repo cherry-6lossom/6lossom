@@ -5,17 +5,17 @@ import selectSky from '@/assets/custom/select-bg-sky.png';
 const backgroundImageList = [
   {
     id: 1,
-    bigSrc: '/assets/bg-sky.png',
+    bigSrc: `${import.meta.env.BASE_URL}assets/bg-sky.png`,
     smallSrc: selectSky,
   },
   {
     id: 2,
-    bigSrc: '/assets/bg-night.png',
+    bigSrc: `${import.meta.env.BASE_URL}assets/bg-night.png`,
     smallSrc: selectNight,
   },
   {
     id: 3,
-    bigSrc: '/assets/bg-pink.png',
+    bigSrc: `${import.meta.env.BASE_URL}assets/bg-pink.png`,
     smallSrc: selectPink,
   },
 ];

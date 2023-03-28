@@ -29,7 +29,9 @@ import blossomInfoList from '@/data/blossomInfoList';
 
 const MessageCustomPage = () => {
   const [nickname, setNickname] = useState('');
-  const [blossomSrc, setBlossomSrc] = useState('/assets/cherry-blossom1.png');
+  const [blossomSrc, setBlossomSrc] = useState(
+    `${import.meta.env.BASE_URL}assets/cherry-blossom1.png`
+  );
   const [pageTotalCount, setPageTotalCount] = useState(0);
 
   const navigate = useNavigate();
