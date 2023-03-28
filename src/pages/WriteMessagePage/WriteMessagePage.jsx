@@ -95,7 +95,11 @@ const WriteMessagePage = () => {
       <div className={style.writeMessageWrap}>
         <div className={style.header}>
           <HeaderTitle userName={nickname} />
-          <img className={style.flower} src={flowerSrc} alt="벚꽃이미지" />
+          <img
+            className={style.flower}
+            src={`/assets/custom/${flowerSrc}.png`}
+            alt="벚꽃이미지"
+          />
           <UsageDescription
             className={style.notice}
             subText={`${nickname}님에게 메세지를 남겨주세요`}

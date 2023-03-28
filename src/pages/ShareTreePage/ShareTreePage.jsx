@@ -287,7 +287,7 @@ const ShareTreePage = () => {
         <flowerContext.Provider value={{ flowerInfo, setFlowerInfo }}>
           <div
             style={{
-              background: `url(${bgSrc}) center / cover no-repeat `,
+              background: `url(/assets/custom/${bgSrc}.png) center / cover no-repeat `,
             }}
             className={style.shareTreeContainer}
           >
