@@ -8,7 +8,11 @@ const MessageCustomItem = ({ src, id, handleSelect }) => {
       onClick={handleSelect}
       className={styles.blossomButton}
     >
-      <img className={styles.blossomImage} src={src} alt={`벚꽃모양${id}`} />
+      <img
+        className={styles.blossomImage}
+        src={`/assets/${src}.png`}
+        alt={`벚꽃모양${id}`}
+      />
     </button>
   );
 };

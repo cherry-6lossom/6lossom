@@ -96,7 +96,7 @@ const MessageCustomPage = () => {
           <div className={style.blossomMain}>
             <img
               className={classNames('blossomImage', style.blossomImage)}
-              src={`@/assets/custom/${blossomSrc}.png`}
+              src={`/assets/${blossomSrc}.png`}
               alt="벚꽃이미지"
             />
           </div>
