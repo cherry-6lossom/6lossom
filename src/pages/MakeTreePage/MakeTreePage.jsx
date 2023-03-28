@@ -43,7 +43,7 @@ const MakeTreePage = () => {
 
     backgroundImageList.map((item) => {
       if (parseInt(buttonElement.id) === item.id) {
-        backgoundImage.style = `background: center / cover no-repeat url(/assets/custom/${item.bigSrc}.png)`;
+        backgoundImage.style = `background: center / cover no-repeat url(/assets/${item.bigSrc}.png)`;
         setSelectBg(item.bigSrc);
         return;
       }
