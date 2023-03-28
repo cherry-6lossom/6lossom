@@ -59,7 +59,7 @@ const MessageCustomPage = () => {
 
     blossomInfoList.map((item) => {
       if (parseInt(buttonElement.id) === item.id) {
-        blossomImage.src = item.src;
+        blossomImage.src = `/assets/${item.src}.png`;
         setBlossomSrc(item.src);
         return;
       }
