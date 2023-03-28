@@ -19,7 +19,9 @@ export const BgContext = createContext();
 
 const MakeTreePage = () => {
   const [nickname, setNickname] = useState('');
-  const [selectBg, setSelectBg] = useState('/assets/bg-pink.png');
+  const [selectBg, setSelectBg] = useState(
+    `${import.meta.env.BASE_URL}assets/bg-pink.png`
+  );
 
   const navigate = useNavigate();
 
