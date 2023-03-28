@@ -19,6 +19,7 @@ export default defineConfig({
     outDir: 'public',
     rollupOptions: {
       output: {
+        assetFileNames: `assets/[name].[ext]`,
         manualChunks: {
           react: ['react', 'react-dom'],
         },

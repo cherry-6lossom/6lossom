@@ -29,9 +29,7 @@ import blossomInfoList from '@/data/blossomInfoList';
 
 const MessageCustomPage = () => {
   const [nickname, setNickname] = useState('');
-  const [blossomSrc, setBlossomSrc] = useState(
-    `${import.meta.env.BASE_URL}assets/cherry-blossom1.png`
-  );
+  const [blossomSrc, setBlossomSrc] = useState(`cherry-blossom1`);
   const [pageTotalCount, setPageTotalCount] = useState(0);
 
   const navigate = useNavigate();
@@ -98,7 +96,7 @@ const MessageCustomPage = () => {
           <div className={style.blossomMain}>
             <img
               className={classNames('blossomImage', style.blossomImage)}
-              src={blossomSrc}
+              src={`@/assets/custom/${blossomSrc}.png`}
               alt="벚꽃이미지"
             />
           </div>
