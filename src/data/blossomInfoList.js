@@ -1,24 +1,19 @@
-import blossomImg1 from '/assets/cherry-blossom1.png';
-import blossomImg2 from '/assets/cherry-blossom2.png';
-import blossomImg3 from '/assets/cherry-blossom3.png';
-import blossomImg4 from '/assets/cherry-blossom4.png';
-
 const blossomInfoList = [
   {
     id: 0,
-    src: blossomImg1,
+    src: `${import.meta.env.BASE_URL}assets/cherry-blossom1.png`,
   },
   {
     id: 1,
-    src: blossomImg2,
+    src: `${import.meta.env.BASE_URL}assets/cherry-blossom2.png`,
   },
   {
     id: 2,
-    src: blossomImg3,
+    src: `${import.meta.env.BASE_URL}assets/cherry-blossom3.png`,
   },
   {
     id: 3,
-    src: blossomImg4,
+    src: `${import.meta.env.BASE_URL}assets/cherry-blossom4.png`,
   },
 ];
 
