@@ -10,6 +10,10 @@
   max-width: rem(768px);
   height: 100%;
 
+  @include desktop {
+    min-height: rem(920px);
+  }
+
   background: url('@/assets/custom/bg-pink.png') center / cover no-repeat;
 
   position: relative;
