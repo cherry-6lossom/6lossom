@@ -1,16 +1,14 @@
-import classes from '@/components/HamburgerButton/HamburgerButton.module.scss';
+import style from './HamburgerButton.module.scss';
 
 function HamburgerButton() {
   return (
-    <>
-      <button className={classes.hamburgerButton}>
-        <div className={classes.hamburger}>
-          <div className={classes.burger1}></div>
-          <div className={classes.burger2}></div>
-          <div className={classes.burger3}></div>
-        </div>
-      </button>
-    </>
+    <button className={style.hamburgerButton}>
+      <div className={style.hamburger}>
+        <div className={style.burger1}></div>
+        <div className={style.burger2}></div>
+        <div className={style.burger3}></div>
+      </div>
+    </button>
   );
 }
 

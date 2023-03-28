@@ -1,11 +1,16 @@
 import style from './SideMenu.module.scss';
+
 import { useNavigate } from 'react-router-dom';
-import ShortButton from '@/components/ShortButton/ShortButton';
+
 import { useSignOut } from '@/firebase/auth/useSignOut';
+
+import ShortButton from '@/components/ShortButton/ShortButton';
 
 function SideMenu({ loginName, handleModal }) {
   const navigate = useNavigate();
+
   const { signOut } = useSignOut();
+
   return (
     <div className={style.sideMenuContainer}>
       <div className={style.sideMenuBackground}></div>

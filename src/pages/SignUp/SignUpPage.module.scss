@@ -7,7 +7,7 @@
   min-width: rem(350px);
   max-width: rem(768px);
   min-height: 100%;
-  background: center / cover no-repeat url('@/assets/custom/bg-pink.png');
+  background: center / cover no-repeat url('/assets/bg-pink.png');
   position: relative;
 
   @include font-sm {
@@ -24,6 +24,7 @@
     left: rem(15px);
     background-color: transparent;
     border-color: transparent;
+
     @include font-sm {
       font-size: rem(24px);
     }

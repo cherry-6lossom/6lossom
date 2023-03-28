@@ -1,16 +1,21 @@
 import style from './MessageDetail.module.scss';
-import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
+
 import { useContext } from 'react';
 import messageContext from '@/contexts/messageContext';
 
+import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
+
 const messageDetail = ({ flowerInfo, messageDetailRef }) => {
   const messageVisibility = useContext(messageContext);
-  const backgroundElement = messageDetailRef.current;
-  const { nickname, contents } = flowerInfo;
 
-  const handleClsoeMessageDetailWithButton = (e, messageVisibility) => {
+  const { nickname, contents } = flowerInfo;
+  const backgroundElement = messageDetailRef.current;
+
+  const handleCloseMessageDetailWithBackground = (e, messageVisibility) => {
     const { messageDetailVisible, setMessageDetailVisible } = messageVisibility;
-    if (messageDetailVisible) {
+    const clickedTarget = e.target;
+
+    if (backgroundElement === clickedTarget && messageDetailVisible) {
       backgroundElement.style.backgroundColor = '';
       backgroundElement.style.zIndex = '';
       backgroundElement.style.display = '';
@@ -19,11 +24,9 @@ const messageDetail = ({ flowerInfo, messageDetailRef }) => {
     }
   };
 
-  const handleCloseMessageDetailWithBackground = (e, messageVisibility) => {
+  const handleClsoeMessageDetailWithButton = (e, messageVisibility) => {
     const { messageDetailVisible, setMessageDetailVisible } = messageVisibility;
-    const clickedTarget = e.target;
-
-    if (backgroundElement === clickedTarget && messageDetailVisible) {
+    if (messageDetailVisible) {
       backgroundElement.style.backgroundColor = '';
       backgroundElement.style.zIndex = '';
       backgroundElement.style.display = '';

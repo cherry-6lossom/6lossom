@@ -1,32 +1,49 @@
 import style from './HomePage.module.scss';
+
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import classNames from 'classnames';
-import blossom from '@/assets/custom/cherry-blossom3.png';
-import blossomTree from '@/assets/main-page/main-tree.png';
+
+import { signInWithPopup } from 'firebase/auth';
+import { auth, googleProvider } from '@/firebase/app';
+import { useSignOut } from '@/firebase/auth/useSignOut';
+import { useReadData } from '@/firebase/firestore/useReadData';
+import { useCreateAuthUser } from '@/firebase/firestore/useCreateAuthUser';
 
 import LoginButton from '@/components/LoginButton/LoginButton';
 import ModalProjectInfo from '@/components/ModalProjectInfo/ModalProjectInfo';
 import ProjectInfoButton from '@/components/ProjectInfoButton/ProjectInfoButton';
 import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
-import { googleProvider } from '@/firebase/app';
-import { useSignOut } from '@/firebase/auth/useSignOut';
-
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-
 const HomePage = () => {
-  const { signOut } = useSignOut();
-
   const [modal, setModal] = useState(false);
+
+  const navigate = useNavigate();
+
+  const { signOut } = useSignOut();
+  const { createAuthUser, isLoading, error } = useCreateAuthUser('users');
+  const { readData, data } = useReadData('users');
 
   const handleModal = () => {
     setModal(!modal);
   };
-  const navigate = useNavigate();
 
   window.onload = () => {
     signOut();
     localStorage.clear();
+  };
+
+  const handleLoginClick = async () => {
+    const { user } = await signInWithPopup(auth, googleProvider);
+    const { uid } = user;
+
+    localStorage.setItem('uid', JSON.stringify(uid));
+
+    await createAuthUser(user);
+    await readData(uid);
+
+    navigate('/make-tree');
   };
 
   return (
@@ -58,16 +75,15 @@ const HomePage = () => {
           <ProjectInfoButton handleModal={handleModal} />
         </div>
         <div className={style.loginButtonList}>
-          <button
-            onClick={() => navigate('/signin')}
-            className={classNames(style.loginButton, style.generalButton)}
-          >
-            로그인
-          </button>
           <LoginButton
-            style={style}
+            className={style.generalButton}
+            onClick={() => navigate('/signin')}
+            text="로그인"
+          />
+          <LoginButton
             className={style.googleButton}
             provider={googleProvider}
+            onClick={handleLoginClick}
             text={'구글 계정으로 계속하기'}
           />
         </div>

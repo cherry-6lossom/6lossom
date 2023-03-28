@@ -17,13 +17,26 @@ const initialFormState = {
 };
 
 export default function SignUpPage() {
+  const formStateRef = useRef(initialFormState);
+
+  const navigate = useNavigate();
+
   const { isLoading: isLoadingSignUp, signUp } = useSignUp();
   const { createAuthUser } = useCreateAuthUser();
   const { isLoading, error, user } = useAuthState();
 
-  const navigate = useNavigate();
+  if (isLoading) {
+    return <div role="alert">페이지를 준비 중입니다.</div>;
+  }
 
-  const formStateRef = useRef(initialFormState);
+  if (error) {
+    return <div role="alert">오류! {error.message}</div>;
+  }
+
+  if (user) {
+    localStorage.setItem('uid', JSON.stringify(user.uid));
+    navigate('/make-tree');
+  }
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -132,19 +145,6 @@ export default function SignUpPage() {
       e.target.nextSibling.classList.remove(style.validatePassed);
     }
   };
-
-  if (isLoading) {
-    return <div role="alert">페이지를 준비 중입니다.</div>;
-  }
-
-  if (error) {
-    return <div role="alert">오류! {error.message}</div>;
-  }
-
-  if (user) {
-    localStorage.setItem('uid', JSON.stringify(user.uid));
-    navigate('/make-tree');
-  }
 
   return (
     <div className={style.signUpPageWrapper}>
