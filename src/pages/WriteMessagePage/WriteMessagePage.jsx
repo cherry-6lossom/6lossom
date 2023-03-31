@@ -6,7 +6,16 @@ import { useNavigate, useParams } from 'react-router-dom';
 import classNames from 'classnames';
 
 import { db, useCallCollection } from '@/firebase/app';
-import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getCountFromServer,
+  getDoc,
+  orderBy,
+  query,
+  serverTimestamp,
+  setDoc,
+} from 'firebase/firestore';
 import { useUpdateData } from '@/firebase/firestore/useUpdateData';
 
 import ModalEnroll from '@/components/ModalEnroll/ModalEnroll';
@@ -17,7 +26,8 @@ import LongButtonList from '@/components/LongButtonList/LongButtonList';
 
 const WriteMessagePage = () => {
   const [nickname, setNickname] = useState('');
-  const [flowerSrc, setFlowerSrc] = useState('');
+
+  const [pageTotalCount, setPageTotalCount] = useState(0);
 
   const [text, setText] = useState('');
   const [state, setState] = useState({
@@ -30,22 +40,26 @@ const WriteMessagePage = () => {
   const authorInput = useRef();
   const contentInput = useRef();
 
-  const { uid, msgId } = useParams();
+  const { uid, flowerName } = useParams();
   const navigate = useNavigate();
-
-  const { updateData } = useUpdateData(`users/${uid}/flowerList`);
 
   useLayoutEffect(() => {
     (async () => {
       const docRef = doc(db, 'users', uid);
       const docSnap = await getDoc(docRef);
       setNickname(docSnap.data().userNickname);
+      getPageTotalCount();
     })();
   }, []);
 
-  useCallCollection(`users/${uid}/flowerList`).then((flowerList) => {
-    setFlowerSrc(flowerList[msgId].flowerSrc);
-  });
+  const getPageTotalCount = async () => {
+    const flowerListRef = collection(db, `users/${uid}/flowerList`);
+    const res = await getCountFromServer(
+      query(flowerListRef, orderBy('createAt', 'asc'))
+    );
+
+    setPageTotalCount(res.data().count);
+  };
 
   const handleChangeState = (e, text) => {
     const { name, value } = e.target;
@@ -77,14 +91,23 @@ const WriteMessagePage = () => {
     setShowModal(false);
   };
 
-  const handleComplete = () => {
+  const handleComplete = async () => {
     const createAt = serverTimestamp();
     const { author, content } = state;
 
-    updateData(msgId, {
+    const flowerRef = doc(
+      db,
+      'users',
+      uid,
+      'flowerList',
+      String(pageTotalCount ? pageTotalCount : 0)
+    );
+
+    await setDoc(flowerRef, {
       nickname: author,
       contents: content,
       createAt: createAt,
+      flowerSrc: `${flowerName}`,
     });
 
     window.location.replace(`/share-tree/${uid}`);
@@ -97,7 +120,7 @@ const WriteMessagePage = () => {
           <HeaderTitle userName={nickname} />
           <img
             className={style.flower}
-            src={`/assets/${flowerSrc}.png`}
+            src={`/assets/${flowerName}.png`}
             alt="벚꽃이미지"
           />
           <UsageDescription
