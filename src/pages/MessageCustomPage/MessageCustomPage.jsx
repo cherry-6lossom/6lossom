@@ -67,21 +67,7 @@ const MessageCustomPage = () => {
   };
 
   const handleNext = async () => {
-    const flowerRef = doc(
-      db,
-      'users',
-      uid,
-      'flowerList',
-      String(pageTotalCount)
-    );
-
-    await setDoc(flowerRef, {
-      nickname: '',
-      contents: '',
-      flowerSrc: `${blossomSrc}`,
-    });
-
-    navigate(`/write-message/${uid}/${pageTotalCount}`);
+    navigate(`/write-message/${uid}/${blossomSrc}`);
   };
 
   return (

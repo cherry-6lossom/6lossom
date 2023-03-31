@@ -108,11 +108,12 @@ const ShareTreePage = () => {
 
   useEffect(() => {
     const msgStartDate = new Date(today.getFullYear(), 3, 15); // 4월 15일
-    const msgEndDate = new Date(today.getFullYear(), 3, 29); // 4월 29일
+    const msgEndDate = new Date(today.getFullYear(), 3, 30); // 4월 29일
+
     const isMsgActive = today >= msgStartDate && today <= msgEndDate;
 
     const startDate = new Date(today.getFullYear(), 2, 15); // 3월 15일
-    const endDate = new Date(today.getFullYear(), 3, 14); // 4월 14일
+    const endDate = new Date(today.getFullYear(), 3, 15); // 4월 14일
     const isActive = today >= startDate && today <= endDate;
 
     setMsgActive(isMsgActive);
@@ -397,17 +398,24 @@ const ShareTreePage = () => {
               <SideMenu handleModal={handleModal} loginName={localNickname} />
             )}
           </div>
-
-          <MessageList
-            flowerList={flowerList}
-            listBackgroundRef={listBackgroundRef}
-            messageListRef={messageListRef}
-            handleOpenMessageDetail={handleOpenMessageDetail}
-          />
-          <MessageDetail
-            flowerInfo={flowerInfo}
-            messageDetailRef={messageDetailRef}
-          />
+          {uid === localUid && msgActive ? (
+            <>
+              <MessageList
+                flowerLi
+                st={flowerList}
+                listBackgroundRef={listBackgroundRef}
+                messageListRef={messageListRef}
+                handleOpenMessageDetail={handleOpenMessageDetail}
+              />
+              <MessageDetail
+                flowerInfo={flowerInfo}
+                messageDetailRef={messageDetailRef}
+              />
+            </>
+          ) : null}
+          {/* {uid === localUid && msgActive ? (
+            
+          ) : null} */}
         </flowerContext.Provider>
       </messageContext.Provider>
       {modal ? <ModalProjectInfo handleModal={handleModal} /> : null}
