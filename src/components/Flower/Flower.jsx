@@ -6,10 +6,10 @@ import messageContext from '@/contexts/messageContext';
 
 import classNames from 'classnames';
 
-const Flower = ({ uid, keyId, item, handleOpenMessageDetail }) => {
+const Flower = ({ uid, id, keyId, item, handleOpenMessageDetail }) => {
   const messageVisibility = useContext(messageContext);
 
-  const { flowerSrc, id, nickname } = item;
+  const { flowerSrc, nickname } = item;
   const localUid = JSON.parse(localStorage.getItem('uid'));
 
   const handleFlower = () => {
