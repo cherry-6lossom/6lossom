@@ -20,7 +20,7 @@ function App() {
           <Route path="/share-tree/:uid" element={<ShareTreePage />} />
           <Route path="/message-custom/:uid" element={<MessageCustomPage />} />
           <Route
-            path="/write-message/:uid/:msgId"
+            path="/write-message/:uid/:flowerName"
             element={<WriteMessagePage />}
           />
         </Routes>
