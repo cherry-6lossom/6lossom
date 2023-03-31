@@ -24,7 +24,9 @@ export function useCreateAuthUser(collectionKey = 'users') {
   const createAuthUser = useCallback(
     async (userAuth, additionData = {}) => {
       const userDocRef = doc(db, collectionKey, userAuth.uid);
-      const flowerRef = doc(db, 'users', userAuth.uid, 'flowerList', '0');
+      const flowerRef = doc(
+        collection(db, collectionKey, userAuth.uid, 'flowerList')
+      );
 
       setIsLoading(true);
 

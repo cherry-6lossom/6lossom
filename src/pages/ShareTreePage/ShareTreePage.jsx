@@ -310,6 +310,7 @@ const ShareTreePage = () => {
                         <Flower
                           uid={uid}
                           item={item}
+                          id={renderList.indexOf(item)}
                           key={item.id}
                           handleOpenMessageDetail={handleOpenMessageDetail}
                         />
@@ -413,9 +414,6 @@ const ShareTreePage = () => {
               />
             </>
           ) : null}
-          {/* {uid === localUid && msgActive ? (
-            
-          ) : null} */}
         </flowerContext.Provider>
       </messageContext.Provider>
       {modal ? <ModalProjectInfo handleModal={handleModal} /> : null}

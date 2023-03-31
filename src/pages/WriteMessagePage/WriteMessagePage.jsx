@@ -95,13 +95,7 @@ const WriteMessagePage = () => {
     const createAt = serverTimestamp();
     const { author, content } = state;
 
-    const flowerRef = doc(
-      db,
-      'users',
-      uid,
-      'flowerList',
-      String(pageTotalCount ? pageTotalCount : 0)
-    );
+    const flowerRef = doc(collection(db, 'users', uid, 'flowerList'));
 
     await setDoc(flowerRef, {
       nickname: author,
