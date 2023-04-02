@@ -26,7 +26,12 @@ module.exports = {
     'no-unused-vars': 'warn',
     'react/no-unknown-property': 'off',
     'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
+    'react-hooks/exhaustive-deps': [
+      'warn',
+      {
+        addionalHooks: 'useRecoilCallback',
+      },
+    ],
     'jsx-a11y/anchor-has-content': [
       'warn',
       {
