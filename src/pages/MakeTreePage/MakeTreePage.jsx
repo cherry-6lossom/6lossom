@@ -14,6 +14,7 @@ import ShortButtonList from '@/components/ShortButtonList/ShortButtonList';
 import OriginTree from '@/components/OriginTree/OriginTree';
 
 import backgroundImageList from '@/data/backgroundImageList';
+import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
 export const BgContext = createContext();
 
@@ -84,8 +85,12 @@ const MakeTreePage = () => {
         <header className={style.header}>
           <UsageDescription subText={'벚꽃나무에 이름을 적어주세요'} />
           <div className={style.headerTitle}>
+            <A11yHidden as="label" focusable={true} htmlFor={'userNickname'}>
+              닉네임
+            </A11yHidden>
             <input
               type="text"
+              id={'userNickname'}
               name="userNickname"
               value={nickname}
               maxLength={6}

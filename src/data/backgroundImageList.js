@@ -13,7 +13,7 @@ const backgroundImageList = [
   },
   {
     id: 2,
-    bigSrc: `/bg-night`,
+    bigSrc: `bg-night`,
     smallSrc: selectNight,
   },
   {
