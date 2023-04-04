@@ -22,7 +22,6 @@ import {
   getCountFromServer,
   getDocs,
   limit,
-  limitToLast,
   onSnapshot,
   orderBy,
   query,
@@ -41,8 +40,6 @@ import Flower from '@/components/Flower/Flower';
 import ModalProjectInfo from '@/components/ModalProjectInfo/ModalProjectInfo';
 import Notification from '@/components/Notification/Notification';
 
-import rightButton from '@/assets/swiper-button/right.png';
-import leftButton from '@/assets/swiper-button/left.png';
 import loading from '@/assets/loading/Spinner.svg';
 
 const ShareTreePage = () => {
@@ -98,7 +95,7 @@ const ShareTreePage = () => {
 
   useLayoutEffect(() => {
     getPageTotalCount();
-    queryPage(7, 'next');
+    queryPage('next');
   }, []);
 
   useLayoutEffect(() => {
@@ -151,16 +148,15 @@ const ShareTreePage = () => {
     setPageTotalCount(res.data().count);
   };
 
-  const queryPage = async (limitCount = 10, text) => {
+  const queryPage = async (text, limitCount = 7) => {
     let q;
     if (!lastVisible) {
       q = query(flowerListRef, orderBy('createAt', 'asc'), limit(limitCount));
     } else {
       let updateCount =
-        flowerList.length % 7 === 0
-          ? flowerList.length - 7
-          : flowerList.length - (flowerList.length % 7);
-      console.log(updateCount);
+        flowerList.length % limitCount === 0
+          ? flowerList.length - limitCount
+          : flowerList.length - (flowerList.length % limitCount);
       q = query(
         flowerListRef,
         orderBy('createAt', 'asc'),
@@ -183,10 +179,10 @@ const ShareTreePage = () => {
     }
 
     const docs = docSnapshot.docs;
-    queryData(docs, text);
+    queryData(docs, text, limitCount);
   };
 
-  const queryData = (docs, text) => {
+  const queryData = (docs, text, limitCount) => {
     const listItem = [];
 
     docs.forEach((doc) => {
@@ -196,7 +192,7 @@ const ShareTreePage = () => {
     const updateList =
       text === 'next' ? [...flowerList, ...listItem] : listItem;
     setFlowerList(updateList);
-    setRenderList(listItem.slice(-7, undefined));
+    setRenderList(listItem.slice(-limitCount, undefined));
 
     let nextDoc = docs[docs.length - 1];
     if (nextDoc) setLastVisible(nextDoc);
@@ -332,7 +328,7 @@ const ShareTreePage = () => {
                         style.leftButton
                       )}
                       disabled={!hasPrevPage}
-                      onClick={() => queryPage(7, 'prev')}
+                      onClick={() => queryPage('prev')}
                     ></button>
                     <button
                       type="button"
@@ -341,7 +337,7 @@ const ShareTreePage = () => {
                         style.rightButton
                       )}
                       disabled={!hasNextPage}
-                      onClick={() => queryPage(7, 'next')}
+                      onClick={() => queryPage('next')}
                     ></button>
                   </div>
                 </div>
