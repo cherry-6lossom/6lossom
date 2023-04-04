@@ -156,7 +156,11 @@ const ShareTreePage = () => {
     if (!lastVisible) {
       q = query(flowerListRef, orderBy('createAt', 'asc'), limit(limitCount));
     } else {
-      let updateCount = flowerList.length - 7;
+      let updateCount =
+        flowerList.length % 7 === 0
+          ? flowerList.length - 7
+          : flowerList.length - (flowerList.length % 7);
+      console.log(updateCount);
       q = query(
         flowerListRef,
         orderBy('createAt', 'asc'),
