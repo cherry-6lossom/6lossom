@@ -298,11 +298,11 @@ const ShareTreePage = () => {
             />
             <div className={style.blossomTreeContainer}>
               {isLoading ? (
-                <div>
+                <div role="alert">
                   <img src={loading} alt="로딩 중" />
                 </div>
               ) : (
-                <div className={style.flowerList}>
+                <div className={style.flowerList} aria-live="polite">
                   <div className={style.originTreeContainer}>
                     <OriginTree />
                     <ul>
@@ -323,6 +323,7 @@ const ShareTreePage = () => {
                   <div className={style.swiperButton}>
                     <button
                       type="button"
+                      aria-label="이전 페이지"
                       className={classNames(
                         style.arrowButton,
                         style.leftButton
@@ -332,6 +333,7 @@ const ShareTreePage = () => {
                     ></button>
                     <button
                       type="button"
+                      aria-label="다음 페이지"
                       className={classNames(
                         style.arrowButton,
                         style.rightButton
