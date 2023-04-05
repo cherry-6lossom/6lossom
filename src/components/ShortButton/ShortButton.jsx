@@ -7,7 +7,7 @@ import githubIcon from '@/assets/brand-logo/github-logo.png';
 function ShortButton({ type, onClick, text, className }) {
   return (
     <button
-      type={type ? type : null}
+      type={type ? type : 'button'}
       onClick={onClick ? onClick : null}
       className={
         className ? classNames(className, style.shortButton) : style.shortButton
