@@ -8,6 +8,7 @@ import { useCreateAuthUser } from '@/firebase/firestore/useCreateAuthUser';
 
 import { FormInput } from '@/components/FormInput/FormInput';
 import Notification from '@/components/Notification/Notification';
+import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
 const initialFormState = {
   name: '',
@@ -147,74 +148,84 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className={style.signUpPageWrapper}>
-      <div className={style.signUpPageContainer}>
-        <h2 className={style.signUpPageTitle}>회원가입</h2>
-        <form className={style.form} onSubmit={handleSignUp}>
-          <Notification
-            className={style.notificationStyling}
-            text={'이름을 확인해주세요 !'}
-          />
-          <Notification
-            className={style.notificationStyling}
-            text={'이메일 확인해주세요 !'}
-          />
-          <Notification
-            className={style.notificationStyling}
-            text={'비밀번호를 확인해주세요 !'}
-          />
-          <Notification
-            className={style.notificationStyling}
-            text={'이미 가입된 회원정보입니다 !'}
-          />
-          <FormInput name="name" label="이름" onChange={handleChangeInput} />
+    <>
+      <A11yHidden as={'h1'}>벚꽃이지면</A11yHidden>
+      <div className={style.signUpPageWrapper}>
+        <div className={style.signUpPageContainer}>
+          <h2 className={style.signUpPageTitle}>회원가입</h2>
+          <form className={style.form} onSubmit={handleSignUp}>
+            <Notification
+              className={style.notificationStyling}
+              text={'이름을 확인해주세요 !'}
+            />
+            <Notification
+              className={style.notificationStyling}
+              text={'이메일 확인해주세요 !'}
+            />
+            <Notification
+              className={style.notificationStyling}
+              text={'비밀번호를 확인해주세요 !'}
+            />
+            <Notification
+              className={style.notificationStyling}
+              text={'이미 가입된 회원정보입니다 !'}
+            />
+            <FormInput name="name" label="이름" onChange={handleChangeInput} />
 
-          <FormInput
-            name="email"
-            type="email"
-            label="이메일"
-            onChange={handleChangeInput}
-          />
+            <FormInput
+              name="email"
+              type="email"
+              label="이메일"
+              onChange={handleChangeInput}
+            />
 
-          <FormInput
-            name="password"
-            type="password"
-            label="비밀번호"
-            onChange={handleChangeInput}
-          />
+            <FormInput
+              name="password"
+              type="password"
+              label="비밀번호"
+              onChange={handleChangeInput}
+            />
 
-          <FormInput
-            name="passwordConfirm"
-            type="password"
-            label="비밀번호 확인"
-            onChange={handleChangeInput}
-          />
+            <FormInput
+              name="passwordConfirm"
+              type="password"
+              label="비밀번호 확인"
+              onChange={handleChangeInput}
+            />
 
+            <button
+              type="submit"
+              disabled={isLoadingSignUp}
+              className={style.signUpButton}
+              aria-label="회원가입하기"
+            >
+              {!isLoadingSignUp ? '회원가입' : '회원가입 중...'}
+            </button>
+            <button
+              type="reset"
+              className={style.resetButton}
+              aria-label="작성 내용 초기화하기"
+            >
+              초기화
+            </button>
+          </form>
+          <p className={style.toSignInPageWithDescription} aria-hidden="true">
+            이미 가입한 사용자라면{' '}
+            <Link to="/signin" className={style.toSignInPageLink} tabIndex={-1}>
+              로그인
+            </Link>
+            을 해주세요 !
+          </p>
           <button
-            type="submit"
-            disabled={isLoadingSignUp}
-            className={style.signUpButton}
+            type="button"
+            onClick={() => navigate('/signin')}
+            className={style.toSignInPage}
+            aria-label="이전 페이지로 이동"
           >
-            {!isLoadingSignUp ? '회원가입' : '회원가입 중...'}
+            {`<`}
           </button>
-          <button type="reset" className={style.resetButton}>
-            초기화
-          </button>
-        </form>
-        <p className={style.toSignInPageWithDescription}>
-          이미 가입한 사용자라면{' '}
-          <Link to="/signin" className={style.toSignInPageLink}>
-            로그인
-          </Link>
-          을 해주세요 !
-        </p>
-        <button
-          onClick={() => navigate('/signin')}
-          className={style.toSignInPage}
-        >
-          {`<`}
-        </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

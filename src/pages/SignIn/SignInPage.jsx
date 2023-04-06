@@ -8,6 +8,7 @@ import { useAuthState } from '@/firebase/auth/useAuthState';
 
 import { FormInput } from '@/components/FormInput/FormInput';
 import Notification from '@/components/Notification/Notification';
+import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
 const initialFormState = {
   email: '',
@@ -86,54 +87,65 @@ export default function SignInPage() {
   }
 
   return (
-    <div className={style.signInPageWrapper}>
-      <div className={style.signInPageContainer}>
-        <h2 className={style.signInPageTitle}>로그인</h2>
+    <>
+      <A11yHidden as={'h1'}>벚꽃이지면</A11yHidden>
+      <div className={style.signInPageWrapper}>
+        <div className={style.signInPageContainer}>
+          <h2 className={style.signInPageTitle}>로그인</h2>
 
-        <form className={style.form} onSubmit={handleSignIn}>
-          <Notification
-            className={style.notificationStyling}
-            text={'이메일 또는 비밀번호를 확인해주세요 !'}
-          />
-          <FormInput
-            name="email"
-            type="email"
-            label="이메일"
-            onChange={handleChangeInput}
-          />
+          <form className={style.form} onSubmit={handleSignIn}>
+            <Notification
+              className={style.notificationStyling}
+              text={'이메일 또는 비밀번호를 확인해주세요 !'}
+            />
+            <FormInput
+              name="email"
+              type="email"
+              label="이메일"
+              onChange={handleChangeInput}
+            />
 
-          <FormInput
-            name="password"
-            type="password"
-            label="비밀번호"
-            onChange={handleChangeInput}
-          />
+            <FormInput
+              name="password"
+              type="password"
+              label="비밀번호"
+              onChange={handleChangeInput}
+            />
 
+            <button
+              type="submit"
+              disabled={isLoadingSignIn}
+              className={style.signInButton}
+              aria-label="로그인하기"
+            >
+              {!isLoadingSignIn ? '로그인' : '로그인 중...'}
+            </button>
+          </form>
           <button
-            type="submit"
-            disabled={isLoadingSignIn}
-            className={style.signInButton}
+            type="button"
+            onClick={() => navigate('/signup')}
+            className={style.toSignUpPage}
+            aria-label="회원가입 페이지로 이동"
           >
-            {!isLoadingSignIn ? '로그인' : '로그인 중...'}
-          </button>
-        </form>
-        <button
-          onClick={() => navigate('/signup')}
-          className={style.toSignUpPage}
-        >
-          회원가입
-        </button>
-        <p className={style.toSignUpPageWithDescription}>
-          가입한 계정이 없다면{' '}
-          <Link to="/signup" className={style.toSignUpPageLink}>
             회원가입
-          </Link>
-          을 해주세요 !
-        </p>
-        <button onClick={() => navigate('/')} className={style.toHomePage}>
-          {`<`}
-        </button>
+          </button>
+          <p className={style.toSignUpPageWithDescription} aria-hidden="true">
+            가입한 계정이 없다면{' '}
+            <Link to="/signup" className={style.toSignUpPageLink} tabIndex={-1}>
+              회원가입
+            </Link>
+            을 해주세요 !
+          </p>
+          <button
+            type="button"
+            onClick={() => navigate('/')}
+            className={style.toHomePage}
+            aria-label="이전 페이지로 이동"
+          >
+            {`<`}
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
