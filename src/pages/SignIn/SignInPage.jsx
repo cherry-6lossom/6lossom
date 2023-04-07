@@ -1,5 +1,6 @@
 import style from './SignInPage.module.scss';
 
+import { useState } from 'react';
 import { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -16,7 +17,12 @@ const initialFormState = {
 };
 
 export default function SignInPage() {
+  const [renderNotification, setRenderNotification] = useState(false);
+  const [notificationAriaLive, setNotificationAriaLive] = useState('off');
+  const [notificationRole, setNotificationRole] = useState();
+
   const formStateRef = useRef(initialFormState);
+  const notificationRef = useRef();
 
   const navigate = useNavigate();
 
@@ -26,13 +32,22 @@ export default function SignInPage() {
   const handleSignIn = async (e) => {
     e.preventDefault();
 
+    await setRenderNotification(true);
+
     const { email, password } = formStateRef.current;
+    const notification = notificationRef.current;
+
     await signIn(email, password);
 
     if (!user) {
-      e.target.childNodes[0].classList.add(style.animateNotification);
+      notification.classList.add(style.animateNotification);
+      setNotificationRole('alert');
+      setNotificationAriaLive('assertive');
       setTimeout(() => {
-        e.target.childNodes[0].classList.remove(style.animateNotification);
+        notification.classList.remove(style.animateNotification);
+        setNotificationRole();
+        setNotificationAriaLive('off');
+        setRenderNotification(false);
       }, 2000);
     }
   };
@@ -94,10 +109,17 @@ export default function SignInPage() {
           <h2 className={style.signInPageTitle}>로그인</h2>
 
           <form className={style.form} onSubmit={handleSignIn}>
-            <Notification
-              className={style.notificationStyling}
-              text={'이메일 또는 비밀번호를 확인해주세요 !'}
-            />
+            {renderNotification ? (
+              <Notification
+                className={style.notificationStyling}
+                text={'이메일 또는 비밀번호를 확인해주세요 !'}
+                notificationRef={notificationRef}
+                notificationRole={notificationRole}
+                notificationAriaLive={notificationAriaLive}
+              />
+            ) : (
+              ''
+            )}
             <FormInput
               name="email"
               type="email"
