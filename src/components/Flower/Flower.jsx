@@ -37,7 +37,11 @@ const Flower = ({ uid, id, keyId, item, handleOpenMessageDetail }) => {
       key={keyId}
     >
       <span>{nickname}</span>
-      <button className={style.flowerButton} onClick={handleFlower}>
+      <button
+        className={style.flowerButton}
+        onClick={handleFlower}
+        aria-label={`${nickname}님의 벚꽃메세지`}
+      >
         <img src={`/assets/${flowerSrc}.png`} alt="벚꽃 메세지" />
       </button>
     </li>

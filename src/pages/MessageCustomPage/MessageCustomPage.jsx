@@ -26,6 +26,7 @@ import ShortButtonList from '@/components/ShortButtonList/ShortButtonList';
 import Header from '@/components/Header/Header';
 
 import blossomInfoList from '@/data/blossomInfoList';
+import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
 const MessageCustomPage = () => {
   const [nickname, setNickname] = useState('');
@@ -74,6 +75,7 @@ const MessageCustomPage = () => {
     <messageCustomContext.Provider
       value={{ blossomInfoList, setBlossomSrc, handleSelect }}
     >
+      <A11yHidden as={'h1'}>벚꽃이지면</A11yHidden>
       <div className={style.pageSetting}>
         <div className={style.customContainer}>
           <div className={style.header}>
@@ -83,7 +85,7 @@ const MessageCustomPage = () => {
             <img
               className={classNames('blossomImage', style.blossomImage)}
               src={`/assets/${blossomSrc}.png`}
-              alt="벚꽃이미지"
+              alt="선택된 벚꽃 모양 이미지"
             />
           </div>
           <MessageCustomList className={style.customBlossom} />

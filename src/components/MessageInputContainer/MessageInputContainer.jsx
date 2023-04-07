@@ -31,6 +31,7 @@ const MessageInputContainer = ({
         </div>
         <div className={style.contentContainer}>
           <textarea
+            aria-label="메세지를 작성해주세요"
             className={style.content}
             name="content"
             placeholder="메세지를 작성해주세요"

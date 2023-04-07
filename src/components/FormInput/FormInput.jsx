@@ -92,6 +92,7 @@ export function FormInput({
           type="button"
           className={style.passwordVisible}
           onClick={handlePasswordVisibility}
+          aria-label="비밀번호 보이는"
         ></button>
       ) : (
         ''
@@ -102,6 +103,7 @@ export function FormInput({
           type="button"
           className={style.passwordInvisible}
           onClick={handlePasswordVisibility}
+          aria-label="비밀번호 안 보이는"
         ></button>
       ) : (
         ''

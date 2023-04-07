@@ -5,7 +5,11 @@ import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 const ModalProjectInfo = ({ handleModal }) => {
   return (
     <>
-      <div className={style.ProjectInfoBackground}>
+      <div
+        role="alertdialog"
+        aria-modal="true"
+        className={style.ProjectInfoBackground}
+      >
         <figure className={style.ProjectInfoContainer}>
           <A11yHidden as={'figcaption'}>
             벚꽃이 지면은 어떤 서비스 인가요? 벚꽃이 지면은 벚꽃 개화시기에 맞춰
@@ -22,7 +26,7 @@ const ModalProjectInfo = ({ handleModal }) => {
           <button
             className={style.projectInfoClose}
             type="button"
-            alt="닫기"
+            aria-label="닫기"
             onClick={handleModal}
           >
             close

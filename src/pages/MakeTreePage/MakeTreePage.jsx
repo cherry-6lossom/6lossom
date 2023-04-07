@@ -78,13 +78,13 @@ const MakeTreePage = () => {
 
   return (
     <BgContext.Provider value={value}>
+      <A11yHidden as={'h1'}>벚꽃이지면</A11yHidden>
       <form
         onSubmit={handleComplete}
         className={classNames('MakeTreePage', style.makeTreeContainer)}
       >
         <header className={style.header}>
-          <UsageDescription subText={'벚꽃나무에 이름을 적어주세요'} />
-          <div className={style.headerTitle}>
+          <h2 className={style.headerTitle}>
             <A11yHidden as="label" focusable={true} htmlFor={'userNickname'}>
               닉네임
             </A11yHidden>
@@ -100,7 +100,11 @@ const MakeTreePage = () => {
               required
             />
             <span>님의 벚꽃나무</span>
-          </div>
+          </h2>
+          <UsageDescription
+            className={style.headerSubTitle}
+            subText={'벚꽃나무에 이름을 적어주세요'}
+          />
         </header>
         <div className={style.originTreeContainer}>
           <OriginTree className={style.originTree} />
