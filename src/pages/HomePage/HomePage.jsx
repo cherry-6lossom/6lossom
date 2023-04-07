@@ -56,9 +56,13 @@ const HomePage = () => {
                 초승달과 벚꽃이 함께있는 모양의 아이콘입니다.
               </A11yHidden>
             </figure>
-            <h1 className={style.homeTitleInfo} aria-label="벚꽃이 지면">
-              <span className={style.homeTitleShadow}>벚꽃이 지면</span>
-              <span className={style.homeTitleBorder}>벚꽃이 지면</span>
+            <h1 className={style.homeTitleInfo}>
+              <span aria-hidden className={style.homeTitleShadow}>
+                벚꽃이 지면
+              </span>
+              <span aria-hidden className={style.homeTitleBorder}>
+                벚꽃이 지면
+              </span>
               <span className={style.homeTitle}>벚꽃이 지면</span>
             </h1>
           </div>

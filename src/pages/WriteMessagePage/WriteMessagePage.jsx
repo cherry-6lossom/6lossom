@@ -23,6 +23,7 @@ import HeaderTitle from '@/components/HeaderTitle/HeaderTitle';
 import MessageInputContainer from '@/components/MessageInputContainer/MessageInputContainer';
 import UsageDescription from '@/components/UsageDescription/UsageDescription';
 import LongButtonList from '@/components/LongButtonList/LongButtonList';
+import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
 const WriteMessagePage = () => {
   const [nickname, setNickname] = useState('');
@@ -110,12 +111,13 @@ const WriteMessagePage = () => {
   return (
     <>
       <div className={style.writeMessageWrap}>
+        <A11yHidden as={'h1'}>벚꽃이지면</A11yHidden>
         <div className={style.header}>
           <HeaderTitle userName={nickname} />
           <img
             className={style.flower}
             src={`/assets/${flowerName}.png`}
-            alt="벚꽃이미지"
+            alt={`선택한 벚꽃 모양 이미지`}
           />
           <UsageDescription
             className={style.notice}
@@ -130,10 +132,10 @@ const WriteMessagePage = () => {
           handleChangeState={handleChangeState}
         />
         <LongButtonList
-          firstText={'완료'}
-          firstClick={handleSubmit}
-          secondText={'이전'}
-          secondClick={() => navigate(-1)}
+          firstText={'이전'}
+          firstClick={() => navigate(-1)}
+          secondText={'완료'}
+          secondClick={handleSubmit}
         />
       </div>
       {showModal && (
