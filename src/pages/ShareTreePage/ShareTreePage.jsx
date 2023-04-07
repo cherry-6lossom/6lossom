@@ -323,7 +323,7 @@ const ShareTreePage = () => {
                   <div className={style.swiperButton}>
                     <button
                       type="button"
-                      aria-label="이전 페이지"
+                      aria-label="이전 버튼"
                       className={classNames(
                         style.arrowButton,
                         style.leftButton
@@ -333,7 +333,7 @@ const ShareTreePage = () => {
                     ></button>
                     <button
                       type="button"
-                      aria-label="다음 페이지"
+                      aria-label="다음 버튼"
                       className={classNames(
                         style.arrowButton,
                         style.rightButton
