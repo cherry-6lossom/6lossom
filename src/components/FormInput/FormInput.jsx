@@ -39,12 +39,15 @@ export function FormInput({
   }`.trim();
 
   const handlePasswordVisibility = () => {
+    const input = inputRef.current;
+
     if (passwordType === 'text') {
       setPasswordType('password');
     } else if (passwordType === 'password') {
       setPasswordType('text');
     }
     setVisible((visible) => !visible);
+    input.focus();
   };
 
   return (
@@ -81,7 +84,7 @@ export function FormInput({
       name === 'email' ||
       name === 'password' ||
       name === 'passwordConfirm' ? (
-        <span className={style.validate}></span>
+        <figure className={style.validate}></figure>
       ) : (
         ''
       )}
@@ -92,7 +95,7 @@ export function FormInput({
           type="button"
           className={style.passwordVisible}
           onClick={handlePasswordVisibility}
-          aria-label="비밀번호 보이는"
+          aria-label="비밀번호 숨기기"
         ></button>
       ) : (
         ''
@@ -103,7 +106,7 @@ export function FormInput({
           type="button"
           className={style.passwordInvisible}
           onClick={handlePasswordVisibility}
-          aria-label="비밀번호 안 보이는"
+          aria-label="비밀번호 보기"
         ></button>
       ) : (
         ''
