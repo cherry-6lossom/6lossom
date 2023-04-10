@@ -41,6 +41,7 @@ import ModalProjectInfo from '@/components/ModalProjectInfo/ModalProjectInfo';
 import Notification from '@/components/Notification/Notification';
 
 import loading from '@/assets/loading/Spinner.svg';
+import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
 const ShareTreePage = () => {
   const [messageListVisible, setMessageListVisible] = useState(false);
@@ -292,17 +293,18 @@ const ShareTreePage = () => {
             }}
             className={style.shareTreeContainer}
           >
+            <A11yHidden as={'h1'}>벚꽃이지면</A11yHidden>
             <Header
               userName={userNickname}
               subText={`${pageTotalCount}송이의 벚꽃이 피었어요 ! `}
             />
             <div className={style.blossomTreeContainer}>
               {isLoading ? (
-                <div>
+                <div role="alert">
                   <img src={loading} alt="로딩 중" />
                 </div>
               ) : (
-                <div className={style.flowerList}>
+                <div className={style.flowerList} aria-live="polite">
                   <div className={style.originTreeContainer}>
                     <OriginTree />
                     <ul>
@@ -323,6 +325,7 @@ const ShareTreePage = () => {
                   <div className={style.swiperButton}>
                     <button
                       type="button"
+                      aria-label="이전 버튼"
                       className={classNames(
                         style.arrowButton,
                         style.leftButton
@@ -332,6 +335,7 @@ const ShareTreePage = () => {
                     ></button>
                     <button
                       type="button"
+                      aria-label="다음 버튼"
                       className={classNames(
                         style.arrowButton,
                         style.rightButton
@@ -393,7 +397,7 @@ const ShareTreePage = () => {
               />
             )}
             <div onClick={handleMenuClick}>
-              <HamburgerButton />
+              <HamburgerButton isMenuOpen={isMenuOpen} />
             </div>
             {isMenuOpen && (
               <SideMenu handleModal={handleModal} loginName={localNickname} />
@@ -402,8 +406,7 @@ const ShareTreePage = () => {
           {uid === localUid && msgActive ? (
             <>
               <MessageList
-                flowerLi
-                st={flowerList}
+                flowerList={flowerList}
                 listBackgroundRef={listBackgroundRef}
                 messageListRef={messageListRef}
                 handleOpenMessageDetail={handleOpenMessageDetail}

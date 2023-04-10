@@ -12,8 +12,7 @@ const BackgroundCustomList = () => {
       {backgroundImageList.map((item) => (
         <BackgroundCustomItem
           key={item.id}
-          id={item.id}
-          smallSrc={item.smallSrc}
+          item={item}
           handleSelect={handleSelect}
         />
       ))}

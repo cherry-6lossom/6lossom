@@ -12,7 +12,7 @@ function SideMenu({ loginName, handleModal }) {
   const { signOut } = useSignOut();
 
   return (
-    <div className={style.sideMenuContainer}>
+    <div id="hamburger" className={style.sideMenuContainer}>
       <div className={style.sideMenuBackground}></div>
       <div className={style.sideMenuBar}>
         <div>

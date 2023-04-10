@@ -13,6 +13,7 @@ function MessageCustomList() {
       {blossomInfoList.map((item) => (
         <MessageCustomItem
           src={item.src}
+          key={item.id}
           id={item.id}
           handleSelect={handleSelect}
         />

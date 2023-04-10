@@ -4,6 +4,7 @@ const LongButton = ({ text, disabled = false, onClick }) => {
   return (
     <>
       <button
+        type="button"
         disabled={disabled}
         onClick={onClick}
         className={style.longButton}
