@@ -84,7 +84,7 @@ export function FormInput({
       name === 'email' ||
       name === 'password' ||
       name === 'passwordConfirm' ? (
-        <figure className={style.validate}></figure>
+        <div className={style.validate}></div>
       ) : (
         ''
       )}
