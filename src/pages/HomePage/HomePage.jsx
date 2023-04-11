@@ -66,9 +66,9 @@ const HomePage = () => {
               <span className={style.homeTitle}>벚꽃이 지면</span>
             </h1>
           </div>
-          <h2 className={style.homeSubTitle}>
+          <p className={style.homeSubTitle}>
             벚꽃이 지면 당신의 메세지가 전달됩니다.
-          </h2>
+          </p>
         </div>
         <div className={style.tree}>
           <figure className={style.blossomTree}>
