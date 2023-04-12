@@ -138,7 +138,6 @@ export default function SignInPage() {
               type="submit"
               disabled={isLoadingSignIn}
               className={style.signInButton}
-              aria-label="로그인하기"
             >
               {!isLoadingSignIn ? '로그인' : '로그인 중...'}
             </button>
@@ -147,7 +146,6 @@ export default function SignInPage() {
             type="button"
             onClick={() => navigate('/signup')}
             className={style.toSignUpPage}
-            aria-label="회원가입 페이지로 이동"
           >
             회원가입
           </button>
