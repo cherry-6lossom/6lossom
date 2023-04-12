@@ -29,7 +29,6 @@ const MessageInputContainer = ({
         </div>
         <div className={style.contentContainer}>
           <textarea
-            id='contents'
             aria-label="메세지 작성하기"
             className={style.content}
             name="content"
