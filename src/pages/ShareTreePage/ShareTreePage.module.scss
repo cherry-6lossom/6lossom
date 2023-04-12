@@ -123,6 +123,11 @@
   white-space: nowrap;
 }
 
+.hamburgerContainer {
+  position: absolute;
+  right: 0;
+}
+
 .animateNotification {
   animation: fadeInAndOut 3s ease;
 }
