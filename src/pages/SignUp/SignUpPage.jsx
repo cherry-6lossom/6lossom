@@ -293,13 +293,6 @@ export default function SignUpPage() {
               초기화
             </button>
           </form>
-          <p className={style.toSignInPageWithDescription} aria-hidden="true">
-            이미 가입한 사용자라면{' '}
-            <Link to="/signin" className={style.toSignInPageLink} tabIndex={-1}>
-              로그인
-            </Link>
-            을 해주세요 !
-          </p>
           <button
             type="button"
             onClick={() => navigate('/signin')}

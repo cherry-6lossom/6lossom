@@ -81,6 +81,17 @@ const HomePage = () => {
             onClick={handleLoginClick}
             text={'구글 계정으로 계속하기'}
           />
+          <p className={style.toSignUpPageWithDescription}>
+            가입한 계정이 없다면{' '}
+            <button
+              type="button"
+              className={style.toSignUpPageLink}
+              onClick={() => navigate('/signup')}
+            >
+              회원가입
+            </button>
+            을 해주세요 !
+          </p>
         </div>
       </div>
       {modal ? <ModalProjectInfo handleModal={handleModal} /> : null}

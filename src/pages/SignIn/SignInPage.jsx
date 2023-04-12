@@ -151,13 +151,6 @@ export default function SignInPage() {
           >
             회원가입
           </button>
-          <p className={style.toSignUpPageWithDescription} aria-hidden="true">
-            가입한 계정이 없다면{' '}
-            <Link to="/signup" className={style.toSignUpPageLink} tabIndex={-1}>
-              회원가입
-            </Link>
-            을 해주세요 !
-          </p>
           <button
             type="button"
             onClick={() => navigate('/')}
