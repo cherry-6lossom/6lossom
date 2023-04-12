@@ -12,9 +12,8 @@ function MessageCustomList() {
     <div className={styles.blossomSelect}>
       {blossomInfoList.map((item) => (
         <MessageCustomItem
-          src={item.src}
           key={item.id}
-          id={item.id}
+          item={item}
           handleSelect={handleSelect}
         />
       ))}

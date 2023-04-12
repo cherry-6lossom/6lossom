@@ -3,9 +3,8 @@ import style from './WriteMessagePage.module.scss';
 import { useState, useRef, useLayoutEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import classNames from 'classnames';
 
-import { db, useCallCollection } from '@/firebase/app';
+import { db } from '@/firebase/app';
 import {
   collection,
   doc,
@@ -16,7 +15,6 @@ import {
   serverTimestamp,
   setDoc,
 } from 'firebase/firestore';
-import { useUpdateData } from '@/firebase/firestore/useUpdateData';
 
 import ModalEnroll from '@/components/ModalEnroll/ModalEnroll';
 import HeaderTitle from '@/components/HeaderTitle/HeaderTitle';
@@ -24,6 +22,7 @@ import MessageInputContainer from '@/components/MessageInputContainer/MessageInp
 import UsageDescription from '@/components/UsageDescription/UsageDescription';
 import LongButtonList from '@/components/LongButtonList/LongButtonList';
 import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
+import blossomInfoList from '@/data/blossomInfoList';
 
 const WriteMessagePage = () => {
   const [nickname, setNickname] = useState('');
@@ -117,7 +116,7 @@ const WriteMessagePage = () => {
           <img
             className={style.flower}
             src={`/assets/${flowerName}.png`}
-            alt={`선택한 벚꽃 모양 이미지`}
+            alt={blossomInfoList.map(blossom=> blossom.src===flowerName ? blossom.alt: '')}
           />
           <UsageDescription
             className={style.notice}

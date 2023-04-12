@@ -396,12 +396,15 @@ const ShareTreePage = () => {
                 secondClick={handleWatchTree}
               />
             )}
-            <div onClick={handleMenuClick}>
+            <div className={style.hamburgerContainer} onClick={handleMenuClick}>
               <HamburgerButton isMenuOpen={isMenuOpen} />
             </div>
             {isMenuOpen && (
               <SideMenu handleModal={handleModal} loginName={localNickname} />
             )}
+          <div className={style.hamburgerContainer} onClick={handleMenuClick}>
+              <HamburgerButton isMenuOpen={isMenuOpen} />
+          </div>
           </div>
           {uid === localUid && msgActive ? (
             <>
@@ -420,6 +423,7 @@ const ShareTreePage = () => {
         </flowerContext.Provider>
       </messageContext.Provider>
       {modal ? <ModalProjectInfo handleModal={handleModal} /> : null}
+
     </>
   );
 };
