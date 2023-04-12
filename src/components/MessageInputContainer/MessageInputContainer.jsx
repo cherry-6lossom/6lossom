@@ -19,7 +19,6 @@ const MessageInputContainer = ({
             id="nickname"
             className={style.author}
             name="author"
-            aria-label='작성자 이름 작성하기 '
             placeholder="작성자 이름을 적어주세요"
             type="text"
             value={state.author}
@@ -29,7 +28,6 @@ const MessageInputContainer = ({
           />
         </div>
         <div className={style.contentContainer}>
-          <A11yHidden as='label' htmlFor='contents'>메세지 내용</A11yHidden>
           <textarea
             id='contents'
             aria-label="메세지 작성하기"
