@@ -283,6 +283,12 @@ const ShareTreePage = () => {
     setModal(!modal);
   };
 
+  const handleFocus = ()=> {
+    const hamburgerElement = document.querySelector('.hamburger');
+
+    hamburgerElement.focus();
+  }
+
   return (
     <>
       <messageContext.Provider value={messageVisibility}>
@@ -402,9 +408,7 @@ const ShareTreePage = () => {
             {isMenuOpen && (
               <SideMenu handleModal={handleModal} loginName={localNickname} />
             )}
-          <div className={style.hamburgerContainer} onClick={handleMenuClick}>
-              <HamburgerButton isMenuOpen={isMenuOpen} />
-          </div>
+            <button onFocus={handleFocus} className={ style.focusHamburger}></button>
           </div>
           {uid === localUid && msgActive ? (
             <>
