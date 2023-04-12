@@ -1,11 +1,13 @@
 import style from './HamburgerButton.module.scss';
 
+import classNames from 'classnames';
+
 function HamburgerButton({ isMenuOpen }) {
   return (
     <button
       aria-controls={'hamburder'}
       aria-expanded={isMenuOpen}
-      className={style.hamburgerButton}
+      className={classNames('hamburger', style.hamburgerButton)}
       aria-label="메뉴바"
     >
       <div className={style.hamburger}>
