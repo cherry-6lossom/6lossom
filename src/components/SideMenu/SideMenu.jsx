@@ -8,6 +8,12 @@ function SideMenu({ loginName, handleModal }) {
 
   const { signOut } = useSignOut();
 
+  const handleFocus = ()=> {
+    const hamburgerElement = document.querySelector('.hamburger');
+
+    hamburgerElement.focus();
+  }
+
   return (
     <div id="hamburger" className={style.sideMenuContainer}>
       <div className={style.sideMenuBackground}></div>
@@ -70,6 +76,8 @@ function SideMenu({ loginName, handleModal }) {
           </div>
         </div>
       </div>
+      <button onFocus={handleFocus} className={ style.focusHamburger}></button>
+
     </div>
   );
 }

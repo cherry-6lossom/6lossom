@@ -123,12 +123,7 @@
   white-space: nowrap;
 }
 
-.focusHamburger {
-  display: inline-block;
-  position: absolute;
-  overflow: hidden;
-  left: -9999px;
-}
+
 
 .animateNotification {
   animation: fadeInAndOut 3s ease;
