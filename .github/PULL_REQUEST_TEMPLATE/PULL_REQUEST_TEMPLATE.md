@@ -1,17 +1,12 @@
----
-name: 풀리퀘 템플릿
-about: 풀리퀘를 작성합니다.
-title: 'Pull Request from OOO/6lossom/브랜치명 to cherry-6lossom/6lossom/develop'
-labels: ''
-assignees: ''
----
-
 ### PR 타입(하나 이상의 PR 타입을 선택해주세요)
 
 - [ ] 기능 추가
+- [ ] 기능 수정
 - [ ] 기능 삭제
 - [ ] 버그 수정
-- [ ] 의존성, 환경 변수, 빌드 관련 코드 업데이트
+- [ ] 리팩토링(코드 결과는 같으나 가독성을 위한 클린코드 & 성능 향상)
+- [ ] 세팅(Eslint, config 파일 등) 변경
+- [ ] 빌드(의존성, 환경 변수 등) 관련 변경
 
 ### :mag: 개요
 
