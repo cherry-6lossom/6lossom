@@ -281,25 +281,13 @@ export default function SignUpPage() {
               type="submit"
               disabled={isLoadingSignUp}
               className={style.signUpButton}
-              aria-label="회원가입하기"
             >
               {!isLoadingSignUp ? '회원가입' : '회원가입 중...'}
             </button>
-            <button
-              type="reset"
-              className={style.resetButton}
-              aria-label="작성 내용 초기화하기"
-            >
+            <button type="reset" className={style.resetButton}>
               초기화
             </button>
           </form>
-          <p className={style.toSignInPageWithDescription} aria-hidden="true">
-            이미 가입한 사용자라면{' '}
-            <Link to="/signin" className={style.toSignInPageLink} tabIndex={-1}>
-              로그인
-            </Link>
-            을 해주세요 !
-          </p>
           <button
             type="button"
             onClick={() => navigate('/signin')}
