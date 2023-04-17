@@ -5,12 +5,12 @@ import { useContext } from 'react';
 import messageContext from '@/contexts/messageContext';
 
 import classNames from 'classnames';
+import blossomInfoList from '@/data/blossomInfoList';
 
-const Flower = ({ uid, id, keyId, item, handleOpenMessageDetail }) => {
+const Flower = ({ id, keyId, item, handleOpenMessageDetail }) => {
   const messageVisibility = useContext(messageContext);
 
   const { flowerSrc, nickname } = item;
-  const localUid = JSON.parse(localStorage.getItem('uid'));
 
   const handleFlower = () => {
     handleOpenMessageDetail(messageVisibility, item);
@@ -42,7 +42,7 @@ const Flower = ({ uid, id, keyId, item, handleOpenMessageDetail }) => {
         onClick={handleFlower}
         aria-label={`${nickname}님의 벚꽃메세지`}
       >
-        <img src={`/assets/${flowerSrc}.png`} alt="벚꽃 메세지" />
+        <img src={`/assets/${flowerSrc}.png`} alt={blossomInfoList.map(blossom=> blossom.src===flowerSrc ? blossom.alt: '')} />
       </button>
     </li>
   );

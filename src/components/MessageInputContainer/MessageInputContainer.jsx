@@ -1,9 +1,6 @@
 import style from './MessageInputContainer.module.scss';
 
-import { useState, useRef } from 'react';
-
-import ModalEnroll from '@/components/ModalEnroll/ModalEnroll';
-import LongButtonList from '@/components/LongButtonList/LongButtonList';
+import { A11yHidden } from '../A11yHidden/A11yHidden';
 
 const MessageInputContainer = ({
   authorInput,
@@ -12,16 +9,17 @@ const MessageInputContainer = ({
   text,
   handleChangeState,
 }) => {
-  const [showModal, setShowModal] = useState(false);
 
   return (
     <div className={style.messageInputContainer}>
       <div className={style.messageWrap}>
         <div className={style.authorContainer}>
+          <A11yHidden as='label' htmlFor='nickname'>닉네임</A11yHidden>
           <input
+            id="nickname"
             className={style.author}
             name="author"
-            placeholder="작성자이름을 적어주세요"
+            placeholder="작성자 이름을 적어주세요"
             type="text"
             value={state.author}
             onChange={handleChangeState}
@@ -31,7 +29,7 @@ const MessageInputContainer = ({
         </div>
         <div className={style.contentContainer}>
           <textarea
-            aria-label="메세지를 작성해주세요"
+            aria-label="메세지 작성하기"
             className={style.content}
             name="content"
             placeholder="메세지를 작성해주세요"

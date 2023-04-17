@@ -1,27 +1,22 @@
 import style from './MessageCustomPage.module.scss';
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect,  useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import messageCustomContext from '@/contexts/messageCustomContext';
 
 import classNames from 'classnames';
 
-import { db, useCallCollection } from '@/firebase/app';
+import { db } from '@/firebase/app';
 import {
-  addDoc,
   collection,
   doc,
   getCountFromServer,
   getDoc,
   orderBy,
   query,
-  serverTimestamp,
-  setDoc,
 } from 'firebase/firestore';
 
 import MessageCustomList from '@/components/MessageCustomList/MessageCustomList';
-import HeaderTitle from '@/components/HeaderTitle/HeaderTitle';
-import UsageDescription from '@/components/UsageDescription/UsageDescription';
 import ShortButtonList from '@/components/ShortButtonList/ShortButtonList';
 import Header from '@/components/Header/Header';
 
@@ -85,7 +80,9 @@ const MessageCustomPage = () => {
             <img
               className={classNames('blossomImage', style.blossomImage)}
               src={`/assets/${blossomSrc}.png`}
-              alt="선택된 벚꽃 모양 이미지"
+              alt={blossomInfoList.map(blossom=> 
+                blossom.src===blossomSrc ? blossom.alt: ''
+              )}
             />
           </div>
           <MessageCustomList className={style.customBlossom} />

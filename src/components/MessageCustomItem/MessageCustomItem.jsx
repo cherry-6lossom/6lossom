@@ -1,6 +1,9 @@
 import styles from './MessageCustomItem.module.scss';
 
-const MessageCustomItem = ({ src, keyId, id, handleSelect }) => {
+const MessageCustomItem = ({ item, keyId, handleSelect }) => {
+
+  const {id, src, alt} = item;
+
   return (
     <button
       type="button"
@@ -8,12 +11,12 @@ const MessageCustomItem = ({ src, keyId, id, handleSelect }) => {
       id={id}
       onClick={handleSelect}
       className={styles.blossomButton}
-      aria-label={`벚꽃모양${id + 1} 선택`}
+      aria-label={alt}
     >
       <img
         className={styles.blossomImage}
         src={`/assets/${src}.png`}
-        alt={`벚꽃모양${id + 1}`}
+        alt={alt}
       />
     </button>
   );

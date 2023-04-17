@@ -283,6 +283,8 @@ const ShareTreePage = () => {
     setModal(!modal);
   };
 
+
+
   return (
     <>
       <messageContext.Provider value={messageVisibility}>
@@ -396,7 +398,7 @@ const ShareTreePage = () => {
                 secondClick={handleWatchTree}
               />
             )}
-            <div onClick={handleMenuClick}>
+            <div className={style.hamburgerContainer} onClick={handleMenuClick}>
               <HamburgerButton isMenuOpen={isMenuOpen} />
             </div>
             {isMenuOpen && (
@@ -420,6 +422,7 @@ const ShareTreePage = () => {
         </flowerContext.Provider>
       </messageContext.Provider>
       {modal ? <ModalProjectInfo handleModal={handleModal} /> : null}
+
     </>
   );
 };

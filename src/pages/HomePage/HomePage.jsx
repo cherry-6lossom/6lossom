@@ -3,8 +3,6 @@ import style from './HomePage.module.scss';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import classNames from 'classnames';
-
 import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '@/firebase/app';
 import { useSignOut } from '@/firebase/auth/useSignOut';
