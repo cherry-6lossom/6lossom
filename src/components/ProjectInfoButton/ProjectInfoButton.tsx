@@ -1,6 +1,10 @@
 import style from './ProjectInfoButton.module.scss';
 
-const ProjectInfoButton = ({ handleModal }) => {
+import React from 'react';
+
+import { ModalProjectInfoProp } from '@/components/ModalProjectInfo/ModalProjectInfo';
+
+const ProjectInfoButton = ({ handleModal }:ModalProjectInfoProp) => {
   return (
     <>
       <button

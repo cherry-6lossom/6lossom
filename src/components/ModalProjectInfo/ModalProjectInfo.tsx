@@ -1,8 +1,14 @@
 import style from './ModalProjectInfo.module.scss';
 
+import React from 'react';
+
 import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
-const ModalProjectInfo = ({ handleModal }) => {
+export interface ModalProjectInfoProp {
+  handleModal:()=> void;
+}
+
+const ModalProjectInfo = ({ handleModal }:ModalProjectInfoProp) => {
   return (
     <>
       <div
