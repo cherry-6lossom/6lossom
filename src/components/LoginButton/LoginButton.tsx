@@ -1,8 +1,16 @@
 import style from './LoginButton.module.scss';
 
+import React from 'react';
+
 import classNames from 'classnames';
 
-const LoginButton = ({ text, className, onClick }) => {
+interface LoginButtonProps {
+  text:string;
+  className:string;
+  onClick:()=>void;
+}
+
+const LoginButton = ({ text, className, onClick }:LoginButtonProps) => {
   return (
     <button
       type="button"

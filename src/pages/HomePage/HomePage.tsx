@@ -81,7 +81,6 @@ const HomePage = () => {
           />
           <LoginButton
             className={style.googleButton}
-            provider={googleProvider}
             onClick={handleLoginClick}
             text={'구글 계정으로 계속하기'}
           />
