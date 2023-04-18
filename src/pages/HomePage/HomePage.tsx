@@ -1,12 +1,11 @@
 import style from './HomePage.module.scss';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '@/firebase/app';
 import { useSignOut } from '@/firebase/auth/useSignOut';
-import { useReadData } from '@/firebase/firestore/useReadData';
 import { useCreateAuthUser } from '@/firebase/firestore/useCreateAuthUser';
 
 import LoginButton from '@/components/LoginButton/LoginButton';
@@ -15,13 +14,12 @@ import ProjectInfoButton from '@/components/ProjectInfoButton/ProjectInfoButton'
 import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
 const HomePage = () => {
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
   const { signOut } = useSignOut();
-  const { createAuthUser, isLoading, error } = useCreateAuthUser('users');
-  const { readData, data } = useReadData('users');
+  const { createAuthUser} = useCreateAuthUser('users');
 
   const handleModal = () => {
     setModal(!modal);
@@ -39,7 +37,6 @@ const HomePage = () => {
     localStorage.setItem('uid', JSON.stringify(uid));
 
     await createAuthUser(user);
-    await readData(uid);
 
     navigate('/make-tree');
   };
