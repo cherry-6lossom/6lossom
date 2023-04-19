@@ -7,6 +7,7 @@ interface A11yHiddenProps extends HTMLAttributes<HTMLElement> {
   as?: keyof JSX.IntrinsicElements;
   focusable?: boolean;
   className?: string;
+  [propName:string]:any;
 }
 
 export const A11yHidden = forwardRef<HTMLElement, A11yHiddenProps>(function A11yHidden(
