@@ -1,12 +1,12 @@
 import style from './BackgroundCustomList.module.scss';
 
-import { useContext } from 'react';
-import { BgContext } from '@/pages/MakeTreePage/MakeTreePage';
+import React, { useContext } from 'react';
+import { BgContext, ValueType } from '@/pages/MakeTreePage/MakeTreePage';
 
 import BackgroundCustomItem from '@/components/BackgroundCustomItem/BackgroundCustomItem';
 
 const BackgroundCustomList = () => {
-  const { backgroundImageList, handleSelect } = useContext(BgContext);
+  const { backgroundImageList, handleSelect } = useContext<ValueType>(BgContext);
   return (
     <ul className={style.backgroundCustomList}>
       {backgroundImageList.map((item) => (

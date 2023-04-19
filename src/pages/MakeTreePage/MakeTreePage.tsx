@@ -15,8 +15,13 @@ import OriginTree from '@/components/OriginTree/OriginTree';
 
 import backgroundImageList, { backgroundImageListType } from '@/data/backgroundImageList';
 import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
+export interface ValueType {
+  backgroundImageList:backgroundImageListType[];
+  setSelectBg:React.Dispatch<string>;
+  handleSelect:(e:React.MouseEvent<HTMLButtonElement>)=>void;
+}
 
-export const BgContext = createContext({});
+export const BgContext = createContext({} as ValueType);
 
 const MakeTreePage = () => {
   const [nickname, setNickname] = useState<string>('');
@@ -38,7 +43,7 @@ const MakeTreePage = () => {
     });
   }, []);
 
-  const handleSelect = (e:React.TouchEvent<HTMLButtonElement>) => {
+  const handleSelect = (e:React.MouseEvent<HTMLButtonElement>) => {
     const backgoundImage:HTMLElement|null = document.querySelector('.MakeTreePage');
     const buttonElement:HTMLButtonElement|null = (e.target as HTMLElement).closest('button');
 
@@ -72,7 +77,10 @@ const MakeTreePage = () => {
     setNickname(e.target.value);
   };
 
-  const value = {
+
+
+
+  const value:ValueType = {
     backgroundImageList,
     setSelectBg,
     handleSelect,
