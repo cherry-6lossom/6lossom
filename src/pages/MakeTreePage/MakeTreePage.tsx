@@ -1,6 +1,6 @@
 import style from './MakeTreePage.module.scss';
 
-import { createContext, useState, useLayoutEffect } from 'react';
+import React, { createContext, useState, useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import classNames from 'classnames';
@@ -13,20 +13,20 @@ import BackgroundCustomList from '@/components/BackgroundCustomList/BackgroundCu
 import ShortButtonList from '@/components/ShortButtonList/ShortButtonList';
 import OriginTree from '@/components/OriginTree/OriginTree';
 
-import backgroundImageList from '@/data/backgroundImageList';
+import backgroundImageList, { backgroundImageListType } from '@/data/backgroundImageList';
 import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
-export const BgContext = createContext();
+export const BgContext = createContext({});
 
 const MakeTreePage = () => {
-  const [nickname, setNickname] = useState('');
-  const [selectBg, setSelectBg] = useState(`bg-pink`);
+  const [nickname, setNickname] = useState<string>('');
+  const [selectBg, setSelectBg] = useState<string>(`bg-pink`);
 
   const navigate = useNavigate();
 
   const { updateData } = useUpdateData('users');
 
-  const localUid = JSON.parse(localStorage.getItem('uid'));
+  const localUid:string = JSON.parse(localStorage.getItem('uid')||'null');
 
   useLayoutEffect(() => {
     useCallCollection('users').then((userList) => {
@@ -38,17 +38,19 @@ const MakeTreePage = () => {
     });
   }, []);
 
-  const handleSelect = (e) => {
-    const backgoundImage = document.querySelector('.MakeTreePage');
-    const buttonElement = e.target.closest('button');
+  const handleSelect = (e:React.TouchEvent<HTMLButtonElement>) => {
+    const backgoundImage:HTMLElement|null = document.querySelector('.MakeTreePage');
+    const buttonElement:HTMLButtonElement|null = (e.target as HTMLElement).closest('button');
 
-    backgroundImageList.map((item) => {
-      if (parseInt(buttonElement.id) === item.id) {
-        backgoundImage.style = `background: center / cover no-repeat url(/assets/${item.bigSrc}.png)`;
-        setSelectBg(item.bigSrc);
-        return;
-      }
-    });
+    if(buttonElement!==null && backgoundImage !==null){
+      backgroundImageList.map((item:backgroundImageListType) => {
+        if (parseInt(buttonElement.id) === item.id) {
+          backgoundImage.style.background = `center / cover no-repeat url(/assets/${item.bigSrc}.png)`;
+          setSelectBg(item.bigSrc);
+          return;
+        }
+      });
+    }
   };
 
   const handleComplete = () => {
@@ -60,13 +62,13 @@ const MakeTreePage = () => {
 
     navigate(`/share-tree/${localUid}`, { replace: true });
 
-    history.pushState(null, null, location.href);
+    history.pushState(null, 'null', location.href);
     window.onpopstate = function (event) {
       history.go(1);
     };
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
   };
 
@@ -107,7 +109,7 @@ const MakeTreePage = () => {
           />
         </header>
         <div className={style.originTreeContainer}>
-          <OriginTree className={style.originTree} />
+          <OriginTree />
         </div>
         <div className={style.makeTreeCustomContainer}>
           <div className={style.makeTreeCustom}>
