@@ -1,5 +1,10 @@
+interface blossomInfoListType {
+  id:number;
+  src:string;
+  alt:string;
+}
 
-const blossomInfoList = [
+const blossomInfoList:blossomInfoListType[] = [
   {
     id: 0,
     src: `cherry-blossom1`,
