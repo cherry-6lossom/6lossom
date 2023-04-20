@@ -1,6 +1,6 @@
 import style from './MessageCustomPage.module.scss';
 
-import { useEffect,  useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import messageCustomContext from '@/contexts/messageCustomContext';
 
@@ -20,22 +20,22 @@ import MessageCustomList from '@/components/MessageCustomList/MessageCustomList'
 import ShortButtonList from '@/components/ShortButtonList/ShortButtonList';
 import Header from '@/components/Header/Header';
 
-import blossomInfoList from '@/data/blossomInfoList';
+import blossomInfoList, { blossomInfoListType } from '@/data/blossomInfoList';
 import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
 const MessageCustomPage = () => {
-  const [nickname, setNickname] = useState('');
-  const [blossomSrc, setBlossomSrc] = useState(`cherry-blossom1`);
-  const [pageTotalCount, setPageTotalCount] = useState(0);
+  const [nickname, setNickname] = useState<string>('');
+  const [blossomSrc, setBlossomSrc] = useState<string>(`cherry-blossom1`);
+  const [pageTotalCount, setPageTotalCount] = useState<number>(0);
 
   const navigate = useNavigate();
-  const { uid } = useParams();
+  const { uid } = useParams<string>();
 
   useEffect(() => {
     (async () => {
-      const docRef = doc(db, 'users', uid);
+      const docRef = doc(db, `users/${uid}`);
       const docSnap = await getDoc(docRef);
-      setNickname(docSnap.data().userNickname);
+      setNickname(docSnap.data()?.userNickname);
       getPageTotalCount();
     })();
   }, []);
@@ -49,13 +49,14 @@ const MessageCustomPage = () => {
     setPageTotalCount(res.data().count);
   };
 
-  const handleSelect = (e) => {
-    const blossomImage = document.querySelector('.blossomImage');
-    const buttonElement = e.target.closest('button');
+  const handleSelect = (e: React.TouchEvent<HTMLButtonElement>) => {
+    const blossomImage: HTMLDivElement | null =
+      document.querySelector('.blossomImage');
+    const buttonElement = (e.target as HTMLButtonElement).closest('button');
 
-    blossomInfoList.map((item) => {
-      if (parseInt(buttonElement.id) === item.id) {
-        blossomImage.src = `/assets/${item.src}.png`;
+    blossomInfoList.forEach((item: blossomInfoListType) => {
+      if (parseInt(buttonElement?.id ?? '') === item.id) {
+        blossomImage?.setAttribute('src ', `/assets/${item.src}.png`);
         setBlossomSrc(item.src);
         return;
       }
@@ -80,9 +81,11 @@ const MessageCustomPage = () => {
             <img
               className={classNames('blossomImage', style.blossomImage)}
               src={`/assets/${blossomSrc}.png`}
-              alt={blossomInfoList.map(blossom=> 
-                blossom.src===blossomSrc ? blossom.alt: ''
-              )}
+              alt={
+                blossomInfoList.find(
+                  (blossom: blossomInfoListType) => blossom.src === blossomSrc
+                )?.alt ?? ''
+              }
             />
           </div>
           <MessageCustomList className={style.customBlossom} />
