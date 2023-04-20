@@ -1,6 +1,19 @@
 import style from './MessageInputContainer.module.scss';
 
+import React, { LegacyRef } from 'react';
+
 import { A11yHidden } from '../A11yHidden/A11yHidden';
+
+interface MessageInputContainerProp {
+  authorInput: LegacyRef<HTMLInputElement>;
+  contentInput: LegacyRef<HTMLTextAreaElement>;
+  state: {
+    author: string;
+    content: string;
+  };
+  text: string;
+  handleChangeState: (e: React.ChangeEvent<HTMLElement>) => void;
+}
 
 const MessageInputContainer = ({
   authorInput,
@@ -8,13 +21,14 @@ const MessageInputContainer = ({
   state,
   text,
   handleChangeState,
-}) => {
-
+}: MessageInputContainerProp) => {
   return (
     <div className={style.messageInputContainer}>
       <div className={style.messageWrap}>
         <div className={style.authorContainer}>
-          <A11yHidden as='label' htmlFor='nickname'>닉네임</A11yHidden>
+          <A11yHidden as="label" htmlFor="nickname">
+            닉네임
+          </A11yHidden>
           <input
             id="nickname"
             className={style.author}
@@ -33,7 +47,6 @@ const MessageInputContainer = ({
             className={style.content}
             name="content"
             placeholder="메세지를 작성해주세요"
-            type="text"
             value={state.content}
             onChange={handleChangeState}
             ref={contentInput}

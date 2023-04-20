@@ -1,6 +1,6 @@
 import style from './WriteMessagePage.module.scss';
 
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import React, { useState, useRef, useLayoutEffect, LegacyRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { db } from '@/firebase/app';
@@ -41,8 +41,8 @@ const WriteMessagePage = () => {
 
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  const authorInput = useRef<HTMLInputElement>();
-  const contentInput = useRef<HTMLTextAreaElement>();
+  const authorInput = useRef<HTMLInputElement>(null);
+  const contentInput = useRef<HTMLTextAreaElement>(null);
 
   const { uid, flowerName } = useParams<string>();
   const navigate = useNavigate();
@@ -65,8 +65,8 @@ const WriteMessagePage = () => {
     setPageTotalCount(res.data().count);
   };
 
-  const handleChangeState = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
+  const handleChangeState = (e: React.ChangeEvent<HTMLElement>) => {
+    const { name, value } = e.target as HTMLInputElement;
     if (name === 'content') {
       if (value.length <= 500) {
         setText(value);
