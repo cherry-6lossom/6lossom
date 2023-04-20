@@ -88,7 +88,7 @@ const MessageCustomPage = () => {
               }
             />
           </div>
-          <MessageCustomList className={style.customBlossom} />
+          <MessageCustomList />
         </div>
         <div>
           <ShortButtonList
