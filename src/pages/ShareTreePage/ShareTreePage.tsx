@@ -426,7 +426,7 @@ const ShareTreePage = () => {
                 firstText={'링크 공유하기'}
                 firstClick={handleCopyLink}
                 secondText={'전체 메세지 보기'}
-                secondClick={(e) => handleOpenMessageList(e, messageVisibility)}
+                secondClick={() => handleOpenMessageList()}
               />
             ) : (
               <LongButtonList
