@@ -1,18 +1,29 @@
 import style from './MessageDetail.module.scss';
 
-import { useContext } from 'react';
+import React, { RefObject, useContext } from 'react';
 import messageContext from '@/contexts/messageContext';
 
 import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
+import {
+  FlowerInfoType,
+  MessageVisibilityType,
+} from '@/pages/ShareTreePage/ShareTreePage';
 
-const messageDetail = ({ flowerInfo, messageDetailRef }) => {
-  const messageVisibility = useContext(messageContext);
+interface MessageDetailProp {
+  flowerInfo: FlowerInfoType;
+  messageDetailRef: RefObject<HTMLDivElement>;
+}
+
+const messageDetail = ({ flowerInfo, messageDetailRef }: MessageDetailProp) => {
+  const messageVisibility = useContext<MessageVisibilityType>(messageContext);
 
   const { nickname, contents } = flowerInfo;
-  const backgroundElement = messageDetailRef.current;
+  const backgroundElement = messageDetailRef.current as HTMLDivElement;
+  const { messageDetailVisible, setMessageDetailVisible } = messageVisibility;
 
-  const handleCloseMessageDetailWithBackground = (e, messageVisibility) => {
-    const { messageDetailVisible, setMessageDetailVisible } = messageVisibility;
+  const handleCloseMessageDetailWithBackground = (
+    e: React.MouseEvent<HTMLDivElement>
+  ) => {
     const clickedTarget = e.target;
 
     if (backgroundElement === clickedTarget && messageDetailVisible) {
@@ -24,8 +35,9 @@ const messageDetail = ({ flowerInfo, messageDetailRef }) => {
     }
   };
 
-  const handleClsoeMessageDetailWithButton = (e, messageVisibility) => {
-    const { messageDetailVisible, setMessageDetailVisible } = messageVisibility;
+  const handleClsoeMessageDetailWithButton = (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
     if (messageDetailVisible) {
       backgroundElement.style.backgroundColor = '';
       backgroundElement.style.zIndex = '';
@@ -38,9 +50,7 @@ const messageDetail = ({ flowerInfo, messageDetailRef }) => {
   return (
     <div
       ref={messageDetailRef}
-      onClick={(e) =>
-        handleCloseMessageDetailWithBackground(e, messageVisibility)
-      }
+      onClick={(e) => handleCloseMessageDetailWithBackground(e)}
       className={style.messageDetailBackground}
     >
       <div className={style.messageDetailWrapper}>
@@ -56,9 +66,7 @@ const messageDetail = ({ flowerInfo, messageDetailRef }) => {
           <li className={style.messageContents}>{contents}</li>
           <button
             type="button"
-            onClick={(e) =>
-              handleClsoeMessageDetailWithButton(e, messageVisibility)
-            }
+            onClick={(e) => handleClsoeMessageDetailWithButton(e)}
             className={style.closeButton}
           >
             OK!
