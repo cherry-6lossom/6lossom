@@ -1,6 +1,14 @@
 import style from './LongButton.module.scss';
 
-const LongButton = ({ text, disabled = false, onClick }) => {
+import React from 'react';
+
+interface LongButtonProp {
+  text: string;
+  disabled?: boolean;
+  onClick: () => void;
+}
+
+const LongButton = ({ text, disabled = false, onClick }: LongButtonProp) => {
   return (
     <>
       <button
