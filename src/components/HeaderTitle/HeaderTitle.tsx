@@ -1,6 +1,12 @@
 import style from './HeaderTitle.module.scss';
 
-const HeaderTitle = ({ userName }) => {
+import React from 'react';
+
+interface HeaderTitleProp {
+  userName: string;
+}
+
+const HeaderTitle = ({ userName }: HeaderTitleProp) => {
   return (
     <h2 className={style.headerTitle}>
       {userName}
