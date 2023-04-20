@@ -15,7 +15,7 @@ import {
 interface MessageListProp {
   listBackgroundRef: RefObject<HTMLDivElement>;
   messageListRef: RefObject<HTMLDivElement>;
-  handleOpenMessageDetail: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  handleOpenMessageDetail: (flower: FlowerInfoType) => void;
 }
 
 const MessageList = ({
@@ -39,7 +39,7 @@ const MessageList = ({
   }, []);
 
   const handleCloseMessageListWithBackground = (
-    e: React.MouseEvent<HTMLButtonElement>
+    e: React.MouseEvent<HTMLDivElement>
   ) => {
     const clickedTarget = e.target;
 
@@ -73,7 +73,9 @@ const MessageList = ({
   return (
     <div
       ref={listBackgroundRef}
-      onClick={(e) => handleCloseMessageListWithBackground(e)}
+      onClick={(e: React.MouseEvent<HTMLDivElement>) =>
+        handleCloseMessageListWithBackground(e)
+      }
       className={style.messageListBackground}
     >
       <div ref={messageListRef} className={style.messageListWrapper}>
@@ -82,6 +84,7 @@ const MessageList = ({
             <ul className={style.MessageItemWrapper}>
               {flowerList.map((flower: FlowerInfoType) => (
                 <MessageItem
+                  id={flowerList.indexOf(flower)}
                   key={flowerList.indexOf(flower)}
                   flower={flower}
                   handleOpenMessageDetail={handleOpenMessageDetail}

@@ -60,7 +60,7 @@ interface UserType {
 
 export interface FlowerInfoType {
   nickname: string;
-  content: string;
+  contents: string;
   createAt: Date;
   flowerSrc: string;
 }
@@ -113,9 +113,9 @@ const ShareTreePage = () => {
       setMessageDetailVisible,
     ]
   );
-  const listBackgroundRef = useRef<HTMLElement>(null);
-  const messageListRef = useRef<HTMLElement>(null);
-  const messageDetailRef = useRef<HTMLElement>(null);
+  const listBackgroundRef = useRef<HTMLDivElement>(null);
+  const messageListRef = useRef<HTMLDivElement>(null);
+  const messageDetailRef = useRef<HTMLDivElement>(null);
 
   const { uid } = useParams<string>();
   const navigate = useNavigate();
@@ -446,7 +446,6 @@ const ShareTreePage = () => {
           {uid === localUid && msgActive ? (
             <>
               <MessageList
-                flowerList={flowerList}
                 listBackgroundRef={listBackgroundRef}
                 messageListRef={messageListRef}
                 handleOpenMessageDetail={handleOpenMessageDetail}
