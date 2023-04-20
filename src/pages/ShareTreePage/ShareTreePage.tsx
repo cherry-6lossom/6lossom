@@ -350,10 +350,10 @@ const ShareTreePage = () => {
                     <ul>
                       {renderList.map((item) => (
                         <Flower
-                          uid={uid}
                           item={item}
+                          keyId={renderList.indexOf(item)}
                           id={renderList.indexOf(item)}
-                          key={item.id}
+                          key={renderList.indexOf(item)}
                           handleOpenMessageDetail={handleOpenMessageDetail}
                         />
                       ))}
