@@ -1,14 +1,26 @@
+import { blossomInfoListType } from '@/data/blossomInfoList';
 import styles from './MessageCustomItem.module.scss';
 
-const MessageCustomItem = ({ item, keyId, handleSelect }) => {
+import React from 'react';
 
-  const {id, src, alt} = item;
+interface MessageCustomItemProp {
+  item: blossomInfoListType;
+  keyId: number;
+  handleSelect: () => void;
+}
+
+const MessageCustomItem = ({
+  item,
+  keyId,
+  handleSelect,
+}: MessageCustomItemProp) => {
+  const { id, src, alt } = item;
 
   return (
     <button
       type="button"
       key={keyId}
-      id={id}
+      id={String(id)}
       onClick={handleSelect}
       className={styles.blossomButton}
       aria-label={alt}
