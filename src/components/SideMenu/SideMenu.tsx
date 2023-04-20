@@ -1,18 +1,26 @@
 import style from './SideMenu.module.scss';
 
+import React from 'react';
+
 import { useSignOut } from '@/firebase/auth/useSignOut';
 
 import ShortButton from '@/components/ShortButton/ShortButton';
 
-function SideMenu({ loginName, handleModal }) {
+interface SideMenuProp {
+  loginName: string;
+  handleModal: () => void;
+}
 
+function SideMenu({ loginName, handleModal }: SideMenuProp) {
   const { signOut } = useSignOut();
 
-  const handleFocus = ()=> {
-    const hamburgerElement = document.querySelector('.hamburger');
+  const handleFocus = () => {
+    const hamburgerElement = document.querySelector(
+      '.hamburger'
+    ) as HTMLElement;
 
     hamburgerElement.focus();
-  }
+  };
 
   return (
     <div id="hamburger" className={style.sideMenuContainer}>
@@ -76,8 +84,7 @@ function SideMenu({ loginName, handleModal }) {
           </div>
         </div>
       </div>
-      <button onFocus={handleFocus} className={ style.focusHamburger}></button>
-
+      <button onFocus={handleFocus} className={style.focusHamburger}></button>
     </div>
   );
 }
