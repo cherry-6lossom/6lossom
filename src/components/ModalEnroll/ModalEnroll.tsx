@@ -1,6 +1,13 @@
 import style from './ModalEnroll.module.scss';
 
-const ModalEnroll = ({ handleCloseModal, handleComplete }) => {
+import React from 'react';
+
+interface ModalEnrollProp {
+  handleCloseModal: () => void;
+  handleComplete: () => void;
+}
+
+const ModalEnroll = ({ handleCloseModal, handleComplete }: ModalEnrollProp) => {
   return (
     <div
       role="alertdialog"
