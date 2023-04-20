@@ -1,19 +1,23 @@
 import style from './Flower.module.scss';
 
-import { useContext } from 'react';
-
-import messageContext from '@/contexts/messageContext';
+import React from 'react';
 
 import classNames from 'classnames';
-import blossomInfoList from '@/data/blossomInfoList';
+import blossomInfoList, { blossomInfoListType } from '@/data/blossomInfoList';
+import { FlowerInfoType } from '@/pages/ShareTreePage/ShareTreePage';
 
-const Flower = ({ id, keyId, item, handleOpenMessageDetail }) => {
-  const messageVisibility = useContext(messageContext);
+interface FlowerProp {
+  id: number;
+  keyId: number;
+  item: FlowerInfoType;
+  handleOpenMessageDetail: (item: FlowerInfoType) => void;
+}
 
+const Flower = ({ id, keyId, item, handleOpenMessageDetail }: FlowerProp) => {
   const { flowerSrc, nickname } = item;
 
   const handleFlower = () => {
-    handleOpenMessageDetail(messageVisibility, item);
+    handleOpenMessageDetail(item);
   };
 
   return (
@@ -42,7 +46,14 @@ const Flower = ({ id, keyId, item, handleOpenMessageDetail }) => {
         onClick={handleFlower}
         aria-label={`${nickname}님의 벚꽃메세지`}
       >
-        <img src={`/assets/${flowerSrc}.png`} alt={blossomInfoList.map(blossom=> blossom.src===flowerSrc ? blossom.alt: '')} />
+        <img
+          src={`/assets/${flowerSrc}.png`}
+          alt={
+            blossomInfoList.find(
+              (blossom: blossomInfoListType) => blossom.src === flowerSrc
+            )?.alt ?? ''
+          }
+        />
       </button>
     </li>
   );

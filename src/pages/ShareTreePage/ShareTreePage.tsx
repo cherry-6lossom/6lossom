@@ -58,7 +58,7 @@ interface UserType {
   flowerList: FlowerInfoType[];
 }
 
-interface FlowerInfoType {
+export interface FlowerInfoType {
   nickname: string;
   content: string;
   createAt: Date;
