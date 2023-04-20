@@ -1,6 +1,6 @@
 import style from './SignInPage.module.scss';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -11,25 +11,32 @@ import { FormInput } from '@/components/FormInput/FormInput';
 import Notification from '@/components/Notification/Notification';
 import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
-const initialFormState = {
+interface initialFromStateType {
+  email: string;
+  password: string;
+}
+
+const initialFormState: initialFromStateType = {
   email: '',
   password: '',
 };
 
 export default function SignInPage() {
-  const [renderNotification, setRenderNotification] = useState(false);
-  const [notificationAriaLive, setNotificationAriaLive] = useState('off');
-  const [notificationRole, setNotificationRole] = useState();
+  const [renderNotification, setRenderNotification] = useState<boolean>(false);
+  const [notificationAriaLive, setNotificationAriaLive] = useState<
+    'off' | 'assertive' | 'polite' | undefined
+  >('off');
+  const [notificationRole, setNotificationRole] = useState<string>('');
 
-  const formStateRef = useRef(initialFormState);
-  const notificationRef = useRef();
+  const formStateRef = useRef<initialFromStateType>(initialFormState);
+  const notificationRef = useRef<HTMLSpanElement>(null);
 
   const navigate = useNavigate();
 
   const { isLoading: isLoadingSignIn, signIn } = useSignIn();
   const { isLoading, error, user } = useAuthState();
 
-  const handleSignIn = async (e) => {
+  const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     await setRenderNotification(true);
@@ -40,21 +47,24 @@ export default function SignInPage() {
     await signIn(email, password);
 
     if (!user) {
-      notification.classList.add(style.animateNotification);
+      notification?.classList.add(style.animateNotification);
       setNotificationRole('alert');
       setNotificationAriaLive('assertive');
       setTimeout(() => {
-        notification.classList.remove(style.animateNotification);
-        setNotificationRole();
+        notification?.classList.remove(style.animateNotification);
+        setNotificationRole('');
         setNotificationAriaLive('off');
         setRenderNotification(false);
       }, 2000);
     }
   };
 
-  const handleChangeInput = (e) => {
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    formStateRef.current[name] = value;
+    formStateRef.current[name as keyof initialFromStateType] =
+      value as (typeof formStateRef.current)[keyof typeof formStateRef.current];
+
+    const element = e.target.nextElementSibling;
 
     if (
       name === 'email' &&
@@ -66,7 +76,7 @@ export default function SignInPage() {
       value.substring(value.indexOf('.') + 1) !== '' &&
       value.substring(value.indexOf('.') - 1, value.indexOf('.')) !== '@'
     ) {
-      e.target.nextSibling.classList.add(style.validatePassed);
+      element?.classList.add(style.validatePassed);
     } else if (
       name === 'email' &&
       (!value.includes('@') ||
@@ -77,13 +87,13 @@ export default function SignInPage() {
         value.substring(value.indexOf('.') + 1) === '' ||
         value.substring(value.indexOf('.') - 1, value.indexOf('.')) === '@')
     ) {
-      e.target.nextSibling.classList.remove(style.validatePassed);
+      element?.classList.remove(style.validatePassed);
     }
 
     if (name === 'password' && value.trim().length > 5) {
-      e.target.nextSibling.classList.add(style.validatePassed);
+      element?.classList.add(style.validatePassed);
     } else if (name === 'password' && (!value || value.trim().length < 6)) {
-      e.target.nextSibling.classList.remove(style.validatePassed);
+      element?.classList.remove(style.validatePassed);
     }
   };
 

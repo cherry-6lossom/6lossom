@@ -119,7 +119,6 @@ const ShareTreePage = () => {
 
   const { uid } = useParams<string>();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const flowerListRef = collection(db, `users/${uid}/flowerList`);
   const { signOut } = useSignOut();
