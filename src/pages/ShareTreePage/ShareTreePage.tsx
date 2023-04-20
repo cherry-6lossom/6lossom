@@ -1,7 +1,6 @@
 import style from './ShareTreePage.module.scss';
 
-import {
-  useCallback,
+import React, {
   useEffect,
   useLayoutEffect,
   useMemo,
@@ -16,6 +15,10 @@ import classNames from 'classnames';
 
 import { db, useCallCollection } from '@/firebase/app';
 import {
+  DocumentData,
+  DocumentSnapshot,
+  Query,
+  QueryDocumentSnapshot,
   collection,
   doc,
   endBefore,
@@ -43,30 +46,60 @@ import Notification from '@/components/Notification/Notification';
 import loading from '@/assets/loading/Spinner.svg';
 import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
+interface UserType {
+  userNickname: string;
+  createAt: Date;
+  bgSrc: string;
+  uid: string;
+  isMade: boolean;
+  email: string;
+  displayName: string;
+  url: string;
+  flowerList: FlowerInfoType[];
+}
+
+interface FlowerInfoType {
+  nickname: string;
+  content: string;
+  createAt: Date;
+  flowerSrc: string;
+}
+
+interface MessageVisibilityType {
+  messageListVisible: boolean;
+  setMessageListVisible: (messageListVisible: boolean) => void;
+  messageDetailVisible: boolean;
+  setMessageDetailVisible: (messageDetailVisible: boolean) => void;
+}
+
 const ShareTreePage = () => {
-  const [messageListVisible, setMessageListVisible] = useState(false);
-  const [messageDetailVisible, setMessageDetailVisible] = useState(false);
-  const [flowerInfo, setFlowerInfo] = useState({});
+  const [messageListVisible, setMessageListVisible] = useState<boolean>(false);
+  const [messageDetailVisible, setMessageDetailVisible] =
+    useState<boolean>(false);
+  const [flowerInfo, setFlowerInfo] = useState<FlowerInfoType>(
+    {} as FlowerInfoType
+  );
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [modal, setModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [modal, setModal] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const [localNickname, setLocalNickname] = useState('');
-  const [userNickname, setUserNickname] = useState('');
-  const [bgSrc, setBgSrc] = useState('');
+  const [localNickname, setLocalNickname] = useState<string>('');
+  const [userNickname, setUserNickname] = useState<string>('');
+  const [bgSrc, setBgSrc] = useState<string>('');
 
-  const [flowerList, setFlowerList] = useState([]);
-  const [renderList, setRenderList] = useState([]);
-  const [lastVisible, setLastVisible] = useState(null);
-  const [pageTotalCount, setPageTotalCount] = useState(0);
-  const [hasPrevPage, setHasPrevPage] = useState(false);
-  const [hasNextPage, setHasNextPage] = useState(true);
+  const [flowerList, setFlowerList] = useState<FlowerInfoType[]>([]);
+  const [renderList, setRenderList] = useState<FlowerInfoType[]>([]);
+  const [lastVisible, setLastVisible] =
+    useState<QueryDocumentSnapshot<DocumentData> | null>(null);
+  const [pageTotalCount, setPageTotalCount] = useState<number>(0);
+  const [hasPrevPage, setHasPrevPage] = useState<boolean>(false);
+  const [hasNextPage, setHasNextPage] = useState<boolean>(true);
 
-  const [msgActive, setMsgActive] = useState(false);
-  const [active, setActive] = useState(false);
+  const [msgActive, setMsgActive] = useState<boolean>(false);
+  const [active, setActive] = useState<boolean>(false);
 
-  const messageVisibility = useMemo(
+  const messageVisibility: MessageVisibilityType = useMemo(
     () => ({
       messageListVisible,
       setMessageListVisible,
@@ -80,19 +113,19 @@ const ShareTreePage = () => {
       setMessageDetailVisible,
     ]
   );
-  const listBackgroundRef = useRef();
-  const messageListRef = useRef();
-  const messageDetailRef = useRef();
+  const listBackgroundRef = useRef<HTMLElement>(null);
+  const messageListRef = useRef<HTMLElement>(null);
+  const messageDetailRef = useRef<HTMLElement>(null);
 
-  const { uid } = useParams();
+  const { uid } = useParams<string>();
   const navigate = useNavigate();
   const location = useLocation();
 
   const flowerListRef = collection(db, `users/${uid}/flowerList`);
   const { signOut } = useSignOut();
 
-  const localUid = JSON.parse(localStorage.getItem('uid'));
-  const today = new Date();
+  const localUid = JSON.parse(localStorage.getItem('uid') || 'null');
+  const today: Date = new Date();
 
   useLayoutEffect(() => {
     getPageTotalCount();
@@ -105,32 +138,35 @@ const ShareTreePage = () => {
   }, [flowerList.length, pageTotalCount]);
 
   useEffect(() => {
-    const msgStartDate = new Date(today.getFullYear(), 3, 15); // 4월 15일
-    const msgEndDate = new Date(today.getFullYear(), 3, 30); // 4월 29일
+    const msgStartDate: Date = new Date(today.getFullYear(), 3, 15); // 4월 15일
+    const msgEndDate: Date = new Date(today.getFullYear(), 3, 30); // 4월 29일
 
-    const isMsgActive = today >= msgStartDate && today <= msgEndDate;
+    const isMsgActive: boolean = today >= msgStartDate && today <= msgEndDate;
 
-    const startDate = new Date(today.getFullYear(), 2, 15); // 3월 15일
-    const endDate = new Date(today.getFullYear(), 3, 15); // 4월 14일
-    const isActive = today >= startDate && today <= endDate;
+    const startDate: Date = new Date(today.getFullYear(), 2, 15); // 3월 15일
+    const endDate: Date = new Date(today.getFullYear(), 3, 15); // 4월 14일
+    const isActive: boolean = today >= startDate && today <= endDate;
 
     setMsgActive(isMsgActive);
     setActive(isActive);
 
-    const unsub = onSnapshot(doc(db, 'users', uid), (doc) => {
-      setUserNickname(doc.data().userNickname);
-      setBgSrc(doc.data().bgSrc);
-    });
+    const unsub = onSnapshot(
+      doc(db, `users/${uid}`),
+      (doc: DocumentSnapshot<DocumentData>) => {
+        setUserNickname(doc.data()?.userNickname);
+        setBgSrc(doc.data()?.bgSrc);
+      }
+    );
 
-    useCallCollection('users').then((userList) => {
-      userList.map((user) => {
+    useCallCollection('users').then((userList: UserType[]) => {
+      userList.map((user: UserType) => {
         if (user.uid === localUid) {
           setLocalNickname(user.userNickname);
         }
       });
     });
 
-    history.pushState(null, '', location.href);
+    history.pushState(null, '', window.location.href);
     window.addEventListener('popstate', preventGoBack);
 
     return () => {
@@ -139,7 +175,7 @@ const ShareTreePage = () => {
   }, []);
 
   const preventGoBack = () => {
-    history.pushState(null, '', location.href);
+    history.pushState(null, '', window.location.href);
   };
 
   const getPageTotalCount = async () => {
@@ -149,8 +185,8 @@ const ShareTreePage = () => {
     setPageTotalCount(res.data().count);
   };
 
-  const queryPage = async (text, limitCount = 7) => {
-    let q;
+  const queryPage = async (text: string, limitCount: number = 7) => {
+    let q: Query<DocumentData>;
     if (!lastVisible) {
       q = query(flowerListRef, orderBy('createAt', 'asc'), limit(limitCount));
     } else {
@@ -179,15 +215,19 @@ const ShareTreePage = () => {
       setIsLoading(false);
     }
 
-    const docs = docSnapshot.docs;
+    const docs: QueryDocumentSnapshot<DocumentData>[] = docSnapshot.docs;
     queryData(docs, text, limitCount);
   };
 
-  const queryData = (docs, text, limitCount) => {
-    const listItem = [];
+  const queryData = (
+    docs: QueryDocumentSnapshot<DocumentData>[],
+    text: string,
+    limitCount: number
+  ) => {
+    const listItem: FlowerInfoType[] = [];
 
     docs.forEach((doc) => {
-      listItem.push({ id: doc.id, ...doc.data() });
+      listItem.push({ ...doc.data() } as FlowerInfoType);
     });
 
     const updateList =
@@ -199,11 +239,11 @@ const ShareTreePage = () => {
     if (nextDoc) setLastVisible(nextDoc);
   };
 
-  const notification = (className) => {
+  const notification = (className: string) => {
     const CopyNotification = document.querySelector(`.${className}`);
-    CopyNotification.classList.add(style.animateNotification);
+    CopyNotification?.classList.add(style.animateNotification);
     setTimeout(() => {
-      CopyNotification.classList.remove(style.animateNotification);
+      CopyNotification?.classList.remove(style.animateNotification);
     }, 4000);
   };
 
@@ -212,13 +252,13 @@ const ShareTreePage = () => {
   };
 
   const handleCopyLink = () => {
-    let url = window.location.href;
+    let url: string = window.location.href;
     navigator.clipboard.writeText(url);
     notification('targetCheckLinkCopyNotification');
   };
 
-  const handleOpenMessageDetail = (messageVisibility, message) => {
-    const backgroundElement = messageDetailRef.current;
+  const handleOpenMessageDetail = (message: FlowerInfoType) => {
+    const backgroundElement = messageDetailRef.current as HTMLElement;
     setFlowerInfo(message);
 
     if (uid !== localUid) {
@@ -232,15 +272,15 @@ const ShareTreePage = () => {
     if (!messageDetailVisible) {
       backgroundElement.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
       backgroundElement.style.display = 'block';
-      backgroundElement.style.zIndex = 102;
+      backgroundElement.style.zIndex = '102';
 
       setMessageDetailVisible(!messageDetailVisible);
     }
   };
 
-  const handleOpenMessageList = (e, messageVisibility) => {
-    const backgroundElement = listBackgroundRef.current;
-    const messageListElement = messageListRef.current;
+  const handleOpenMessageList = () => {
+    const backgroundElement = listBackgroundRef.current as HTMLElement;
+    const messageListElement = messageListRef.current as HTMLElement;
 
     if (!msgActive) {
       notification('targetCheckPeriodNotification');
@@ -248,14 +288,14 @@ const ShareTreePage = () => {
     }
 
     if (!messageListVisible) {
-      messageListElement.classList.add(style.moveIn);
+      messageListElement?.classList.add(style.moveIn);
       backgroundElement.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
       backgroundElement.style.display = 'block';
-      backgroundElement.style.zIndex = 101;
+      backgroundElement.style.zIndex = '101';
 
       setMessageListVisible(!messageListVisible);
       setTimeout(() => {
-        messageListElement.classList.remove(style.moveIn);
+        messageListElement?.classList.remove(style.moveIn);
       }, 900);
     }
   };
@@ -282,8 +322,6 @@ const ShareTreePage = () => {
   const handleModal = () => {
     setModal(!modal);
   };
-
-
 
   return (
     <>
@@ -422,7 +460,6 @@ const ShareTreePage = () => {
         </flowerContext.Provider>
       </messageContext.Provider>
       {modal ? <ModalProjectInfo handleModal={handleModal} /> : null}
-
     </>
   );
 };
