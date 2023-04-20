@@ -1,8 +1,7 @@
 import style from './WriteMessagePage.module.scss';
 
-import { useState, useRef, useLayoutEffect } from 'react';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
 
 import { db } from '@/firebase/app';
 import {
@@ -22,32 +21,37 @@ import MessageInputContainer from '@/components/MessageInputContainer/MessageInp
 import UsageDescription from '@/components/UsageDescription/UsageDescription';
 import LongButtonList from '@/components/LongButtonList/LongButtonList';
 import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
-import blossomInfoList from '@/data/blossomInfoList';
+import blossomInfoList, { blossomInfoListType } from '@/data/blossomInfoList';
+
+interface StateType {
+  author: string;
+  content: string;
+}
 
 const WriteMessagePage = () => {
-  const [nickname, setNickname] = useState('');
+  const [nickname, setNickname] = useState<string>('');
 
-  const [pageTotalCount, setPageTotalCount] = useState(0);
+  const [pageTotalCount, setPageTotalCount] = useState<number>(0);
 
-  const [text, setText] = useState('');
-  const [state, setState] = useState({
+  const [text, setText] = useState<string>('');
+  const [state, setState] = useState<StateType>({
     author: '',
     content: '',
   });
 
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
-  const authorInput = useRef();
-  const contentInput = useRef();
+  const authorInput = useRef<HTMLInputElement>();
+  const contentInput = useRef<HTMLTextAreaElement>();
 
-  const { uid, flowerName } = useParams();
+  const { uid, flowerName } = useParams<string>();
   const navigate = useNavigate();
 
   useLayoutEffect(() => {
     (async () => {
-      const docRef = doc(db, 'users', uid);
+      const docRef = doc(db, `users/${uid}`);
       const docSnap = await getDoc(docRef);
-      setNickname(docSnap.data().userNickname);
+      setNickname(docSnap.data()?.userNickname);
       getPageTotalCount();
     })();
   }, []);
@@ -61,7 +65,7 @@ const WriteMessagePage = () => {
     setPageTotalCount(res.data().count);
   };
 
-  const handleChangeState = (e, text) => {
+  const handleChangeState = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     if (name === 'content') {
       if (value.length <= 500) {
@@ -76,11 +80,11 @@ const WriteMessagePage = () => {
 
   const handleSubmit = () => {
     if (state.author.length < 1) {
-      authorInput.current.focus();
+      authorInput.current?.focus();
       return;
     }
     if (state.content.length < 2) {
-      contentInput.current.focus();
+      contentInput.current?.focus();
       return;
     }
 
@@ -95,7 +99,7 @@ const WriteMessagePage = () => {
     const createAt = serverTimestamp();
     const { author, content } = state;
 
-    const flowerRef = doc(collection(db, 'users', uid, 'flowerList'));
+    const flowerRef = doc(collection(db, `users/${uid}/flowerList`));
 
     await setDoc(flowerRef, {
       nickname: author,
@@ -116,7 +120,11 @@ const WriteMessagePage = () => {
           <img
             className={style.flower}
             src={`/assets/${flowerName}.png`}
-            alt={blossomInfoList.map(blossom=> blossom.src===flowerName ? blossom.alt: '')}
+            alt={
+              blossomInfoList.find(
+                (blossom: blossomInfoListType) => blossom.src === flowerName
+              )?.alt ?? ''
+            }
           />
           <UsageDescription
             className={style.notice}
