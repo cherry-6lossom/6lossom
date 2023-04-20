@@ -65,7 +65,7 @@ export interface FlowerInfoType {
   flowerSrc: string;
 }
 
-interface MessageVisibilityType {
+export interface MessageVisibilityType {
   messageListVisible: boolean;
   setMessageListVisible: (messageListVisible: boolean) => void;
   messageDetailVisible: boolean;

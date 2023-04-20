@@ -1,26 +1,36 @@
 import style from './MessageList.module.scss';
 
-import { useContext, useLayoutEffect, useRef, useState } from 'react';
+import React, { RefObject, useContext, useLayoutEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useCallCollection } from '@/firebase/app';
 
 import MessageItem from '@/components/MessageItem/MessageItem';
 import messageContext from '@/contexts/messageContext';
+import {
+  FlowerInfoType,
+  MessageVisibilityType,
+} from '@/pages/ShareTreePage/ShareTreePage';
+
+interface MessageListProp {
+  listBackgroundRef: RefObject<HTMLDivElement>;
+  messageListRef: RefObject<HTMLDivElement>;
+  handleOpenMessageDetail: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}
 
 const MessageList = ({
   listBackgroundRef,
   messageListRef,
-  messageDetailRef,
   handleOpenMessageDetail,
-}) => {
-  const [flowerList, setFlowerList] = useState([]);
+}: MessageListProp) => {
+  const [flowerList, setFlowerList] = useState<FlowerInfoType[]>([]);
 
-  const { uid } = useParams();
-  const messageVisibility = useContext(messageContext);
+  const { uid } = useParams<string>();
+  const messageVisibility = useContext<MessageVisibilityType>(messageContext);
 
-  const backgroundElement = listBackgroundRef.current;
-  const messageListElement = messageListRef.current;
+  const backgroundElement = listBackgroundRef?.current;
+  const messageListElement = messageListRef?.current;
+  const { messageListVisible, setMessageListVisible } = messageVisibility;
 
   useLayoutEffect(() => {
     useCallCollection(`users/${uid}/flowerList`).then((res) => {
@@ -28,35 +38,34 @@ const MessageList = ({
     });
   }, []);
 
-  const handleCloseMessageListWithBackground = (e, messageVisibility) => {
-    const { messageListVisible, setMessageListVisible } = messageVisibility;
+  const handleCloseMessageListWithBackground = (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
     const clickedTarget = e.target;
 
     if (backgroundElement === clickedTarget && messageListVisible) {
-      messageListElement.classList.add(style.moveOut);
+      messageListElement?.classList.add(style.moveOut);
       setTimeout(() => {
         backgroundElement.style.backgroundColor = '';
         backgroundElement.style.zIndex = '';
         backgroundElement.style.display = '';
 
         setMessageListVisible(!messageListVisible);
-        messageListElement.classList.remove(style.moveOut);
+        messageListElement?.classList.remove(style.moveOut);
       }, 400);
     }
   };
 
-  const handleCloseMessageListWithButton = (e, messageVisibility) => {
-    const { messageListVisible, setMessageListVisible } = messageVisibility;
-
+  const handleCloseMessageListWithButton = () => {
     if (messageListVisible) {
-      messageListElement.classList.add(style.moveOut);
+      messageListElement?.classList.add(style.moveOut);
       setTimeout(() => {
-        backgroundElement.style.backgroundColor = '';
-        backgroundElement.style.zIndex = '';
-        backgroundElement.style.display = '';
+        (backgroundElement as HTMLDivElement).style.backgroundColor = '';
+        (backgroundElement as HTMLDivElement).style.zIndex = '';
+        (backgroundElement as HTMLDivElement).style.display = '';
 
         setMessageListVisible(!messageListVisible);
-        messageListElement.classList.remove(style.moveOut);
+        messageListElement?.classList.remove(style.moveOut);
       }, 400);
     }
   };
@@ -64,16 +73,14 @@ const MessageList = ({
   return (
     <div
       ref={listBackgroundRef}
-      onClick={(e) =>
-        handleCloseMessageListWithBackground(e, messageVisibility)
-      }
+      onClick={(e) => handleCloseMessageListWithBackground(e)}
       className={style.messageListBackground}
     >
       <div ref={messageListRef} className={style.messageListWrapper}>
         <div className={style.messageListContainer}>
           <div className={style.messageList}>
             <ul className={style.MessageItemWrapper}>
-              {flowerList.map((flower) => (
+              {flowerList.map((flower: FlowerInfoType) => (
                 <MessageItem
                   key={flowerList.indexOf(flower)}
                   flower={flower}
@@ -84,9 +91,7 @@ const MessageList = ({
           </div>
           <button
             type="button"
-            onClick={(e) =>
-              handleCloseMessageListWithButton(e, messageVisibility)
-            }
+            onClick={() => handleCloseMessageListWithButton()}
             className={style.closeButton}
           ></button>
         </div>
