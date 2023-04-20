@@ -7,7 +7,7 @@ import UsageDescription from '@/components/UsageDescription/UsageDescription';
 
 interface HeaderProp {
   userName: string;
-  className: string;
+  className?: string;
   subText: string;
 }
 
