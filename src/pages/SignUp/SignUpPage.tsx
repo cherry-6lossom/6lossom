@@ -1,5 +1,6 @@
 import style from './SignUpPage.module.scss';
-import { useRef, useState } from 'react';
+
+import React, { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { useSignUp } from '@/firebase/auth/useSignUp';
@@ -10,7 +11,14 @@ import { FormInput } from '@/components/FormInput/FormInput';
 import Notification from '@/components/Notification/Notification';
 import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
-const initialFormState = {
+interface initialFormStateType {
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+}
+
+const initialFormState: initialFormStateType = {
   name: '',
   email: '',
   password: '',
@@ -18,16 +26,21 @@ const initialFormState = {
 };
 
 export default function SignUpPage() {
-  const [renderNameNotification, setRenderNameNotification] = useState(false);
-  const [renderEmailNotification, setRenderEmailNotification] = useState(false);
+  const [renderNameNotification, setRenderNameNotification] =
+    useState<boolean>(false);
+  const [renderEmailNotification, setRenderEmailNotification] =
+    useState<boolean>(false);
   const [renderPasswordNotification, setRenderPasswordNotification] =
-    useState(false);
-  const [renderUserNotification, setRenderUserNotification] = useState(false);
-  const [notificationAriaLive, setNotificationAriaLive] = useState('off');
-  const [notificationRole, setNotificationRole] = useState();
+    useState<boolean>(false);
+  const [renderUserNotification, setRenderUserNotification] =
+    useState<boolean>(false);
+  const [notificationAriaLive, setNotificationAriaLive] = useState<
+    'off' | 'assertive' | 'polite' | undefined
+  >('off');
+  const [notificationRole, setNotificationRole] = useState<string>('');
 
-  const formStateRef = useRef(initialFormState);
-  const notificationRef = useRef([]);
+  const formStateRef = useRef<initialFormStateType>(initialFormState);
+  const notificationRef = useRef<HTMLSpanElement[]>([]);
 
   const navigate = useNavigate();
 
@@ -48,7 +61,7 @@ export default function SignUpPage() {
     navigate('/make-tree');
   }
 
-  const handleSignUp = async (e) => {
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     await setRenderNameNotification(true);
@@ -61,7 +74,7 @@ export default function SignUpPage() {
       setNotificationAriaLive('assertive');
       setTimeout(() => {
         notificationName.classList.remove(style.animateNotification);
-        setNotificationRole();
+        setNotificationRole('');
         setNotificationAriaLive('off');
         setRenderNameNotification(false);
       }, 2000);
@@ -87,7 +100,7 @@ export default function SignUpPage() {
       setNotificationAriaLive('assertive');
       setTimeout(() => {
         notificationEmail.classList.remove(style.animateNotification);
-        setNotificationRole();
+        setNotificationRole('');
         setNotificationAriaLive('off');
         setRenderEmailNotification(false);
       }, 2000);
@@ -104,7 +117,7 @@ export default function SignUpPage() {
       setNotificationAriaLive('assertive');
       setTimeout(() => {
         notificationPassword.classList.remove(style.animateNotification);
-        setNotificationRole();
+        setNotificationRole('');
         setNotificationAriaLive('off');
         setRenderPasswordNotification(false);
       }, 2000);
@@ -117,7 +130,7 @@ export default function SignUpPage() {
       setNotificationAriaLive('assertive');
       setTimeout(() => {
         notificationPassword.classList.remove(style.animateNotification);
-        setNotificationRole();
+        setNotificationRole('');
         setNotificationAriaLive('off');
         setRenderPasswordNotification(false);
       }, 2000);
@@ -136,7 +149,7 @@ export default function SignUpPage() {
       setNotificationAriaLive('assertive');
       setTimeout(() => {
         notificationUser.classList.remove(style.animateNotification);
-        setNotificationRole();
+        setNotificationRole('');
         setNotificationAriaLive('off');
         setRenderUserNotification(false);
       }, 2000);
@@ -145,17 +158,20 @@ export default function SignUpPage() {
     await createAuthUser(user);
   };
 
-  const handleChangeInput = (e) => {
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    formStateRef.current[name] = value;
+    formStateRef.current[name as keyof initialFormStateType] =
+      value as (typeof formStateRef.current)[keyof typeof formStateRef.current];
+
+    const element = e.target.nextElementSibling;
 
     if (name === 'name' && value.trim().length > 1 && value.trim().length < 9) {
-      e.target.nextSibling.classList.add(style.validatePassed);
+      element?.classList.add(style.validatePassed);
     } else if (
       name === 'name' &&
       (!value || value.trim().length < 2 || value.trim().length > 8)
     ) {
-      e.target.nextSibling.classList.remove(style.validatePassed);
+      element?.classList.remove(style.validatePassed);
     }
 
     if (
@@ -168,7 +184,7 @@ export default function SignUpPage() {
       value.substring(value.indexOf('.') + 1) !== '' &&
       value.substring(value.indexOf('.') - 1, value.indexOf('.')) !== '@'
     ) {
-      e.target.nextSibling.classList.add(style.validatePassed);
+      element?.classList.add(style.validatePassed);
     } else if (
       name === 'email' &&
       (!value.includes('@') ||
@@ -179,19 +195,19 @@ export default function SignUpPage() {
         value.substring(value.indexOf('.') + 1) === '' ||
         value.substring(value.indexOf('.') - 1, value.indexOf('.')) === '@')
     ) {
-      e.target.nextSibling.classList.remove(style.validatePassed);
+      element?.classList.remove(style.validatePassed);
     }
 
     if (
       (name === 'password' || name === 'passwordConfirm') &&
       value.trim().length > 5
     ) {
-      e.target.nextSibling.classList.add(style.validatePassed);
+      element?.classList.add(style.validatePassed);
     } else if (
       (name === 'password' || name === 'passwordConfirm') &&
       (!value || value.trim().length < 6)
     ) {
-      e.target.nextSibling.classList.remove(style.validatePassed);
+      element?.classList.remove(style.validatePassed);
     }
   };
 

@@ -3,7 +3,9 @@ import React from 'react';
 interface NotificationProp {
   className: string;
   text: string;
-  notificationRef?: React.RefObject<HTMLSpanElement>;
+  notificationRef?:
+    | React.RefObject<HTMLSpanElement>
+    | ((element: HTMLSpanElement) => void);
   notificationRole?: string;
   notificationAriaLive?: 'off' | 'assertive' | 'polite' | undefined;
 }
