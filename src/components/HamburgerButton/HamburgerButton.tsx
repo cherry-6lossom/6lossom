@@ -1,8 +1,14 @@
 import style from './HamburgerButton.module.scss';
 
+import React from 'react';
+
 import classNames from 'classnames';
 
-function HamburgerButton({ isMenuOpen }) {
+interface HamburgerButtonProp {
+  isMenuOpen: boolean;
+}
+
+function HamburgerButton({ isMenuOpen }: HamburgerButtonProp) {
   return (
     <button
       aria-controls={'hamburder'}
