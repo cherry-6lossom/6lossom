@@ -1,10 +1,19 @@
 import style from './FormInput.module.scss';
 
-import { useId, useRef, useEffect, useState } from 'react';
+import React, { useId, useRef, useEffect, useState } from 'react';
 
 import { bool, string } from 'prop-types';
 
 import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
+
+interface FormInputProp {
+  name?: string;
+  label: string;
+  type?: 'text' | 'button' | 'email' | 'password' | undefined;
+  invisibleLabel?: boolean;
+  vertical?: boolean;
+  [propName: string]: any;
+}
 
 export function FormInput({
   name,
@@ -13,7 +22,7 @@ export function FormInput({
   invisibleLabel,
   vertical,
   ...restProps
-}) {
+}: FormInputProp) {
   const [visible, setVisible] = useState(false);
   const [passwordType, setPasswordType] = useState(type);
 
@@ -22,24 +31,24 @@ export function FormInput({
   const id = useId();
 
   useEffect(() => {
-    const input = inputRef.current;
-    const component = input.parentElement;
+    const input = inputRef.current as HTMLInputElement | null;
+    const component = input?.parentElement;
 
-    input.addEventListener('blur', (e) => {
-      if (e.target.value.length > 0) {
-        component.classList.add(style.inputed);
+    input?.addEventListener('blur', (e) => {
+      if ((e.target as HTMLInputElement).value.length > 0) {
+        component?.classList.add(style.inputed);
       } else {
-        component.classList.remove(style.inputed);
+        component?.classList.remove(style.inputed);
       }
     });
   }, []);
 
-  const combineClassNames = `${style.FormInput} ${
+  const combineClassNames: string = `${style.FormInput} ${
     vertical ? style.FormInputVertical : ''
   }`.trim();
 
   const handlePasswordVisibility = () => {
-    const input = inputRef.current;
+    const input = inputRef.current as HTMLInputElement | null;
 
     if (passwordType === 'text') {
       setPasswordType('password');
@@ -47,7 +56,7 @@ export function FormInput({
       setPasswordType('text');
     }
     setVisible((visible) => !visible);
-    input.focus();
+    input?.focus();
   };
 
   return (
@@ -122,15 +131,11 @@ FormInput.defualtProps = {
   inputed: false,
 };
 
-FormInput.propTypes = {
-  type: string,
-  label: string.isRequired,
-  invisibleLabel: bool,
-  vertical: bool,
-  inputed: bool,
-};
-
-function renderLabel(id, label, invisibleLabel) {
+function renderLabel(
+  id: string,
+  label: string,
+  invisibleLabel: boolean = false
+) {
   return invisibleLabel ? (
     <A11yHidden as="label" htmlFor={id} className={style.label}>
       {label}
