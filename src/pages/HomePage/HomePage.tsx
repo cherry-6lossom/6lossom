@@ -11,7 +11,6 @@ import { useCreateAuthUser } from '@/firebase/firestore/useCreateAuthUser';
 import LoginButton from '@/components/LoginButton/LoginButton';
 import ModalProjectInfo from '@/components/ModalProjectInfo/ModalProjectInfo';
 import ProjectInfoButton from '@/components/ProjectInfoButton/ProjectInfoButton';
-import { A11yHidden } from '@/components/A11yHidden/A11yHidden';
 
 const HomePage = () => {
   const [modal, setModal] = useState<boolean>(false);
@@ -46,11 +45,7 @@ const HomePage = () => {
       <div className={style.homeContainer}>
         <div className={style.homeLogo}>
           <div className={style.homeMainTitle}>
-            <figure className={style.moonLogo}>
-              <A11yHidden as={'figcaption'}>
-                초승달과 벚꽃이 함께있는 모양의 아이콘입니다.
-              </A11yHidden>
-            </figure>
+            <div className={style.moonLogo}></div>
             <h1 className={style.homeTitleInfo}>
               <span aria-hidden className={style.homeTitleShadow}>
                 벚꽃이 지면
@@ -61,16 +56,12 @@ const HomePage = () => {
               <span className={style.homeTitle}>벚꽃이 지면</span>
             </h1>
           </div>
-          <h2 className={style.homeSubTitle}>
+          <p className={style.homeSubTitle}>
             벚꽃이 지면 당신의 메세지가 전달됩니다.
-          </h2>
+          </p>
         </div>
         <div className={style.tree}>
-          <figure className={style.blossomTree}>
-            <A11yHidden as={'figcaption'}>
-              벚꽃이지면 프로젝트의 메인 벚꽃나무 이미지입니다.
-            </A11yHidden>
-          </figure>
+          <div className={style.blossomTree}></div>
           <ProjectInfoButton handleModal={handleModal} />
         </div>
         <div className={style.loginButtonList}>
@@ -84,6 +75,17 @@ const HomePage = () => {
             onClick={handleLoginClick}
             text={'구글 계정으로 계속하기'}
           />
+          <p className={style.toSignUpPageWithDescription}>
+            가입한 계정이 없다면{' '}
+            <button
+              type="button"
+              className={style.toSignUpPageLink}
+              onClick={() => navigate('/signup')}
+            >
+              회원가입
+            </button>
+            을 해주세요 !
+          </p>
         </div>
       </div>
       {modal ? <ModalProjectInfo handleModal={handleModal} /> : null}

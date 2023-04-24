@@ -183,4 +183,18 @@
       box-shadow: rem(1px) rem(1px) rem(2px) $cherryblossom700;
     }
   }
+
+  .toSignUpPageWithDescription {
+    color: $cherryblossom800;
+  }
+
+  .toSignUpPageLink {
+    margin-top: 15px;
+    padding: 0;
+    background-color: transparent;
+    border: transparent;
+    text-decoration: underline;
+    color: $primary;
+    cursor: pointer;
+  }
 }

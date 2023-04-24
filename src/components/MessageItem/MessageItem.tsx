@@ -26,11 +26,7 @@ const MessageItem = ({
     >
       <div className={style.messageItem}>
         <div className={style.messageSender}>
-          <figure className={style.messageIcon}>
-            <A11yHidden as={'figcaption'}>
-              하트가 그려진 편지를 담은 우편지 모양의 아이콘입니다.
-            </A11yHidden>
-          </figure>
+          <div className={style.messageIcon}></div>
           {nickname}
         </div>
         <div className={style.messageContentsContainer}>
