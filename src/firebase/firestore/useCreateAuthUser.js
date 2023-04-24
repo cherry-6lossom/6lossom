@@ -14,7 +14,7 @@ import { db } from '@/firebase/app';
  * @returns {{
  *   isLoading: boolean;
  *   error: null | Error;
- *   createAuthUser: (userAuth: import('firebase/auth').UserCredential.user, additionData?: {}) => void
+ *   createAuthUser: (userAuth: import('firebase/auth').UserCredential.user, additionData: {}) => void
  * }}
  */
 export function useCreateAuthUser(collectionKey = 'users') {
