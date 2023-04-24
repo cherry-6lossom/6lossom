@@ -46,11 +46,7 @@ const messageDetail = ({ flowerInfo, messageDetailRef }) => {
       <div className={style.messageDetailWrapper}>
         <ul className={style.messageDetailContainer}>
           <li>
-            <figure className={style.moonIcon}>
-              <A11yHidden as={'figcaption'}>
-                귀여운 보름달 캐릭터와 함께 흩날리는 벚꽃이 그려진 아이콘입니다.
-              </A11yHidden>
-            </figure>
+            <div className={style.moonIcon}></div>
           </li>
           <li className={style.messageSender}>{nickname}</li>
           <li className={style.messageContents}>{contents}</li>
