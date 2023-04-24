@@ -30,8 +30,7 @@ Figma 디자인 툴을 이용하여 프로젝트의 와이어 프레임을 제�
 
 ## 🔧기술 스택 Technology Stack
 
-![image](https://user-images.githubusercontent.com/48400229/228272707-cb85f0a4-a5b0-4f0f-a3ee-c2a564366933.png)
-
+<img width="1024" alt="image" src="https://user-images.githubusercontent.com/55061153/234069051-dbcd6cf8-9863-401a-b376-b7a5e03a0c67.png">
 ​
 
 ## 🎮 프로젝트 주요 기능 
