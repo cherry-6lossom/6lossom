@@ -1,7 +1,7 @@
 ---
 name: 풀리퀘 템플릿
 about: 풀리퀘를 작성합니다.
-title: 'Pull request from OOO/6lossom/브랜치명 to cherry-6lossom/6lossom/develop'
+title: 'Pull request from OOO/6lossom/develop to cherry-6lossom/6lossom/develop'
 labels: ''
 assignees: ''
 
