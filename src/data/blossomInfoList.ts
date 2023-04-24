@@ -1,3 +1,8 @@
+import flower1 from '@/assets/custom/cherry-blossom1.png';
+import flower2 from '@/assets/custom/cherry-blossom2.png';
+import flower3 from '@/assets/custom/cherry-blossom3.png';
+import flower4 from '@/assets/custom/cherry-blossom4.png';
+
 export interface blossomInfoListType {
   id: number;
   src: string;
