@@ -1,9 +1,9 @@
 ---
 name: 풀리퀘 템플릿
 about: 풀리퀘를 작성합니다.
-title: 'Pull equest from OOO/6lossom/브랜치명 to cherry-6lossom/6lossom/develop'
-labels: ''
+title: 'Pull request from OOO/6lossom/develop to cherry-6lossom/6lossom/develop'
 assignees: ''
+
 ---
 
 ### PR 타입(하나 이상의 PR 타입을 선택해주세요)
