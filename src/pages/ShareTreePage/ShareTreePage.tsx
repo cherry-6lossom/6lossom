@@ -142,8 +142,8 @@ const ShareTreePage = () => {
 
     const isMsgActive: boolean = today >= msgStartDate && today <= msgEndDate;
 
-    const startDate: Date = new Date(today.getFullYear(), 3, 15); // 3월 15일
-    const endDate: Date = new Date(today.getFullYear(), 4, 15); // 4월 14일
+    const startDate: Date = new Date(today.getFullYear(), 2, 15); // 3월 15일
+    const endDate: Date = new Date(today.getFullYear(), 3, 15); // 4월 14일
     const isActive: boolean = today >= startDate && today <= endDate;
 
     setMsgActive(isMsgActive);
